@@ -25,7 +25,7 @@ public class EventController {
 	
 
 	@RequestMapping(value="/event/listFriend/{url}")
-	public ModelAndView listFriend(@PathVariable String url, Member dto) throws Exception {			
+	public ModelAndView listFriend(@PathVariable String url) throws Exception {			
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("url", url);

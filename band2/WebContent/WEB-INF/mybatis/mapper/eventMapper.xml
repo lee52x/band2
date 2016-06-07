@@ -4,9 +4,8 @@
 <mapper namespace="event">
 
 
-	<select id="listFriend" parameterType="map"
-               resultType="com.band.event.Member">
-           SELECT memberNo, name, grade FROM member_test
+	<select id="listFriend" parameterType="map" resultType="com.band.event.Member">
+           SELECT memberNo, userId, name, grade FROM member_${url} ORDER BY grade ASC
     </select>
 
 

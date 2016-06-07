@@ -42,7 +42,8 @@
     <script type="text/javascript">
  // 친구 목록 가져오기
 $(function(){
-    	var url = "<%=cp%>/event/listFriend/{url}";
+    	var url = "<%=cp%>/event/listFriend/${url}";
+    	// now의 역할 : 계속적인 새로고침에도 전송이 가능하도록 하는 장치
     	var now=new Date();
     	$.post(url,{dumi:now.getTime()},function(data){
         	var s=$.trim(data);
