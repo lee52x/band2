@@ -10,6 +10,7 @@ public interface StateService {
 	public String minDate(Map<String, Object> map);
 	public List<Account> depositState(Map<String, Object> map);
 	public List<Account> dayState(Map<String, Object> map);
+	public List<Account> monthState(Map<String, Object> map);
 	public List<Account> eventState(Map<String, Object> map);
 	
 	public Account listThisMonth(Map<String, Object> map);

@@ -185,11 +185,11 @@
 </div>
 <!-- /수입(파이 차트) -->
 
-<!-- 카테고리별 지출 현황 -->
-<div class="col-md-12 col-sm-8 col-xs-12">
+<!-- 월별 수입/지출 현황 -->
+<div class="col-md-8 col-sm-8 col-xs-12" style="min-height:600px;">
 	<div class="x_panel">
 		<div class="x_title">
-			<h2><small>카테고리별 지출 현황</small></h2>
+			<h2><small>월별 차트</small></h2>
 			<ul class="nav navbar-right panel_toolbox">
 				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 				</li>
@@ -211,8 +211,36 @@
 		</div>
 	</div>
 </div>
-<!-- /카테고리별 지출 현황 -->
+<!-- /월별 수입/지출 현황 -->
 
+              <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Horizontal Bar</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div id="echart_bar_horizontal" style="height:370px;"></div>
+
+                  </div>
+                </div>
+              </div>
 
 
 <script src="<%=cp%>/res/js/admin/fastclick.js"></script>
@@ -459,9 +487,6 @@
         legend: {
           data: ['지출액']
         },
-        toolbox: {
-          show: false
-        },
         calculable: false,
         xAxis: [{
           type: 'category',
@@ -501,6 +526,7 @@
       });
       
       
+      // 월별 현황
       var echartLine = echarts.init(document.getElementById('mainline'), theme);
 
       echartLine.setOption({
@@ -517,17 +543,14 @@
             }
           },
         legend: {
-          data: ['지출액']
-        },
-        toolbox: {
-          show: false
+          data: ['출금액', '입금액']
         },
         calculable: false,
         xAxis: [{
           type: 'category',
           data: [
-			<c:forEach var="dto" items="${cateList}">
-				{value: "${dto.accountName}"},
+			<c:forEach var="dto" items="${monthList}">
+				{value: "${dto.tranDate}"},
 			</c:forEach>
                  ]
         }],
@@ -535,10 +558,33 @@
           type: 'value'
         }],
         series: [{
-          name: '지출액',
+            name: '입금액',
+            type: 'line',
+            data: [
+  			<c:forEach var="dto" items="${monthList}">
+  				{value: "${dto.deposit}"},
+  			</c:forEach>
+                   ],
+            markPoint: {
+              data: [{
+                type: 'max',
+                name: '최고수입'
+              }, {
+                type: 'min',
+                name: '최소수입'
+              }]
+            },
+            markLine: {
+              data: [{
+                type: 'average',
+                name: '평균'
+              }]
+            }
+          },{
+          name: '출금액',
           type: 'line',
           data: [
-			<c:forEach var="dto" items="${cateList}">
+			<c:forEach var="dto" items="${monthList}">
 				{value: "${dto.withdrawal}"},
 			</c:forEach>
                  ],
@@ -629,11 +675,62 @@
       };
       
 
+      var echartBar = echarts.init(document.getElementById('echart_bar_horizontal'), theme);
+
+      echartBar.setOption({
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          x: 100,
+          data: ['출금액', '입금액']
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            saveAsImage: {
+              show: true,
+              title: "Save Image"
+            }
+          }
+        },
+        calculable: true,
+        xAxis: [{
+          type: 'value',
+          boundaryGap: false
+        }],
+        yAxis: [{
+          type: 'category',
+          data: [
+			<c:forEach var="dto" items="${eventList}">
+			{value: "${dto.eventNo}"},
+			</c:forEach>
+			]
+        }],
+        series: [{
+          name: '출금액',
+          type: 'bar',
+          data: [
+			<c:forEach var="dto" items="${eventList}">
+			{value: "${dto.withdrawal}"},
+			</c:forEach>
+			]
+        }, {
+          name: '입금액',
+          type: 'bar',
+          data: [
+            <c:forEach var="dto" items="${eventList}">
+			{value: "${dto.deposit}"},
+			</c:forEach>]
+        }],
+        
+      });
+
       var echartLine = echarts.init(document.getElementById('echart_line'), theme);
 
       echartLine.setOption({
         tooltip: {
-          trigger: 'axis'
+          trigger: 'item'
         },
         toolbox: {
             show: true,
