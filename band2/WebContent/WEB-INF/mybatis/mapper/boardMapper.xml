@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+<insert id="insertBoard" parameterType="com.band.community.board.Board">
+	  INSERT INTO freeBoard_test(boardNo, groupNo, subject, content,saveFilename,originalFilename, memberNo) VALUES
+	         (freeboard_seq_test.NEXTVAL,#{groupNo}, #{subject}, #{content},#{saveFilename, jdbcType=VARCHAR}, 
+	           #{originalFilename, jdbcType=VARCHAR}, #{memberNo}
+	           
+	         )
+	</insert>
+<sql id="where-list">
+	  <if test="searchKey=='userName'">
+	      name=#{searchValue}
+	  </if>
+	  <if test="searchKey=='subject'">
+	      INSTR(subject, #{searchValue}) &gt; 0
+	  </if>
+	  <if test="searchKey=='content'">
+	      DBMS_LOB.INSTR(content, #{searchValue}) &gt; 0 
+	  </if>
+	  <if test="searchKey=='created'">
+	      TO_CHAR(b.created, 'YYYY-MM-DD') = #{searchValue}
+	      OR TO_CHAR(b.created, 'YYYYMMDD') = #{searchValue}
+	  </if>
+	</sql>
+
+	<!-- 글개수 -->
+	<select id="dataCount" parameterType="map"
+	            resultType="Integer">
+	  SELECT NVL(COUNT(*), 0) FROM freeBoard_test b
+	        JOIN member_test m
+	        ON b.memberNo=m.memberNo
+	     <where>
+	     	<if test="searchValue!=null and searchValue!='' ">
+	     	    <include refid="where-list"/>
+	     	</if>
+	     </where>   
+	</select>
+
+	<!-- 글리스트 -->
+	<select id="listBoard" parameterType="map"
+	            resultType="com.band.community.board.Board">
+		SELECT * FROM (
+		    SELECT ROWNUM rnum, tb.* FROM (
+			     SELECT boardNo, m.memberNo,name, subject
+			           ,TO_CHAR(b.created, 'YYYY-MM-DD') created
+					   ,hitCount, saveFilename,userId
+			        FROM freeBoard_test b JOIN member_test m ON b.memberNo=m.memberNo
+                    <where>
+                         <if test="searchValue != null and searchValue != ''">
+			                  <include refid="where-list"/>
+		                 </if>
+	                </where>
+	                ORDER BY boardNo DESC
+	<![CDATA[
+	        ) tb WHERE ROWNUM <= #{end}
+	    ) WHERE rnum >= #{start}
+	]]>
+	</select>
+	
+	
+	<!-- 글보기 -->
+	<select id="readBoard" resultType="com.band.community.board.Board" parameterType="Integer">
+		SELECT boardNo, m.memberNo, subject, content, userId
+				   ,hitCount, b.created,  saveFilename, originalFilename
+		FROM freeBoard_test b JOIN member_test m ON b.memberNo=m.memberNo
+		WHERE boardNo = #{boardNo}
+	</select>
+	
+
+	
+	<!-- AND 가 필요 없는 경우 자동으로 제거 됨 -->
+	<!-- 이전글 -->
+	<select id="preReadBoard" resultType="com.band.community.board.Board" 
+				parameterType="map">
+		SELECT tb.* FROM (
+			SELECT boardNo, subject
+			      FROM freeboard_test b
+			      JOIN member_test m ON b.memberNo=m.memberNo
+                    <where>
+                         <if test="searchValue != null and searchValue != '' ">
+			                  <include refid="where-list"/>
+		                 </if>
+		               <![CDATA[
+		                 AND (boardNo > #{boardNo})
+		                 ]]>
+	                </where>
+				ORDER BY boardNo ASC
+			) tb WHERE ROWNUM=1
+	</select>
+
+	<!-- 다음글 -->
+	<select id="nextReadBoard" resultType="com.band.community.board.Board" 
+				parameterType="map">
+		SELECT tb.* FROM (
+			SELECT boardNo, subject
+			       FROM freeboard_test b
+			       JOIN member_test m ON b.memberNo=m.memberNo
+                    <where>
+                         <if test="searchValue != null and searchValue != '' ">
+			                  <include refid="where-list"/>
+		                 </if>
+		               <![CDATA[
+		                 AND (boardNo < #{boardNo})
+		                 ]]>
+	                </where>
+				ORDER BY boardNo DESC
+			) tb WHERE ROWNUM=1
+	</select>
+	
+	  <!-- 삭제 -->
+      <delete id="deleteBoard" parameterType="Integer">
+           DELETE FROM freeBoard_test WHERE boardNo = #{boardNo}
+      </delete>
+      
+      <!-- 수정 -->
+   <update id="updateBoard" parameterType="com.band.community.board.Board">
+   	UPDATE freeBoard_test SET subject=#{subject},content=#{content}
+   							,saveFilename=#{saveFilename,jdbcType=VARCHAR}
+   							,originalFilename=#{originalFilename,jdbcType=VARCHAR}
+   							WHERE boardNo=#{boardNo}
+   
+   </update>
+   
+   	<!-- 조회수 증가 -->
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE freeBoard_test SET hitCount=hitCount+1 WHERE boardNo= #{boardNo}
+	</update>
+	
+	
+	<!-- 댓글 ................. -->
+	<insert id="insertReply" parameterType="com.band.community.board.Reply">
+	INSERT INTO boardReply_test(replyNum, boardNo, memberNo, content)
+	   VALUES (boardReply_test_seq.NEXTVAL, #{boardNo},#{memberNo},#{content})
+	</insert>
+	
+		<delete id="deleteReply" parameterType="Integer">
+		DELETE FROM boardreply_test where replyNum=#{replyNum}
+	</delete>
+	
+	
+	
+		<select id="dataCountReply" resultType="Integer" 
+	           parameterType="Integer">
+	   		SELECT NVL(COUNT(*), 0)
+	        FROM boardReply_test WHERE boardNo=#{boardNo}
+	</select>
+	
+	
+	
+	
+	
+	<!-- 댓글 리스트 -->
+	<select id="listReply" resultType="com.band.community.board.Reply" 
+	          parameterType="map">
+		SELECT * FROM (
+		    SELECT ROWNUM rnum, tb.* FROM (
+		        SELECT replyNum, boardNo, r.memberNo, name ,userId
+                      ,content, created
+			    FROM boardReply_test r 
+	            JOIN member_test m ON r.memberNo=m.memberNo
+	            WHERE r.boardNo=#{boardNo}
+	            ORDER BY replyNum DESC
+	<![CDATA[
+	        ) tb WHERE ROWNUM <= #{end}
+	    ) WHERE rnum >= #{start}
+	]]>
+	</select>
+
+	
+
+</mapper>

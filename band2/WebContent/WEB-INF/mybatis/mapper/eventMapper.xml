@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="event">
+
+
+	<select id="listFriend" parameterType="map"
+               resultType="com.band.event.Member">
+           SELECT memberNo, name, grade FROM member_test
+    </select>
+
+
+	<!-- 이벤트 목록 보기 (조회) -->
+	<select id="listEvent" parameterType="map" resultType="com.band.event.Event">
+	SELECT eventNo, eventName, content, eventPlace, TO_CHAR(fromDate,'MM/DD/YYYY') fromDate, 
+		TO_CHAR(toDate,'MM/DD/YYYY') toDate, fromTime, toTime, eventType, eventFee, eventComplete
+	FROM event_${url}
+	ORDER BY eventNo DESC
+	</select>
+	
+	<insert id="insertEvent" parameterType="com.band.event.Event">
+		INSERT INTO event_${url}(eventNo, eventName, content, eventPlace, fullDate, fromDate, toDate, fromTime, toTime, eventType, eventFee)
+		VALUES(event_seq.NEXTVAL, #{eventName}, #{content}, #{eventPlace}, #{fullDate}, 
+					TO_DATE((SUBSTR(#{fullDate}, 1 ,10)), 'MM/DD/YYYY'), 
+					TO_DATE((SUBSTR(#{fullDate}, -10 ,10)), 'MM/DD/YYYY'),
+					#{fromTime}, #{toTime, jdbcType=VARCHAR}, #{eventType}, #{eventFee, jdbcType=VARCHAR}) 
+	</insert>
+	
+	<delete id="deleteEvent" parameterType="map">
+		DELETE FROM event_${url} WHERE eventNo IN 
+			<foreach item="eventNo" collection="list" 
+						open="(" separator="," close=")">
+				#{eventNo}			
+			</foreach>
+	</delete>
+	
+	<update id="updateEvent" parameterType="com.band.event.Event">
+		UPDATE event_${url}
+			SET eventName=#{eventName}, content=#{content}, 
+				eventPlace=#{eventPlace}, fullDate=#{fullDate}, 
+				fromDate=TO_DATE((SUBSTR(#{fullDate}, 1 ,10)), 'MM/DD/YYYY'),
+				toDate=TO_DATE((SUBSTR(#{fullDate}, -10 ,10)), 'MM/DD/YYYY'), 
+				fromTime=#{fromTime}, toTime=#{toTime}, eventType=#{eventType},
+				 eventFee=#{eventFee}				 
+		WHERE eventNo=#{eventNo}
+	</update>
+	
+	<update id="updateEventComplete" parameterType="map">
+		UPDATE event_${url} SET eventComplete='Y' WHERE eventNo IN 
+			<foreach item="eventNo" collection="list" 
+						open="(" separator="," close=")">
+				#{eventNo}
+			</foreach>
+	</update>
+</mapper>

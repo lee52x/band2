@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="note">
+
+    <!-- 친구 리스트 -->
+    <select id="listFriend" parameterType="map"
+               resultType="com.band.note.Note">
+           SELECT messageNo, userId, 
+                       name
+                FROM message_${url} m JOIN member_${url} m1
+                      ON m.memberNo=m1.receiveMemberNo
+                          AND state='1' 
+    </select>
+
+    <insert id="insertNote" parameterType="com.band.note.Note">
+         INSERT INTO message_${url}(messageNo, content, sendMemberNo, receiveMemberNo,
+                 sendDay, identifyDay, sendDelete, receiveDelete, parent) VALUES (
+                 note_seq.NEXTVAL, #{content}, #{sendMemberNo}, #{receiveMemberNo},
+                 SYSDATE, #{identifyDay, jdbcType=VARCHAR}, 'N', 'N', #{parent}
+                 )
+    </insert>
+    
+	<sql id="where-list">
+	  <if test="searchKey=='sendUserName' or searchKey=='receiveUserName'">
+	      INSTR(name, #{searchValue}) = 1
+	  </if>
+	  <if test="searchKey=='sendUserId' or searchKey=='receiveUserId'">
+	      userId=#{searchValue}
+	  </if>
+	  <if test="searchKey=='content'">
+	      INSTR(content, #{searchValue}) &gt; 0
+	  </if>
+	</sql>
+    
+    <!-- 받은 쪽지 리스트 -->
+    <select id="dataCountReceive" parameterType="map" resultType="Integer">
+        SELECT NVL(COUNT(*), 0) 
+                   FROM message_${url} JOIN member_${url}
+                   ON sendMemberNo=memberNo
+                  <where>
+	     	         <if test="searchValue!=null and searchValue!='' ">
+	     	              <include refid="where-list"/>
+	     	          </if>
+	     	          AND receiveMemberNo = #{memberNo}
+	     	          AND receiveDelete = 'N'
+                  </where> 
+    </select>
+    
+    <select id="listReceive" parameterType="map" resultType="com.band.note.Note">
+		SELECT * FROM (
+		    SELECT ROWNUM rnum, tb.* FROM (
+			     SELECT messageNo, content, sendMemberNo, name sendUserName,
+                   TO_CHAR(sendDay, 'YYYY-MM-DD HH24:MI:SS') sendDay, 
+                   NVL2(identifyDay, TO_CHAR(identifyDay, 'YYYY-MM-DD HH24:MI:SS'), null) identifyDay, 
+                   sendDelete, receiveDelete, parent
+                 FROM message_${url} JOIN member_${url} ON sendMemberNo=memberNo
+                    <where>
+	     	            <if test="searchValue!=null and searchValue!='' ">
+	     	                <include refid="where-list"/>
+	     	             </if>
+	     	             AND receiveMemberNo = #{memberNo}
+	     	             AND receiveDelete = 'N'
+	                </where>
+	                ORDER BY messageNo DESC
+	<![CDATA[
+	        ) tb WHERE ROWNUM <= #{end}
+		) WHERE rnum >= #{start}
+	]]>
+    </select>
+    
+    <!-- 보낸 쪽지 리스트 -->
+    <select id="dataCountSend" parameterType="map" resultType="Integer">
+        SELECT NVL(COUNT(*), 0) 
+                   FROM message_${url} JOIN member_${url}
+                   ON receiveMemberNo=memberNo
+                  <where>
+	     	         <if test="searchValue!=null and searchValue!='' ">
+	     	              <include refid="where-list"/>
+	     	          </if>
+	     	          AND sendMemberNo = #{memberNo}
+	     	          AND sendDelete = 'N'
+                  </where> 
+    </select>
+    
+    <select id="listSend" parameterType="map" resultType="com.band.note.Note">
+		SELECT * FROM (
+		    SELECT ROWNUM rnum, tb.* FROM (
+			     SELECT messageNo, content, receiveMemberNo, name receiveUserName,
+                    TO_CHAR(sendDay, 'YYYY-MM-DD HH24:MI:SS') sendDay, 
+                    NVL2(identifyDay, TO_CHAR(identifyDay, 'YYYY-MM-DD HH24:MI:SS'), null) identifyDay, 
+                    sendDelete, receiveDelete, parent
+                   FROM message_${url} JOIN member_${url} ON receiveMemberNo=memberNo
+                    <where>
+	     	             <if test="searchValue!=null and searchValue!='' ">
+	     	                  <include refid="where-list"/>
+	     	              </if>
+	     	              AND sendMemberNo = #{memberNo}
+	     	              AND sendDelete = 'N'
+	                </where>
+	                ORDER BY messageNo DESC
+	<![CDATA[
+	        ) tb WHERE ROWNUM <= #{end}
+		) WHERE rnum >= #{start}
+	]]>
+    </select>
+    
+    <!-- 받은 쪽지 내용 보기 -->
+    <select id="readReceive" parameterType="Integer" resultType="com.band.note.Note">
+         SELECT messageNo, content, sendMemberNo, name sendUserName,
+                 sendDay, identifyDay, sendDelete, receiveDelete, parent
+                   FROM message${url} JOIN member_${url}
+                   ON sendMemberNo=memberNo
+                   WHERE messageNo=#{messageNo}
+      </select>    
+    
+	<!-- 받은 쪽지 이전글 -->
+	<select id="preReadReceive" resultType="com.band.note.Note" parameterType="map">
+		SELECT tb.* FROM (
+			 SELECT messageNo, content, sendMemberNo, name sendUserName,
+                 sendDay, identifyDay, sendDelete, receiveDelete, parent
+                   FROM message_${url} JOIN member_${url}
+                   ON sendMemberNo=memberNo
+                    <where>
+                         <if test="searchValue != null and searchValue != '' ">
+			                  <include refid="where-list"/>
+		                 </if>
+		               <![CDATA[
+		                 AND receiveMemberNo = #{memberNo}
+	     	             AND receiveDelete = 'N'
+		                 AND (messageNo > #{messageNo})
+		                 ]]>
+	                </where>
+				ORDER BY messageNo ASC
+			) tb WHERE ROWNUM=1
+	</select>
+
+	<!-- 받은 쪽지 다음글 -->
+	<select id="nextReadReceive" resultType="com.band.note.Note" parameterType="map">
+		SELECT tb.* FROM (
+			 SELECT messageNo, content, sendMemberNo, name sendUserName,
+                 sendDay, identifyDay, sendDelete, receiveDelete, parent
+                   FROM messageNo_${url} JOIN member_${url}
+                   ON sendMemberNo=memberNo
+                    <where>
+                         <if test="searchValue != null and searchValue != '' ">
+			                  <include refid="where-list"/>
+		                 </if>
+		               <![CDATA[
+		                 AND receiveMemberNo = #{memberNo}
+	     	             AND receiveDelete = 'N'
+		                 AND (messageNo < #{messageNo})
+		                 ]]>
+	                </where>
+				ORDER BY messageNo DESC
+			) tb WHERE ROWNUM=1
+	</select>
+  
+    <!-- 보낸 쪽지 내용 보기 -->
+    <select id="readSend" parameterType="Integer" resultType="com.band.note.Note">
+         SELECT messageNo, content, receiveMemberNo, name receiveUserName,
+                 sendDay, identifyDay, sendDelete, receiveDelete, parent
+                   FROM message_${url} JOIN member_${url}
+                   ON receiveMemberNo=memberNo
+                   WHERE messageNo=#{messageNo}
+      </select>    
+    
+	<!-- 보낸 쪽지 이전글 -->
+	<select id="preReadSend" resultType="com.band.note.Note" parameterType="map">
+		SELECT tb.* FROM (
+			 SELECT messageNo, content, receiveUserId, name receiveUserName,
+                 sendDay, identifyDay, sendDelete, receiveDelete, parent
+                   FROM message_${url} JOIN member_${url}
+                   ON receiveMemberNo=memberNo
+                    <where>
+                         <if test="searchValue != null and searchValue != '' ">
+			                  <include refid="where-list"/>
+		                 </if>
+		               <![CDATA[
+		                 AND sendMemberNo = #{memberNo}
+	     	              AND sendDelete = 'N'
+		                 AND (messageNo > #{messageNo})
+		                 ]]>
+	                </where>
+				ORDER BY messageNo ASC
+			) tb WHERE ROWNUM=1
+	</select>
+
+	<!-- 보낸 쪽지 다음글 -->
+	<select id="nextReadSend" resultType="com.band.note.Note" parameterType="map">
+		SELECT tb.* FROM (
+			 SELECT messageNo, content, receiveMemberNo, name receiveUserName,
+                 sendDay, identifyDay, sendDelete, receiveDelete, parent
+                   FROM message_${url} JOIN member_${url}
+                   ON receiveMemberNo=memberNo
+                    <where>
+                         <if test="searchValue != null and searchValue != '' ">
+			                  <include refid="where-list"/>
+		                 </if>
+		               <![CDATA[
+		                AND sendMemberNo = #{memberNo}
+	     	              AND sendDelete = 'N'
+		                 AND (messageNo < #{messageNo})
+		                 ]]>
+	                </where>
+				ORDER BY messageNo DESC
+			) tb WHERE ROWNUM=1
+	</select>
+    
+    
+    <!-- 보낸 쪽지함에서 쪽지 답변 보기 -->
+    <select id="readReplReceive" parameterType="Integer" resultType="com.band.note.Note">
+         SELECT messageNo, content, userId, name sendUserName,
+                 sendDay, identifyDay, sendDelete, receiveDelete, parent
+                   FROM message_${url} JOIN member_${url}
+                   ON sendMemberNo=memberNo
+                   WHERE parent=#{messageNo} AND receiveDelete = 'N'
+      </select>    
+    
+    <!-- 쪽지를확인상태로변경 -->
+    <delete id="updateIdentifyDay" parameterType="Integer">
+        UPDATE message_${url} SET identifyDay = SYSDATE 
+                 WHERE messageNo=#{messageNo} AND identifyDay IS NULL
+    </delete>
+    
+    <!-- 쪽지를삭제상태로변경 -->
+    <delete id="updateDeleteState" parameterType="map">
+        UPDATE message_${url} SET ${field1} = 'Y' WHERE
+               messageNo IN 
+               <foreach item="messageNo" index="index" collection="messageNoList"
+                            open="(" separator="," close=")">
+                    #{messageNo}
+               </foreach>
+    </delete>
+    
+    <!-- 쪽지삭제 -->
+    <delete id="deleteNote" parameterType="map">
+        DELETE FROM message_${url} WHERE 
+               ${field2} = 'Y' AND
+               messageNo IN 
+               <foreach item="messageNo" index="index" collection="messageNoList"
+                            open="(" separator="," close=")">
+                    #{messageNo}
+               </foreach>
+    </delete>
+    
+    <!-- 새로운 쪽지 개수 -->
+    <select id="newNoteCount" parameterType="map" resultType="Integer">
+       SELECT NVL(COUNT(*), 0) FROM message_${url}
+           WHERE identifyDay IS NULL AND receiveMemberNo=#{memberNo}
+    </select>
+    
+</mapper>

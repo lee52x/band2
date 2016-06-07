@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="band">
+	<update id="createMember" parameterType="String">
+		CREATE TABLE member_${value} (
+			memberNo	NUMBER NOT NULL
+			, userId	VARCHAR2(60) NOT NULL
+			, pwd		VARCHAR2(100) NOT NULL
+			, email		VARCHAR2(100)
+			, birth		DATE
+			, name		VARCHAR2(60) NOT NULL
+			, tel		VARCHAR2(60)
+			, gender	NUMBER
+			, address	VARCHAR2(255)
+     		, grade		NUMBER NOT NULL
+     		, joinDate	DATE
+     		, groupURL	VARCHAR2(60) NOT NULL
+     		, CONSTRAINT pk_member_memberNo PRIMARY KEY(memberNo)
+     		, CONSTRAINT fk_member_groupURL FOREIGN KEY(groupURL)
+     			REFERENCES community(groupURL)
+		)
+	</update>
+</mapper>

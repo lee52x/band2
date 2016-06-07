@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<!-- 메인 -->
+	<definition name=".mainLayout" template="/WEB-INF/views/main/main.jsp">
+		<put-attribute name="title" value="band" />
+	</definition>
+		
+	<!-- 로그인 -->
+	<definition name=".mainLogin" template="/WEB-INF/views/main/group_main.jsp">
+      <put-attribute name="title" value="login" />
+	</definition>
+   
+    <!-- 3 단 관리자 -->
+	<definition name=".adminLayout" template="/WEB-INF/views/admin/layout/layout.jsp">
+	    <put-attribute name="title" value="admin" />
+	  	<put-attribute name="header" value="/WEB-INF/views/admin/layout/header.jsp" />
+	  	<put-attribute name="left" value="/WEB-INF/views/admin/layout/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/layout/main.jsp" />
+	</definition>
+	<definition name=".admin.*.*.*" extends=".adminLayout">	  	
+		<put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".admin.*.*" extends=".adminLayout">	  	
+		<put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}.jsp"/>
+	</definition>
+	<definition name=".admin.*" extends=".adminLayout">	  	
+   	    <put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp" />
+	</definition>
+
+   <!-- 3단 커뮤니티 -->
+	<definition name=".communityLayout" template="/WEB-INF/views/community/layout/layout.jsp">
+	    <put-attribute name="title" value="community" />
+	  	<put-attribute name="navbar" value="/WEB-INF/views/community/layout/navbar.jsp" />
+		<put-attribute name="slideshow" value="/WEB-INF/views/community/layout/slideshow.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/community/layout/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/community/layout/board.jsp" />
+	</definition>
+	<definition name=".community.*.*.*" extends=".communityLayout">		
+		<put-attribute name="body" value="/WEB-INF/views/community/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".community.*.*" extends=".communityLayout">		
+		<put-attribute name="body" value="/WEB-INF/views/community/{1}/{2}.jsp"/>
+	</definition>
+	<definition name=".community.*" extends=".communityLayout">		
+    	<put-attribute name="body" value="/WEB-INF/views/community/{1}.jsp" />
+	</definition>
+	
+</tiles-definitions>

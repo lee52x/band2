@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="account">
+	<insert id="insertAccount" parameterType="com.band.account.Account">
+		<if test="memo!=null and accountName!=null and eventNo!=null">
+		INSERT INTO accounting_${url}(transactionNo, tranDate, tranName, tranData, 
+										withdrawal, deposit, memo, accountName, eventNo)
+		VALUES(transaction_seq_test.NEXTVAL, #{tranDate}, #{tranName}, #{tranData}, 
+										#{withdrawal}, #{deposit}, #{memo}, #{accountName}, #{eventNo})
+		</if>
+		<if test="memo==null and accountName==null and eventNo==null">
+		INSERT INTO accounting_${url}(transactionNo, tranDate, tranName, tranData, 
+										withdrawal, deposit)
+		VALUES(transaction_seq_test.NEXTVAL, #{tranDate}, #{tranName}, #{tranData}, 
+										#{withdrawal}, #{deposit})
+		</if>
+	</insert>
+	
+	<select id="minDate" resultType="String" parameterType="map">
+		SELECT MIN(TO_CHAR(tranDate, 'YYYY-MM')) tranDate FROM accounting_${url}
+	</select>
+	
+	<select id="listAccount" parameterType="map" resultType="com.band.account.Account">
+		SELECT * FROM (
+			SELECT ROWNUM rnum, tb.* FROM(
+				SELECT transactionNo, TO_CHAR(tranDate, 'YYYY-MM-DD') tranDate, tranName, tranData, 
+					   withdrawal, deposit, memo, accountName, eventNo
+			    FROM accounting_${url}
+			    ORDER BY tranDate DESC, transactionNo DESC
+		<![CDATA[
+			) tb WHERE tranDate <= #{end} 
+		) WHERE tranDate > #{start}
+		]]>
+	</select>
+	
+	<!-- 잔액, 이번달(저번달) 수입 지출 -->
+	<select id="readBalance" resultType="Integer" parameterType="map">
+		SELECT sum(deposit)-sum(withdrawal) balance FROM accounting_${url}
+	</select>
+	
+	<select id="listThisMonth" parameterType="map" resultType="com.band.account.Account">
+		SELECT TO_CHAR(tranDate, 'YYYY-MM') year
+				,NVL(SUM(withdrawal),0) withdrawal, NVL(SUM(deposit),0) deposit
+		FROM accounting_${url}
+		<![CDATA[
+		WHERE TO_CHAR(tranDate, 'YYYY-MM') > #{predate}
+		]]>
+		GROUP BY TO_CHAR(tranDate, 'YYYY-MM')
+	</select>
+	
+	<select id="listPreMonth" parameterType="map" resultType="com.band.account.Account">
+		SELECT TO_CHAR(tranDate, 'YYYY-MM') year
+				,NVL(SUM(withdrawal),0) withdrawal, NVL(SUM(deposit),0) deposit
+		FROM accounting_${url}
+		<![CDATA[
+		WHERE TO_CHAR(tranDate, 'YYYY-MM') = #{predate}
+		]]>
+		GROUP BY TO_CHAR(tranDate, 'YYYY-MM')
+	</select>
+	
+	<delete id="deleteList" parameterType="map">
+        DELETE FROM accounting_${url} WHERE 
+               transactionNo IN 
+               <foreach item="transactionNo" index="index" collection="list"
+                            open="(" separator="," close=")">
+                    #{transactionNo}
+               </foreach>
+	</delete>
+	
+	<update id="updateAccount" parameterType="com.band.account.Account">
+		UPDATE accounting_${url} SET tranDate=#{tranDate}, tranName=#{tranName}, tranData=#{tranData}, 
+				withdrawal=#{withdrawal}, deposit=#{deposit}, memo=#{memo}, accountName=#{accountName}, eventNo=#{eventNo}
+		WHERE transactionNo=#{transactionNo}					
+	</update>
+	
+	
+	<!-- 전체 내역 -->
+	<select id="allListAccount" parameterType="map" resultType="com.band.account.Account">
+		SELECT * FROM (
+			SELECT ROWNUM rnum, tb.* FROM(
+				SELECT transactionNo, TO_CHAR(tranDate, 'YYYY-MM-DD') tranDate, tranName, tranData, 
+					   withdrawal, deposit, memo, accountName, eventNo
+			    FROM accounting_${url}
+			    ORDER BY tranDate DESC, transactionNo DESC
+			)tb
+		)
+	</select>
+	
+	<!-- 일정별 내역 -->
+	<select id="eventListAccount" parameterType="map" resultType="com.band.account.Account">
+		SELECT * FROM (
+			SELECT ROWNUM rnum, tb.* FROM(
+				SELECT transactionNo, TO_CHAR(tranDate, 'YYYY-MM-DD') tranDate, tranName, tranData, 
+					   withdrawal, deposit, memo, accountName, eventNo
+			    FROM accounting_${url}
+			    WHERE eventNo=#{event}
+			    ORDER BY tranDate DESC, transactionNo DESC
+			)tb
+		)
+	</select>
+	
+	<!-- 카테고리별 내역 -->
+	<select id="cateListAccount" parameterType="map" resultType="com.band.account.Account">
+		SELECT * FROM (
+			SELECT ROWNUM rnum, tb.* FROM(
+				SELECT transactionNo, TO_CHAR(tranDate, 'YYYY-MM-DD') tranDate, tranName, tranData, 
+					   withdrawal, deposit, memo, accountName, eventNo
+			    FROM accounting_${url}
+			    WHERE accountName=#{accountName}
+			    ORDER BY tranDate DESC, transactionNo DESC
+			)tb
+		)
+	</select>
+	
+	<!-- 회비 있는 일정 -->
+	<select id="eventList" parameterType="map" resultType="com.band.account.Event">
+		select eventNo, eventName, eventFee from event_${url} where eventFee is not null
+	</select>
+	
+	
+	
+	<!-- ******************************************************* -->
+	<!-- ******************************************************* -->
+	
+
+	<!-- 카테고리 별 현황 -->
+	<select id="cateState" parameterType="map" resultType="com.band.account.Account">
+		SELECT accountName, SUM(withdrawal) withdrawal FROM (
+			SELECT tb.* FROM(
+        		SELECT TO_CHAR(tranDate, 'YYYY-MM-DD') tranDate, accountName, withdrawal
+        		FROM accounting_${url}
+        	<![CDATA[
+			) tb WHERE tranDate <= #{end}
+		)WHERE tranDate > #{start}
+		]]>
+		GROUP BY accountName
+		ORDER BY DECODE(accountName,'회식',0,'행사',1,'비품',2,'회비',3,'모임',4,'의류',5,'문화',6,'교육',7,'교통',8,'기타',9,'미분류',10)
+	</select>
+	
+	<!-- 수입 현황 -->
+	<select id="depositState" parameterType="map" resultType="com.band.account.Account">
+	SELECT accountName, SUM(deposit) deposit FROM (
+			SELECT tb.* FROM(
+       			SELECT TO_CHAR(tranDate, 'YYYY-MM-DD') tranDate, accountName, deposit
+        		FROM accounting_${url}
+        	<![CDATA[
+			) tb WHERE tranDate <= #{end}
+	)WHERE tranDate > #{start} AND deposit>0
+	]]>
+	GROUP BY accountName
+	ORDER BY DECODE(accountName,'회식',0,'행사',1,'비품',2,'회비',3,'모임',4,'의류',5,'문화',6,'교육',7,'교통',8,'기타',9,'미분류',10)
+	</select>
+	
+	<!-- 일자별 현황 -->
+	<select id="dayState" parameterType="map" resultType="com.band.account.Account">
+	SELECT ROWNUM rnum, tb2.* FROM
+  		(SELECT tranDate, SUM(withdrawal) withdrawal, SUM(deposit) deposit FROM (
+			SELECT tb.* FROM(
+        		SELECT TO_CHAR(tranDate, 'YYYY-MM-DD') tranDate, withdrawal, deposit
+       			FROM accounting_${url}
+			) tb 
+  		)GROUP BY tranDate
+  		ORDER BY tranDate DESC
+  	) tb2
+	WHERE ROWNUM between 1 and 10
+	ORDER BY ROWNUM DESC
+	</select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="update">
+
+	<update id="updateInfo" parameterType="com.band.manager.update.Update">
+	UPDATE community 
+	SET name=#{name}, area=#{area}, verification=#{verification}, bankName=#{bankName},
+		accountNumber=#{accountNumber}, accountHolder=#{accountHolder}, 
+		userId=#{userId}
+	WHERE groupURL=#{groupURL}
+	</update>
+	
+	<select id="readInfo" parameterType="String" resultType="com.band.manager.update.Update">
+	SELECT groupURL, name, area, verification, bankName, accountNumber, accountHolder, userId, foundationDay
+	FROM community 
+	<!--c JOIN manager m ON c.userId=m.userId -->
+	WHERE groupURL=#{groupURL}
+	</select>
+	
+</mapper>

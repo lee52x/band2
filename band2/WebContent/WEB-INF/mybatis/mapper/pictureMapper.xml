@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="picture">
+
+<insert id="insertPicture" parameterType="com.band.manager.picture.Picture">
+	INSERT INTO management(manageNo, saveFilename, image, groupURL) 
+	VALUES(manage_seq.NEXTVAL, #{saveFilename}, #{image}, #{groupURL})
+</insert>
+
+<select id="listPicture" parameterType="String" resultType="com.band.manager.picture.Picture">
+	SELECT manageNo, saveFilename, image, groupURL
+	FROM management
+	WHERE groupURL=#{groupURL}
+	ORDER BY image DESC
+	
+</select>
+
+<delete id="deletePicture" parameterType="String">
+	DELETE FROM management WHERE groupURL=#{groupURL}
+</delete>
+
+
+<select id="dataCount" parameterType="String" resultType="Integer">
+	SELECT NVL(COUNT(*),0)
+	FROM management
+	WHERE groupURL=#{groupURL}
+</select>
+
+<select id="readPicture" parameterType="String" resultType="com.band.manager.picture.Picture">
+	SELECT saveFilename
+	FROM management
+	WHERE groupURL=#{groupURL}
+</select>
+
+
+
+</mapper>
