@@ -83,7 +83,7 @@ public class StateController {
 		map2.put("url", url);
 		
 		List<Account> dayList=service.dayState(map2);
-		
+		List<Account> eventList=service.eventState(map2);
 		
 		// 지난달:이번달  지출, 수입
 		Calendar cal2 = Calendar.getInstance();
@@ -110,6 +110,7 @@ public class StateController {
 		mav.addObject("cateList", cateList);
 		mav.addObject("depositList", depositList);
 		mav.addObject("dayList", dayList);
+		mav.addObject("eventList", eventList);
 		mav.addObject("year", year);
 		mav.addObject("month", month);
 		mav.addObject("mvo", mvo);

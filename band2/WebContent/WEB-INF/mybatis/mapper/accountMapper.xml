@@ -166,4 +166,14 @@
 	WHERE ROWNUM between 1 and 10
 	ORDER BY ROWNUM DESC
 	</select>
+	
+	<!-- 일정별 현황 -->
+	<select id="eventState" parameterType="map" resultType="com.band.account.Account">
+	SELECT eventNo transactionNo, eventName eventNo, SUM(deposit) deposit, SUM(withdrawal) withdrawal FROM (
+			SELECT tb.* FROM(
+        		SELECT deposit, withdrawal, eventName, evt.eventNo
+        		FROM accounting_${url} act JOIN event_${url} evt ON act.eventNo=evt.eventName
+			) tb
+	)GROUP BY eventNo, eventName
+	</select>
 </mapper>
