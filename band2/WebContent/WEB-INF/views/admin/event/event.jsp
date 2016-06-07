@@ -305,7 +305,10 @@ $(function(){
     	$("#eventModal").modal("hide");
     }
     
-    //선택 일괄 삭제 매퍼 실행을 위한 script by. 은제
+    
+    
+    
+  //선택 완료된 이벤트 처리 매퍼 실행을 위한
     function updateEventComplete() {
       	var f=document.eventForm;
       	var cnt=0;
@@ -341,7 +344,7 @@ $(function(){
       	
       }
     
-  //선택 완료된 이벤트 처리 매퍼 실행을 위한 script by. 은제
+//선택 일괄 삭제 매퍼 실행을 위한 script by. 은제
     function deleteList() {
       	var f=document.eventForm;
       	var cnt=0;
@@ -386,7 +389,8 @@ $(function(){
     	}
     }
     
-//종료 시간 미정 체크박스 클릭시 input 창 비활성화 (모달버전)
+    
+	//종료 시간 미정 체크박스 클릭시 input 창 비활성화 (모달버전)
     function timeEmptyModal(){
 	   	if($('input:checkbox[id="mtoTimeCheck"]').is(":checked") == true)
     	{
@@ -427,6 +431,17 @@ $(function(){
     } 
     
     </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
    <div class="">
    <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
@@ -466,6 +481,8 @@ $(function(){
                
                <div id="myTabContent" class="tab-content">
                   
+                  
+<!-- 탭1 시작 -->
                   <div role="tabpanel" class="tab-pane fade active in"
                   id="tab_content1" aria-labelledby="membertab">
                   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -588,9 +605,9 @@ $(function(){
                      </div>
                   </div>
                </div>
+<!-- 탭1 끝 -->
                
-               
-               		<!-- 이벤트 상세정보 모달 시작 -->					
+<!-- 탭1 부속 이벤트 상세정보 모달 시작 -->					
 					<div class="modal fade bs-example-modal-lg" id="eventModal" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog modal-lg">
 							<div class="modal-content">
@@ -654,7 +671,7 @@ $(function(){
 					      </div>
                       </div>
                       <!-- 끝 : 모달용 캘린더 퍼오기 -->
-                      
+
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-3">일정 시간</label>
                         <div style="width:80px;" class="col-md-9 col-sm-9 col-xs-9">
@@ -728,13 +745,13 @@ $(function(){
 						</div>
 					</div>
 				</div>
-				<!-- 이벤트 상세정보 모달 끝 -->					
+<!--탭1 부속 이벤트 상세정보 모달 끝 -->					
                
                
                
                
                
-               
+<!-- 탭2 시작 -->
                   <div role="tabpanel" class="tab-pane fade" id="tab_content2"
                      aria-labelledby="profile-tab">
                      <div class="x_content">
@@ -898,14 +915,11 @@ $(function(){
                     
                   </div>
                   </div>
+<!-- 탭2 끝 -->
                   
                   
                   
-                  
-                  
-                  
-                  
-                  
+<!-- 탭3 시작 -->                  
                   <div role="tabpanel" class="tab-pane fade" id="tab_content3"
                      aria-labelledby="profile-tab">
                      <div class="x_content">
@@ -977,6 +991,8 @@ $(function(){
 
                   </div>
                   </div>
+                  
+<!-- 탭3 끝 -->
                </div>
             </div>
 
