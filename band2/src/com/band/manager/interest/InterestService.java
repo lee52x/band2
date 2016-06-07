@@ -6,6 +6,6 @@ import java.util.Map;
 public interface InterestService {
 	
 	public List<Interest> listInterest(Map<String, Object> map);
-	public Interest readInterest(String hash);
+	public int dataCount(Map<String, Object> map);
 	
 }

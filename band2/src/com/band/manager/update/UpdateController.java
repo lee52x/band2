@@ -32,12 +32,13 @@ public class UpdateController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/manager/update/{url}")
+	@RequestMapping(value="/admin/manager/update/{url}", method=RequestMethod.POST)
 	public String submitUpdate(
 			Update dto,
 			@PathVariable String url
 			) throws Exception{
 		
+		dto.setGroupURL(url);
 		service.updateInfo(dto);
 		
 		return "redirect:/admin/manager/update/{url}";

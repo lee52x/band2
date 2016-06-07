@@ -3,8 +3,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="interest">
 
-<select id="listInterest">
+<sql id="where-list">
+		<if test="searchKey=='hashDate' ">
+			TO_DATE(TO_CHAR(hashDate, 'YYYY-MM-DD'), 'YYYY-MM-DD') &lt; TO_DATE(#{searchValue}, 'YYYY-MM-DD')
+			TO_DATE(TO_CHAR(hashDate, 'YYYY-MM-DD'), 'YYYY-MM-DD') &gt; TO_DATE(#{searchValue2}, 'YYYY-MM-DD')
+		</if>
+</sql>
 
+
+<select id="listInterest" resultType="com.band.manager.interest.Interest">
+
+	SELECT * FROM (
+		SELECT tb.*, ROWNUM rnum FROM(
+			SELECT hashName, count(*) hashCount
+			FROM hashcode
+			<where>
+				<if test="searchValue != null and searchValue!=''  ">
+					<include refid="where-list"/>
+				</if>
+			</where>
+			GROUP BY hashName
+			ORDER BY hashCount DESC
+		<![CDATA[
+	        ) tb WHERE ROWNUM <= #{end}
+	    ) WHERE rnum >= #{start}
+		]]>
+
+</select>
+
+<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT  NVL(COUNT(*),0) FROM(
+			SELECT hashName 
+			FROM hashcode 
+			<where>
+				<if test="searchValue != null and searchValue!=''  ">
+					<include refid="where-list"/>
+				</if>
+			</where>
+			GROUP BY hashName)
+		
 </select>
 	
 </mapper>
