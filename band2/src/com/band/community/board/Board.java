@@ -13,8 +13,6 @@ public class Board {
 	private String originalFilename;
 	
 	
-	
-	
 	public int getMemberNo() {
 		return memberNo;
 	}
