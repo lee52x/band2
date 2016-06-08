@@ -115,7 +115,7 @@
 	
 	<!-- 회비 있는 일정 -->
 	<select id="eventList" parameterType="map" resultType="com.band.account.Event">
-		select eventNo, eventName, eventFee from event_${url} where eventFee is not null
+		select eventNo, eventName, eventFee from event_test where eventFee is not null AND eventComplete='N'
 	</select>
 	
 	
