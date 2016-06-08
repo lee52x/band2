@@ -17,6 +17,7 @@
 	ORDER BY eventNo DESC
 	</select>
 	
+	
 	<insert id="insertEvent" parameterType="com.band.event.Event">
 		INSERT INTO event_${url}(eventNo, eventName, content, eventPlace, fullDate, fromDate, toDate, fromTime, toTime, eventType, eventFee)
 		VALUES(event_seq.NEXTVAL, #{eventName}, #{content}, #{eventPlace}, #{fullDate}, 
@@ -29,6 +30,11 @@
 		INSERT INTO eventAttend_${url} (eventNo, memberNo)
 			VALUES (#{eventNo}, #{memberNo})
 	</insert>
+	
+	<!-- eventNo 가장 큰 값! (가장 최근에 추가된 값을 가져오기 위한) -->
+	<select id="listEventMax" parameterType="String" resultType="Integer">
+		SELECT MAX(eventNo) FROM event_${url}
+	</select>
 	
 	<delete id="deleteEvent" parameterType="map">
 		DELETE FROM event_${url} WHERE eventNo IN 

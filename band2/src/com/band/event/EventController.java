@@ -64,7 +64,7 @@ public class EventController {
 			Event dto){
 
 		service.insertEvent(dto);
-			
+		
 		ModelAndView mav = new ModelAndView("redirect:/event/{url}");
 		return mav;
 	}

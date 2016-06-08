@@ -27,6 +27,8 @@ public class EventServiceImpl implements EventService{
 		return list;
 	}
 	
+	
+	
 	@Override
 	public Event readEvent(int eventNo) {
 		Event dto = null;
@@ -38,18 +40,35 @@ public class EventServiceImpl implements EventService{
 		return dto;
 	}
 	
+	// eventNo 가장 큰 값! (가장 최근에 추가된 값을 가져오기 위한)
 	@Override
-	public int insertEvent(Event dto) {
+	public int listEventMax(Event dto){
 		int result=0;
 		
 		try {
+			result=dao.getIntValue("event.listEventMax", dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int insertEvent(Event dto) {
+		int result=0;
+		int eventNo;
+		
+		try {
 			dao.insertData("event.insertEvent", dto);
-			
-			result=1;
 			//eventNo 들어가게 하는 방법!!
 			/*1. mapper를 새로 짠다. select eventNo 가장 최근 값만 가져오는걸로!
 			2. 그 mapper를 실행한다음.
 			3. dto.setEventNo(dto) 실행하여 보내준다.*/
+			result=1;
+			eventNo=listEventMax(dto);
+			
+			dto.setEventNo(eventNo);
 			if(!dto.getMemberNos().isEmpty()){
 				for(Integer memberNo : dto.getMemberNos()){
 					dto.setMemberNo(memberNo);

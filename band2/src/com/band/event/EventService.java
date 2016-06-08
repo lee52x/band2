@@ -10,6 +10,7 @@ public interface EventService {
 	public int insertEvent(Event dto);
 	public int insertAttend(Event dto);
 	public List<Event> listEvent(Map<String, Object> map);
+	public int listEventMax(Event dto);
 	public int updateEvent (Event dto);
 	public int updateEvent (Map<String, Object> map);
 	public int deleteEvent(Map<String, Object> map);

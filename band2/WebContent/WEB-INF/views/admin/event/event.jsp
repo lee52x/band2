@@ -881,8 +881,6 @@ $(function(){
                           	onclick="submitEvent();">등록</button>
                         </div>
                       </div>
-                      
-						<input type="hidden" name="eventNo">
 
                     </form>
                     
