@@ -42,7 +42,7 @@
                     <ul class="nav child_menu">
                       <li><a href="<%=cp%>/account/main/${url}">입출금 관리</a></li>
                       <li><a href="<%=cp%>/account/state/${url}">회계현황 조회</a></li>
-                      <li><a href="#">회비 관리</a></li>
+                      <li><a href="<%=cp%>/account/fee/${url}">회비 관리</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> 그룹관리 <span class="fa fa-chevron-down"></span></a>

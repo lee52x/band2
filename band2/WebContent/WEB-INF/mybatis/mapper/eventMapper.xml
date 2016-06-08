@@ -25,6 +25,11 @@
 					#{fromTime}, #{toTime, jdbcType=VARCHAR}, #{eventType}, #{eventFee, jdbcType=VARCHAR}) 
 	</insert>
 	
+	<insert id="insertAttend" parameterType="com.band.event.Event">
+		INSERT INTO eventAttend_${url} (eventNo, memberNo)
+			VALUES (#{eventNo}, #{memberNo})
+	</insert>
+	
 	<delete id="deleteEvent" parameterType="map">
 		DELETE FROM event_${url} WHERE eventNo IN 
 			<foreach item="eventNo" collection="list" 
@@ -51,4 +56,6 @@
 				#{eventNo}
 			</foreach>
 	</update>
+	
+	
 </mapper>

@@ -8,6 +8,7 @@ import java.util.Map;
 public interface EventService {
 	public Event readEvent(int eventNo);
 	public int insertEvent(Event dto);
+	public int insertAttend(Event dto);
 	public List<Event> listEvent(Map<String, Object> map);
 	public int updateEvent (Event dto);
 	public int updateEvent (Map<String, Object> map);

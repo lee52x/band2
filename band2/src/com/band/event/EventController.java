@@ -64,12 +64,33 @@ public class EventController {
 			Event dto){
 
 		service.insertEvent(dto);
-		
-		
-		
+			
 		ModelAndView mav = new ModelAndView("redirect:/event/{url}");
-
 		return mav;
+	}
+	
+	
+	@RequestMapping(value="/event/insertAttend/{url}", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> attendSubmit(@PathVariable String url, Event dto) throws Exception{
+		String state="false";
+		
+		try {
+			for(Integer memberNo : dto.getMemberNos()){
+				dto.setMemberNo(memberNo);
+
+				service.insertAttend(dto);
+			}
+			state="true";
+			
+		} catch (Exception e) {
+		}		
+		
+		//작업 결과를 JSON으로 전송
+		Map<String, Object> model= new HashMap<>();
+		model.put("url", url);
+		model.put("state", state);
+		return model;
 	}
 	
 

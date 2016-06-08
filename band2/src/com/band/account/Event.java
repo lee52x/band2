@@ -1,7 +1,7 @@
 package com.band.account;
 
 public class Event {
-	private int eventNo;
+	private int eventNo, num;
 	private String eventName, eventFee;
 	
 	public int getEventNo() {
@@ -9,6 +9,12 @@ public class Event {
 	}
 	public void setEventNo(int eventNo) {
 		this.eventNo = eventNo;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public String getEventName() {
 		return eventName;

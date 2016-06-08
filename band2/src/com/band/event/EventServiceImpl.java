@@ -44,7 +44,16 @@ public class EventServiceImpl implements EventService{
 		
 		try {
 			dao.insertData("event.insertEvent", dto);
+			
 			result=1;
+			
+			if(!dto.getMemberNos().isEmpty()){
+				for(Integer memberNo : dto.getMemberNos()){
+					dto.setMemberNo(memberNo);
+					insertAttend(dto);
+				}
+			}
+			
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -52,7 +61,21 @@ public class EventServiceImpl implements EventService{
 		return result;
 	}
 
-
+	
+	
+    @Override
+	public int insertAttend(Event dto){
+	int result=0;
+		
+		try {
+			dao.insertData("event.insertAttend", dto);
+			
+			result=1;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
 	
 
 	@Override

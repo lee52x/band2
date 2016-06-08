@@ -134,9 +134,55 @@ $(function(){
             });
     	});
     });
+
     
     
+    //동적으로 참석자 리스트 보내주기
+    function submitEvent(){
+    	var f = document.tab_content2;
+    	    	
+    	var str;
+    	$.each($("#noteListReceive tr"), function() {
+    		memberNo=$(this).attr("data-tid");
+    		str="<input type='hidden' name='memberNos' value='"+memberNo+"'>"
+    		$("form[name=tab_content2]").append(str);
+        });
+    	
+    	 f.action="<%=cp%>/event/${url}";
+    	 f.submit();
+    }
     
+    
+ // 참석자 리스트 추가하기
+    function sendNoteOk() {
+    	var chks = $("#noteListReceive input[type=checkbox]");
+    	if(chks.length==0) {
+    		alert("선택한 참석자가 없습니다.");
+    		return;
+    	}
+    	
+    	var url="<%=cp%>/event/insertAttend/${url}";
+    	var params="eventNo="+eventNo;
+    	$.each($(chks), function() {
+    		params += "&memberNos="+$(this).val();
+    	});
+      	
+        $.ajax({
+        	type:"POST",
+        	url:url,
+        	data:params,
+        	dataType:"json",
+        	success:function(data){
+           
+        		$("#noteContent").val("");
+        		$('#noteLeftAllMoveButton').trigger('click');
+        		alert("메시지를 전송 했습니다.");
+        	},
+        	error:function(e) {
+        		alert(e.responseText);
+        	}
+        });
+    }
     
     function eventModal(eventNo, eventName, content, eventPlace, fromDate, toDate, fromTime, toTime, eventType, eventFee) {	
     	$("#modalEventNo").text(eventNo);
@@ -176,16 +222,6 @@ $(function(){
 			$('input:text[id="modalEventFee"]').removeAttr('disabled');
 		}
 			
-		
-		/* if(eventType=="1"){
-			alert("1번이에요");
-			$('input[name="mEventType"]:radio[value="1"]').attr('checked',true);
-		}else if(eventType=="2"){
-			alert("2번이에요");
-			$('input[name="mEventType"]:radio[value="2"]').attr('checked',true);
-		}
-		 */
-		// alert($("#mEventType1"));
 		 
 		 // 라디오버튼 : 정기/비정기 선택 되도록
 		 $("input[name=mEventType]").each(function(){
@@ -194,69 +230,7 @@ $(function(){
 		 });
 		 
 		 
-		 //$("#mEventType1").checked=true;
-		// $("#mEventType1").attr({checked: "true"});
-		 
-		//$('input:radio[name=mEventType]:input[value=eventType]').attr("checked");
-		/*  
-		switch(eventType) {
-		case 1:
-			//$('input[name="mEventType"]:radio[value="1"]').prop('checked',true);
-			//$('input:radio[name="mEventType"]:radio[value="1"]').attr('checked',true);
-			break;
-		case 2:
-			$('input:radio[name=mEventType]:input[value=eventType]').attr("checked", true);
-			//$('input[name="mEventType"]:radio[value="2"]').prop('checked',true);
-			//$('input:radio[name="mEventType"]:radio[value="2"]').attr('checked',true);
-			break;
-		} */
-
 		
-		
-		/* $("#hiddenMemberNo").val(memberNo);	
-    	$("#modalName").text(name);
-    	$("#modalRename").val(name);
-    	
-    	if(userId == "") {
-    		$("#modalUserId").text("커뮤니티 미가입"); 				
-    	} else {
-    		$("#modalUserId").text(userId);
-    	}
-    	$("#hiddenUserId").val(userId);
-    	
-    	if(gender == 1) {
-    		$("#modalGender").text("남성")
-    	} else {
-    		$("#modalGender").text("여성")
-    	}
-    	
-    	$("#modalBirth").val(birth);
-    	$("#modalAddress").val(address);
-    	$("#modalEmail").val(email);
-    	$("#modalTel").val(tel);
-    	$("#modalJoinDate").val(joinDate);	
-    	
-    	switch(grade) {
-    		case '1':
-    			$("#modalGrade").text("그룹장");
-    			break;
-    		case '2':
-    			$("#modalGrade").text("운영진");
-    			break;
-    		case '3':
-    			$("#modalGrade").text("일반회원");
-    			break;
-    		case '4':
-    			$("#modalGrade").text("OB회원");
-    			break;
-    		case '5':
-    			$("#modalGrade").text("비활동회원");
-    			break;
-    		default:
-    			$("#modalGrade").text("일반회원");
-    			break;	
-    	}
-    	 */
     	$("#eventModal").modal("show");
     }
     
@@ -903,10 +877,12 @@ $(function(){
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                           <button type="reset" class="btn btn-primary">취소</button>
-                          <button type="submit" class="btn btn-success" 
-                          	onclick="javascript:location.href='<%=cp%>/event/{url}';">등록</button>
+                          <button type="button" class="btn btn-success" 
+                          	onclick="submitEvent();">등록</button>
                         </div>
                       </div>
+                      
+						<input type="hidden" name="eventNo">
 
                     </form>
                     
