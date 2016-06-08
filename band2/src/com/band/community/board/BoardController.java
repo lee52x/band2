@@ -3,6 +3,7 @@ package com.band.community.board;
 import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -136,6 +137,17 @@ public class BoardController {
 		dto.setUserId(info.getUserId());
 		
 		service.insertBoard(dto, path);
+		
+		String content=dto.getContent().substring(dto.getContent().indexOf("#"));
+		content=content.substring(0, content.indexOf("</"));
+		String[] hashName= content.split("#");
+		for(int i=0; i<hashName.length; i++){
+			if(i==0)
+				continue;
+			
+			service.insertHash(hashName[i]);
+		}
+		
 
 		return new ModelAndView("redirect:/community/board/{url}");
 	}
