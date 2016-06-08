@@ -41,7 +41,7 @@ function sendGuest() {
 	var uid="${sessionScope.main.userId}";
 	if(! uid) {
 		alert("로그인이 필요 합니다.");
-		return false;
+		return location.href="<%=cp%>/group/${url}";;
 	}
 	
 	var content=$.trim($("#content").val());

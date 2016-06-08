@@ -7,8 +7,8 @@
 	   VALUES (guestBook_seq.NEXTVAL, #{memberNo}, #{content})
 	</insert>
 	
-	<select id="dataCount" resultType="Integer" >
-	   SELECT NVL(COUNT(*), 0) FROM guestBook_${url}
+	<select id="dataCount" resultType="Integer" parameterType="String">
+	   SELECT NVL(COUNT(*), 0) FROM guestBook_${value}
 	</select>
 	
 	<select id="listGuest" resultType="com.band.community.guest.Guest" 

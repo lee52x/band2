@@ -33,6 +33,7 @@ public class GuestController {
 			) {
 		ModelAndView mav=new ModelAndView(".community.guest.guest");
 		mav.addObject("subMenu", "1");
+		mav.addObject("url", url);
 		return mav;
 	}
 	
