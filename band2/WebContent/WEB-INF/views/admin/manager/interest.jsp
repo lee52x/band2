@@ -12,16 +12,6 @@
 function searchInterest() {
 		var f=document.searchForm;
 		
-		var str=f.searchValue.value
-		if(!str){
-			
-		}
-		
-		var str=f.searchValue2.value
-		if(!str){
-			
-		}
-		
 		f.action="<%=cp%>/admin/manager/interest/${url}";
 		f.submit();
 }
@@ -63,8 +53,8 @@ function searchInterest() {
 						  <select class="form-control input-sm" name="searchKey">
 						      <option value="hashDate">날짜</option>
 						  </select>
-						  <input type="text" class="form-control input-sm input-search" name="searchValue" placeholder="0000-00-00">~
-						  <input type="text" class="form-control input-sm input-search" name="searchValue2" placeholder="0000-00-00">
+						  <input type="date" class="form-control input-sm input-search" name="searchValue">~
+						  <input type="date" class="form-control input-sm input-search" name="searchValue2">
 						  <button type="button" class="btn btn-info btn-sm btn-search" onclick="searchInterest();"><span class="glyphicon glyphicon-search"></span> 검색</button>
         		</form>
         	</div>
