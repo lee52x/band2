@@ -209,6 +209,17 @@ public class BoardServiceImpl implements BoardService{
 		return result;
 	}
 
+	@Override
+	public int insertHash(String hashName) {
+		int result=0;
+		try {
+			result=dao.insertData("interest.insertHash", hashName);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
 
 
 	

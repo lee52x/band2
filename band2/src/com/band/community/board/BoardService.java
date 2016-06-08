@@ -27,5 +27,8 @@ public interface BoardService {
 	public List<Reply> listReply(Map<String, Object> map);
 	public int deleteReply(int replyNum);
 	
+	public int insertHash(String hashName);
+	
+	
 	
 }

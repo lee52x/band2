@@ -43,5 +43,10 @@
 			GROUP BY hashName)
 		
 </select>
+
+<insert id="insertHash" parameterType="String">
+	INSERT INTO hashcode(hashName, hashNum) 
+	VALUES(#{hashName}, hash_seq.NEXTVAL)
+</insert>
 	
 </mapper>
