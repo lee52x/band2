@@ -12,7 +12,6 @@ public class Board {
 	private String saveFilename;
 	private String originalFilename;
 	
-	
 	public int getMemberNo() {
 		return memberNo;
 	}
