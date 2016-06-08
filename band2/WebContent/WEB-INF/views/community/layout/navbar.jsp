@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<%=cp%>/guest/list/${url}">
+                    <a href="<%=cp%>/community/guest/${url}">
                         <i class="pe-7s-news-paper"></i>
                         <p>방명록</p>
                     </a>
@@ -50,13 +50,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<%=cp%>/community/note/${url}">
                         <i class="pe-7s-map-marker"></i>
                         <p>쪽지</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<%=cp%>/community/chat/${url}">
                         <i class="pe-7s-bell"></i>
                         <p>채팅</p>
                     </a>
