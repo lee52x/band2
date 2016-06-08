@@ -115,7 +115,12 @@
 	
 	<!-- 회비 있는 일정 -->
 	<select id="eventList" parameterType="map" resultType="com.band.account.Event">
-		select eventNo, eventName, eventFee from event_test where eventFee is not null AND eventComplete='N'
+		SELECT rownum num, tb.* FROM (
+			SELECT eventNo, eventName, eventFee
+			FROM event_test 
+			WHERE eventFee is not null AND eventComplete='N'
+			ORDER BY eventNo desc
+		)tb
 	</select>
 	
 	
@@ -188,5 +193,6 @@
         		FROM accounting_${url} act JOIN event_${url} evt ON act.eventNo=evt.eventName
 			) tb
 		)GROUP BY eventNo, eventName
+		order by transactionNo
 	</select>
 </mapper>
