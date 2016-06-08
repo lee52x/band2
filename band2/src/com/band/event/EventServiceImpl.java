@@ -46,7 +46,10 @@ public class EventServiceImpl implements EventService{
 			dao.insertData("event.insertEvent", dto);
 			
 			result=1;
-			
+			//eventNo 들어가게 하는 방법!!
+			/*1. mapper를 새로 짠다. select eventNo 가장 최근 값만 가져오는걸로!
+			2. 그 mapper를 실행한다음.
+			3. dto.setEventNo(dto) 실행하여 보내준다.*/
 			if(!dto.getMemberNos().isEmpty()){
 				for(Integer memberNo : dto.getMemberNos()){
 					dto.setMemberNo(memberNo);
