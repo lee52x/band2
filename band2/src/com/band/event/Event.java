@@ -1,11 +1,32 @@
 package com.band.event;
 
+import java.util.List;
+
 public class Event {
 	private int eventNo;
 	private String eventName, content, eventPlace, fromDate, toDate, fromTime, toTime;
 	private int eventType;
 	private String url, fullDate, eventFee, eventComplete;
 	
+	private List<Integer> memberNos;
+	private int memberNo;
+
+
+	
+	
+	
+	public List<Integer> getMemberNos() {
+		return memberNos;
+	}
+	public void setMemberNos(List<Integer> memberNos) {
+		this.memberNos = memberNos;
+	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
 	public String getEventComplete() {
 		return eventComplete;
 	}
