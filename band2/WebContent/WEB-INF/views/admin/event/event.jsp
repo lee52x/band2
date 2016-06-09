@@ -14,13 +14,15 @@
     <%-- <link href="<%=cp%>/res/css/schedule/normalize.css" rel="stylesheet"> --%>
     
     <!-- list (일정 조회/ 상세 조회) 출력 관련 css -->
-    
     <link href="<%=cp%>/res/css/admin/dataTables.bootstrap.css" rel="stylesheet">
 	<link href="<%=cp%>/res/css/admin/buttons.bootstrap.css" rel="stylesheet">
 	<link href="<%=cp%>/res/css/admin/fixedHeader.bootstrap.min.css" rel="stylesheet">
 	<link href="<%=cp%>/res/css/admin/responsive.bootstrap.min.css" rel="stylesheet">
 	<link href="<%=cp%>/res/css/admin/scroller.bootstrap.min.css" rel="stylesheet">
 	
+    <!-- FullCalendar -->
+    <link href="<%=cp%>/res/css/admin/fullcalendar.css" rel="stylesheet">
+    <link href="<%=cp%>/res/css/admin/fullcalendar.print.css" rel="stylesheet" media="print">
     
     <!-- Custom Theme Style -->
     <link href="<%=cp%>/res/css/admin/custom.css" rel="stylesheet">
@@ -416,7 +418,7 @@ $(function(){
     
     
 
-   <div class="">
+
    <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
          <div class="x_title">
@@ -449,7 +451,7 @@ $(function(){
                      aria-expanded="false">일정 등록</a></li>
                   <li role="presentation" class=""><a href="#tab_content3"
                      role="tab" id="profile-tab2" data-toggle="tab"
-                     aria-expanded="false">일정 상세 관리</a></li>                  
+                     aria-expanded="false">달력 조회</a></li>                  
                </ul>
                
                
@@ -894,502 +896,128 @@ $(function(){
                   
                   
 <!-- 탭3 시작 -->                  
-                  <div role="tabpanel" class="tab-pane fade" id="tab_content3"
-                     aria-labelledby="profile-tab">
-                     <div class="x_content">
-                  
-                  
-                  <!-- 시작 : 캘린더 퍼오기 -->
-                      <div class="form-group">
-                      	  <label style="width:80px;" class="control-label col-md-3 col-sm-3 col-xs-12">날짜 검색</label>
-                      	  <div class="col-md-9 col-sm-9 col-xs-12">
-	                           <fieldset>
-			                          <div class="control-group">
-			                            <div class="controls">
-			                              <div style="width: 200px;" class="col-md-11 xdisplay_inputx form-group has-feedback">
-			                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="First Name" aria-describedby="inputSuccess2Status2">
-			                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-			                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-			                              </div>
-			                              
-			                            </div>
-			                            <button type="submit" class="btn btn-success">검색</button>
-			                          </div>
-							  </fieldset>
-					      </div>
-                      </div>
-                      <!-- 끝 : 캘린더 퍼오기 -->
-                  
-                  
-                  
-                  
-				 
-				 <table class="table">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>날짜</th>
-                          <th>시간</th>
-                          <th>일정명</th>
-                          <th>회비여부</th>
-                          <th>참석자수</th>                     
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>2016/01/23 ~<br>2016/01/24</td>
-                          <td>14:00 ~ 16:00</td>
-                          <td>축제</td>
-                          <td>●</td>
-                          <td>43/50</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>2016/03/25</td>
-                          <td>18:00 ~ 20:00</td>
-                          <td>정기모임</td>
-                          <td></td>
-                          <td>17/50</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>2016/05/22</td>
-                          <td>18:00 ~ 20:00</td>
-                          <td>5월 생일 파티</td>
-                          <td></td>
-                          <td>40/50</td>
-                        </tr>
-                      </tbody>
-                    </table>
 
+     <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profiletab">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+				                    <h2>Calendar Events <small>Sessions</small></h2>
+				                    <ul class="nav navbar-right panel_toolbox">
+				                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+				                      </li>
+				                      <li class="dropdown">
+				                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+				                        <ul class="dropdown-menu" role="menu">
+				                          <li><a href="#">Settings 1</a>
+				                          </li>
+				                          <li><a href="#">Settings 2</a>
+				                          </li>
+				                        </ul>
+				                      </li>
+				                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+				                      </li>
+				                    </ul>
+				                    <div class="clearfix"></div>
+				                </div>
+								<div class="x_content">
+			                      <div id='calendar'></div>
+			                    </div>
+							</div>
+						</div>
+     </div>
+            
+            
+            
+    <!-- calendar modal -->
+    <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel">New Calendar Entry</h4>
+          </div>
+          <div class="modal-body">
+            <div id="testmodal" style="padding: 5px 20px;">
+              <form id="antoform" class="form-horizontal calender" role="form">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Title</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title" name="title">
                   </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Description</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" style="height:55px;" id="descr" name="descr"></textarea>
                   </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary antosubmit">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel2">Edit Calendar Entry</h4>
+          </div>
+          <div class="modal-body">
+
+            <div id="testmodal2" style="padding: 5px 20px;">
+              <form id="antoform2" class="form-horizontal calender" role="form">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Title</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title2" name="title2">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Description</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" style="height:55px;" id="descr2" name="descr"></textarea>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
+    <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
+    <!-- /calendar modal -->
+                  <!-- 퍼온거 끝-->
+
+
+                  
+                  
                   
 <!-- 탭3 끝 -->
                </div>
             </div>
-
          </div>
       </div>
    </div>
-   <div class="clearfix"></div>
-</div>   
+<div class="clearfix"></div>
 
-
-
-
-
-
-
-
-
-<!--         	<div style="height: 2000px;"><div class="col-md-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>일정등록하기 <small>register schedule form</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br />
-                    <form class="form-horizontal form-label-left">
-
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">일정명</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="일정명을 입력하세요.">
-                        </div>
-                      </div>
-                      
-                      
-                      
-                      
-                      
-                      시작 : 캘린더 퍼오기
-                      <div class="form-group">
-                      	  <label class="control-label col-md-3 col-sm-3 col-xs-12">일정날짜</label>
-                      	  <div class="col-md-9 col-sm-9 col-xs-12">
-	                          <fieldset>
-						       <div class="control-group">
-						          <div class="controls">
-						               <div class="input-prepend input-group">
-						                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-						                    <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="03/18/2013 - 03/23/2013" />
-						               </div>
-						          </div>
-						       </div>
-						      </fieldset>
-					      </div>
-                      </div>
-                      끝 : 캘린더 퍼오기
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3">시작 시간</label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                          <input style="width:60px;" type="text" class="form-control" data-inputmask="'mask': '99:99'">
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3">종료 시간</label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                          <input style="width:60px;" type="text" class="form-control" data-inputmask="'mask': '99:99'">
-                        </div>
-                      </div> 
-                      
-                      
-                       <div class="form-group">
-                        <label class="col-md-3 col-sm-3 col-xs-12 control-label">구분
-                          <br>
-                          <small class="text-navy">정기/비정기 모임 선택</small>
-                        </label>
-
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" checked name="iCheck"> 정기
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" name="iCheck"> 비정기
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                     
-                     
-                     
-                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">모임장소</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="장소를 입력하세요.">
-                        </div>
-                      </div>
-                     
-                     
-                     
-                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3">회비</label>
-                        <div  style="width:200px;" class="col-md-9 col-sm-9 col-xs-9">
-                          <input type="text" class="form-control" data-inputmask="'mask': '99,999'">
-                          <span class="fa fa-leaf form-control-feedback right" aria-hidden="true"></span>
-                        </div>
-                      </div>
-                     
-                      
-                      
-                      
-                     나머지 form_basic 태그들
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Read-Only Input</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" readonly="readonly" placeholder="Read-Only Input">
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <textarea class="form-control" rows="3" placeholder='rows="3"'></textarea>
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="password" class="form-control" value="passwordonetwo">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">AutoComplete</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" name="country" id="autocomplete-custom-append" class="form-control col-md-10" style="float: left;" />
-                          <div id="autocomplete-container" style="position: relative; float: left; width: 400px; margin: 10px;"></div>
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="form-control">
-                            <option>Choose option</option>
-                            <option>Option one</option>
-                            <option>Option two</option>
-                            <option>Option three</option>
-                            <option>Option four</option>
-                          </select>
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Custom</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="select2_single form-control" tabindex="-1">
-                            <option></option>
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
-                            <option value="CA">California</option>
-                            <option value="NV">Nevada</option>
-                            <option value="OR">Oregon</option>
-                            <option value="WA">Washington</option>
-                            <option value="AZ">Arizona</option>
-                            <option value="CO">Colorado</option>
-                            <option value="ID">Idaho</option>
-                            <option value="MT">Montana</option>
-                            <option value="NE">Nebraska</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="UT">Utah</option>
-                            <option value="WY">Wyoming</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TX">Texas</option>
-                          </select>
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Grouped</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="select2_group form-control">
-                            <optgroup label="Alaskan/Hawaiian Time Zone">
-                              <option value="AK">Alaska</option>
-                              <option value="HI">Hawaii</option>
-                            </optgroup>
-                            <optgroup label="Pacific Time Zone">
-                              <option value="CA">California</option>
-                              <option value="NV">Nevada</option>
-                              <option value="OR">Oregon</option>
-                              <option value="WA">Washington</option>
-                            </optgroup>
-                            <optgroup label="Mountain Time Zone">
-                              <option value="AZ">Arizona</option>
-                              <option value="CO">Colorado</option>
-                              <option value="ID">Idaho</option>
-                              <option value="MT">Montana</option>
-                              <option value="NE">Nebraska</option>
-                              <option value="NM">New Mexico</option>
-                              <option value="ND">North Dakota</option>
-                              <option value="UT">Utah</option>
-                              <option value="WY">Wyoming</option>
-                            </optgroup>
-                            <optgroup label="Central Time Zone">
-                              <option value="AL">Alabama</option>
-                              <option value="AR">Arkansas</option>
-                              <option value="IL">Illinois</option>
-                              <option value="IA">Iowa</option>
-                              <option value="KS">Kansas</option>
-                              <option value="KY">Kentucky</option>
-                              <option value="LA">Louisiana</option>
-                              <option value="MN">Minnesota</option>
-                              <option value="MS">Mississippi</option>
-                              <option value="MO">Missouri</option>
-                              <option value="OK">Oklahoma</option>
-                              <option value="SD">South Dakota</option>
-                              <option value="TX">Texas</option>
-                              <option value="TN">Tennessee</option>
-                              <option value="WI">Wisconsin</option>
-                            </optgroup>
-                            <optgroup label="Eastern Time Zone">
-                              <option value="CT">Connecticut</option>
-                              <option value="DE">Delaware</option>
-                              <option value="FL">Florida</option>
-                              <option value="GA">Georgia</option>
-                              <option value="IN">Indiana</option>
-                              <option value="ME">Maine</option>
-                              <option value="MD">Maryland</option>
-                              <option value="MA">Massachusetts</option>
-                              <option value="MI">Michigan</option>
-                              <option value="NH">New Hampshire</option>
-                              <option value="NJ">New Jersey</option>
-                              <option value="NY">New York</option>
-                              <option value="NC">North Carolina</option>
-                              <option value="OH">Ohio</option>
-                              <option value="PA">Pennsylvania</option>
-                              <option value="RI">Rhode Island</option>
-                              <option value="SC">South Carolina</option>
-                              <option value="VT">Vermont</option>
-                              <option value="VA">Virginia</option>
-                              <option value="WV">West Virginia</option>
-                            </optgroup>
-                          </select>
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Multiple</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="select2_multiple form-control" multiple="multiple">
-                            <option>Choose option</option>
-                            <option>Option one</option>
-                            <option>Option two</option>
-                            <option>Option three</option>
-                            <option>Option four</option>
-                            <option>Option five</option>
-                            <option>Option six</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="control-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Input Tags</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input id="tags_1" type="text" class="tags form-control" value="social, adverts, sales" />
-                          <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="col-md-3 col-sm-3 col-xs-12 control-label">Checkboxes and radios
-                          <br>
-                          <small class="text-navy">Normal Bootstrap elements</small>
-                        </label>
-
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" value=""> Option one. select more than one options
-                            </label>
-                          </div>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" value=""> Option two. select more than one options
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios"> Option one. only select one option
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios"> Option two. only select one option
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="col-md-3 col-sm-3 col-xs-12 control-label">Checkboxes and radios
-                          <br>
-                          <small class="text-navy">Normal Bootstrap elements</small>
-                        </label>
-
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" class="flat" checked="checked"> Checked
-                            </label>
-                          </div>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" class="flat"> Unchecked
-                            </label>
-                          </div>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" class="flat" disabled="disabled"> Disabled
-                            </label>
-                          </div>
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox" class="flat" disabled="disabled" checked="checked"> Disabled & checked
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" checked name="iCheck"> Checked
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" name="iCheck"> Unchecked
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" name="iCheck" disabled="disabled"> Disabled
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" class="flat" name="iCheck3" disabled="disabled" checked> Disabled & Checked
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Switch</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <div class="">
-                            <label>
-                              <input type="checkbox" class="js-switch" checked /> Checked
-                            </label>
-                          </div>
-                          <div class="">
-                            <label>
-                              <input type="checkbox" class="js-switch" /> Unchecked
-                            </label>
-                          </div>
-                          <div class="">
-                            <label>
-                              <input type="checkbox" class="js-switch" disabled="disabled" /> Disabled
-                            </label>
-                          </div>
-                          <div class="">
-                            <label>
-                              <input type="checkbox" class="js-switch" disabled="disabled" checked="checked" /> Disabled Checked
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">초기화</button>
-                          <button type="submit" class="btn btn-success">등록</button>
-                        </div>
-                      </div>
-
-                    </form>
-                  </div>
-                </div>
-              </div></div> -->
      
     <!-- 시작 : 이벤트 상세정보 모달 -->
 	<script src="<%=cp%>/res/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>  
@@ -1761,3 +1389,115 @@ $(function(){
       });
 	</script>
     <!-- 끝 : list 출력 관련 script -->
+    
+    
+    
+    
+    
+<!-- 시작 : 탭3 Full Calendar 를 위한 스크립트 -->
+    <!-- FastClick -->
+    <script src="<%=cp%>/res/js/admin/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="<%=cp%>/res/js/admin/nprogress.js"></script>
+    <!-- FullCalendar -->
+    <script src="<%=cp%>/res/js/admin/fullcalendar.js"></script>
+    
+        <!-- FullCalendar -->
+    <script>
+      $(window).load(function() {
+        var date = new Date(),
+            d = date.getDate(),
+            m = date.getMonth(),
+            y = date.getFullYear(),
+            started,
+            categoryClass;
+
+        var calendar = $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+          },
+          selectable: true,
+          selectHelper: true,
+          select: function(start, end, allDay) {
+            $('#fc_create').click();
+
+            started = start;
+            ended = end;
+
+            $(".antosubmit").on("click", function() {
+              var title = $("#title").val();
+              if (end) {
+                ended = end;
+              }
+
+              categoryClass = $("#event_type").val();
+
+              if (title) {
+                calendar.fullCalendar('renderEvent', {
+                    title: title,
+                    start: started,
+                    end: end,
+                    allDay: allDay
+                  },
+                  true // make the event "stick"
+                );
+              }
+
+              $('#title').val('');
+
+              calendar.fullCalendar('unselect');
+
+              $('.antoclose').click();
+
+              return false;
+            });
+          },
+          eventClick: function(calEvent, jsEvent, view) {
+            $('#fc_edit').click();
+            $('#title2').val(calEvent.title);
+
+            categoryClass = $("#event_type").val();
+
+            $(".antosubmit2").on("click", function() {
+              calEvent.title = $("#title2").val();
+
+              calendar.fullCalendar('updateEvent', calEvent);
+              $('.antoclose2').click();
+            });
+
+            calendar.fullCalendar('unselect');
+          },
+          editable: true,
+          events: [{
+            title: 'All Day Event',
+            start: new Date(y, m, 1)
+          }, {
+            title: 'Long Event',
+            start: new Date(y, m, d - 5),
+            end: new Date(y, m, d - 2)
+          }, {
+            title: 'Meeting',
+            start: new Date(y, m, d, 10, 30),
+            allDay: false
+          }, {
+            title: 'Lunch',
+            start: new Date(y, m, d + 14, 12, 0),
+            end: new Date(y, m, d, 14, 0),
+            allDay: false
+          }, {
+            title: 'Birthday Party',
+            start: new Date(y, m, d + 1, 19, 0),
+            end: new Date(y, m, d + 1, 22, 30),
+            allDay: false
+          }, {
+            title: 'Click for Google',
+            start: new Date(y, m, 28),
+            end: new Date(y, m, 29),
+            url: 'http://google.com/'
+          }]
+        });
+      });
+    </script>
+<!-- 끝 : 탭3 Full Calendar 를 위한 스크립트 -->
