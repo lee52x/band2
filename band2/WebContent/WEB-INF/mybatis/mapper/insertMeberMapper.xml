@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="insertMember">
+	<!-- 커뮤니티 회원가입 & 운영진의 회원정보 입력 -->
+	<insert id="insertMember" parameterType="com.band.member.insertMember.Member">
+		INSERT INTO member_${url}(memberNo, userId, pwd, email, birth, name, tel, gender, address, grade, joinDate,groupUrl,cjoinDate)
+		VALUES(member_seq.NEXTVAL, #{userId, jdbcType = VARCHAR}, #{pwd}, #{email}, #{birth}, #{name}, #{tel,jdbcType = VARCHAR}, #{gender}, #{address,jdbcType = VARCHAR}, 3, #{joinDate,jdbcType = VARCHAR},#{url},#{cjoinDate,jdbcType = VARCHAR})     
+	</insert>
+	
+	<!-- 회원정보 보기  -->
+	<select id="readDetailMember" parameterType="map" resultType="com.band.member.insertMember.Member">
+		SELECT memberNo, userId, pwd, name, email, TO_CHAR(birth, 'YYYY-MM-DD') birth, tel, address, gender, grade, groupURL,
+		 		TO_CHAR(joinDate, 'YYYY-MM-DD') joinDate
+		FROM member_${url}
+		WHERE memberNo = #{memberNo}
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<update id="updateMember" parameterType="com.band.member.insertMember.Member">
+		UPDATE member_${url} SET pwd = #{pwd}, email = #{email}, birth = #{birth}, tel = #{tel}, 
+		
+							address = #{address}, gender = #{gender}
+		WHERE memberNo = #{memberNo}
+	</update>
+	
+	
+</mapper>

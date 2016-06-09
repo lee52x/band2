@@ -88,7 +88,7 @@ a:hover{
 										<button type="submit" class="btn">로 그 인</button>
 									</form>
 								</div>
-								<a href="#">회원 가입</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">아이디 찾기</a>
+								<a href="<%=cp%>/insertMember/${url}">회원 가입</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">아이디 찾기</a>
 							</div>
 						</div>
 
