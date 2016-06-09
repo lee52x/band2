@@ -1,8 +1,8 @@
 package com.band.account;
 
 public class Event {
-	private int eventNo, num;
-	private String eventName, eventFee;
+	private int eventNo, num, grade, memberNo;
+	private String eventName, fee, name, tel, email, eventFee, todate, url;
 	
 	public int getEventNo() {
 		return eventNo;
@@ -22,12 +22,61 @@ public class Event {
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public String getFee() {
+		return fee;
+	}
+	public void setFee(String fee) {
+		this.fee = fee;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getEventFee() {
 		return eventFee;
 	}
 	public void setEventFee(String eventFee) {
 		this.eventFee = eventFee;
 	}
+	public String getTodate() {
+		return todate;
+	}
+	public void setTodate(String todate) {
+		this.todate = todate;
+	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
 	
 	
 }

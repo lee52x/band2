@@ -41,6 +41,6 @@
     </div>
 
     <script src="<%=cp%>/res/js/admin/custom.js"></script>    
-    <script src="<%=cp%>/res/js/bootstrap.js"></script>    
+    <script src="<%=cp%>/res/js/bootstrap.js"></script>   
   </body>
 </html>

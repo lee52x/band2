@@ -117,7 +117,7 @@
 	<select id="eventList" parameterType="map" resultType="com.band.account.Event">
 		SELECT rownum num, tb.* FROM (
 			SELECT eventNo, eventName, eventFee
-			FROM event_test 
+			FROM event_${url}
 			WHERE eventFee is not null AND eventComplete='N'
 			ORDER BY eventNo desc
 		)tb
@@ -195,4 +195,48 @@
 		)GROUP BY eventNo, eventName
 		order by transactionNo
 	</select>
+	
+	
+	<!-- ******************************************************* -->
+	<!-- ******************************************************* -->
+	
+	<!-- 첫번째 일정 -->
+	<select id="firstEventNo" parameterType="map" resultType="com.band.account.Event">
+		SELECT rownum num, tb.* FROM (
+			SELECT eventNo
+			FROM event_${url}
+			WHERE eventFee is not null AND eventComplete='N'
+			ORDER BY eventNo desc
+		)tb WHERE rownum = 1
+	</select>
+	
+	<!-- 일정별 회원 리스트 -->
+	<select id="feeMember" parameterType="map" resultType="com.band.account.Event">
+	SELECT evt.eventNo, att.memberNo, Fee, name, grade, tel, email
+	FROM eventattend_${url} att JOIN event_${url} evt ON att.eventNo=evt.eventNo
+                          	  JOIN member_${url} mem ON att.memberNo=mem.memberNo
+	WHERE evt.eventNo=#{eventNo}
+	</select>
+	
+	<!-- 상세 일정 정보 -->
+	<select id="datailEvent" parameterType="map" resultType="com.band.account.Event">
+	SELECT evt.eventNo, eventName, eventFee, TO_CHAR(todate, 'YYYY-MM-DD') todate
+	FROM event_${url} evt
+	WHERE eventFee is not null AND eventComplete='N' AND evt.eventNo=#{eventNo}
+	</select>
+	
+	<!-- 회비 납부율 -->
+	<select id="feeRatio" parameterType="map" resultType="Integer">
+	SELECT (SELECT COUNT(*) FROM  eventattend_${url} WHERE eventNo=#{eventNo} AND fee='Y') 
+	/ (SELECT COUNT(*) FROM  eventattend_${url} WHERE eventNo=#{eventNo}) * 100 num FROM dual
+	</select>
+	
+	<!-- 납부상태 수정 -->
+	<update id="updateFee" parameterType="com.band.account.Event">
+	UPDATE eventattend_${url} SET fee = 'Y' WHERE memberNo=#{memberNo} AND eventNo=#{eventNo}
+	</update>
+	<update id="updateFeeN" parameterType="com.band.account.Event">
+	UPDATE eventattend_${url} SET fee = 'N' WHERE memberNo=#{memberNo} AND eventNo=#{eventNo}
+	</update>
+
 </mapper>

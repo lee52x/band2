@@ -7,4 +7,12 @@ import com.band.account.Event;
 
 public interface FeeService {
 	public List<Event> eventList(Map<String, Object> map);
+	public List<Event> memberList(Map<String, Object> map);
+	
+	public Event firstEvent(Map<String, Object> map);
+	public Event datailEvent(Map<String, Object> map);
+	public int feeRatio(Map<String, Object> map);
+	
+	public int updateFee(Event dto);
+	public int updateFeeN(Event dto);
 }
