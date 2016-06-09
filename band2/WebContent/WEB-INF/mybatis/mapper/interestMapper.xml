@@ -4,10 +4,8 @@
 <mapper namespace="interest">
 
 <sql id="where-list">
-		<if test="searchKey=='hashDate' ">
-			TO_DATE(TO_CHAR(hashDate, 'YYYY-MM-DD'), 'YYYY-MM-DD') &lt; TO_DATE(#{searchValue}, 'YYYY-MM-DD')
-			TO_DATE(TO_CHAR(hashDate, 'YYYY-MM-DD'), 'YYYY-MM-DD') &gt; TO_DATE(#{searchValue2}, 'YYYY-MM-DD')
-		</if>
+			TO_DATE(TO_CHAR(hashDate, 'YYYY-MM-DD'), 'YYYY-MM-DD') &lt; TO_DATE(#{searchValue2}, 'YYYY-MM-DD') AND
+			TO_DATE(TO_CHAR(hashDate, 'YYYY-MM-DD'), 'YYYY-MM-DD') &gt; TO_DATE(#{searchValue}, 'YYYY-MM-DD')
 </sql>
 
 
@@ -18,7 +16,7 @@
 			SELECT hashName, count(*) hashCount
 			FROM hashcode
 			<where>
-				<if test="searchValue != null and searchValue!=''  ">
+				<if test="searchValue != null and searchValue!='' and searchValue2 != null and searchValue2!='' ">
 					<include refid="where-list"/>
 				</if>
 			</where>
@@ -36,7 +34,7 @@
 			SELECT hashName 
 			FROM hashcode 
 			<where>
-				<if test="searchValue != null and searchValue!=''  ">
+				<if test="searchValue != null and searchValue!='' and searchValue2 != null and searchValue2!=''">
 					<include refid="where-list"/>
 				</if>
 			</where>

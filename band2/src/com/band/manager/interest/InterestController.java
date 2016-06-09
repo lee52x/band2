@@ -46,6 +46,9 @@ public class InterestController {
 		int dataCount=0;
 		
 		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("searchKey", searchKey);
+		map.put("searchValue", searchValue);
+		map.put("searchValue2", searchValue2);
 		dataCount=service.dataCount(map);
 		
 		if(dataCount!=0){
@@ -77,9 +80,6 @@ public class InterestController {
 		ModelAndView mav=new ModelAndView(".admin.manager.interest");
 		
 		mav.addObject("url",url);
-		mav.addObject("searchValue", searchValue);
-		mav.addObject("searchValue2", searchValue2);
-		mav.addObject("searchKey", searchKey);
 		mav.addObject("list", list);
 		mav.addObject("pageNo", current_page);
 		mav.addObject("listNum", listNum);
