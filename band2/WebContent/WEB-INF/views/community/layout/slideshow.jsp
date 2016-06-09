@@ -17,24 +17,22 @@
                </ol>
                <!-- Wrapper for slides -->
                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
+                  <div class="item active" style="background-repeat:no-repeat; background-image: url(<%=cp%>/uploads/management/${pdto.saveFilename});
+                     background-size: 100% 400px;">
                      <div class="carousel-caption">
-                        <h3>첫번째 사진</h3>
+           	           <h3>대표 사진</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                      </div>
                   </div>
-                  <div class="item">
-                     <div class="carousel-caption">
-                        <h3>First slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                     </div>
-                  </div>
-                  <div class="item">
-                     <div class="carousel-caption">
-                        <h3>First slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                     </div>
-                  </div>
+               	<c:forEach items="${plist}" var="dto">
+               		<div class="item" style="background-image: url(<%=cp%>/uploads/management/${dto.saveFilename}); background-repeat:no-repeat;
+               		 background-size: 100% 400px;">
+               			<div class="carousel-caption">
+                        	<h3>세번째 사진</h3>
+                        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                     	</div>
+                  	</div>
+               	</c:forEach>
                </div>
                <!-- Controls -->
                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">

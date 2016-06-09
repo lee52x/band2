@@ -17,6 +17,20 @@ SELECT * FROM(
 
 </select>
 
+<select id="listCommunityNotice" parameterType="map" resultType="com.band.manager.notice.Notice">
+SELECT * FROM(
+	SELECT tb.*, ROWNUM rnum FROM(
+		SELECT noticeNo, content, created, endDate, groupURL 
+		FROM notice
+		WHERE groupURL=#{groupURL} and TO_DATE(TO_CHAR(endDate, 'YYYY-MM-DD'), 'YYYY-MM-DD')>TO_DATE(TO_CHAR(#{todate}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+		ORDER BY noticeNo DESC
+	<![CDATA[
+	    ) tb WHERE ROWNUM <= #{end}
+	) WHERE rnum >= #{start}
+	]]>
+
+</select>
+
 <insert id="insertNotice" parameterType="com.band.manager.notice.Notice">
 	  INSERT INTO notice(noticeNo, content, endDate, groupURL)
 	  VALUES (notice_seq.NEXTVAL, #{content}, TO_DATE((SUBSTR(#{noticeDate}, -10 ,10)), 'MM/DD/YYYY'), #{groupURL})

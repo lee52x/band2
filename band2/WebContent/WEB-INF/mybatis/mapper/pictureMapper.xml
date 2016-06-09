@@ -16,6 +16,14 @@
 	
 </select>
 
+<select id="listNonMainPicture" parameterType="String" resultType="com.band.manager.picture.Picture">
+	SELECT manageNo, saveFilename, image, groupURL
+	FROM management
+	WHERE groupURL=#{groupURL} and image=0
+	ORDER BY image DESC
+	
+</select>
+
 <delete id="deletePicture" parameterType="String">
 	DELETE FROM management WHERE groupURL=#{groupURL}
 </delete>
@@ -27,10 +35,10 @@
 	WHERE groupURL=#{groupURL}
 </select>
 
-<select id="readPicture" parameterType="String" resultType="com.band.manager.picture.Picture">
-	SELECT saveFilename
+<select id="readMainPicture" parameterType="String" resultType="com.band.manager.picture.Picture">
+	SELECT manageNo, saveFilename, image, groupURL
 	FROM management
-	WHERE groupURL=#{groupURL}
+	WHERE groupURL=#{groupURL} and image=1
 </select>
 
 

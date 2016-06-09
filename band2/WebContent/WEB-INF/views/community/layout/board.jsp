@@ -73,6 +73,32 @@
                                 </table>
                             </div>
                         </div>
+                        
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">공 지 사 항</h4>
+                                <p class="category">공지사항 임시 테이블</p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th style="width:calc(10%);">공지 번호</th>
+                                    	<th style="width:calc(60%);">공지 내용</th>
+                                    	<th style="width:calc(15%);">공지 날짜</th>
+                                    </thead>
+                                    <tbody>
+                                    	<c:forEach items="${nlist}" var="vo">
+                                       		<tr>
+                                        		<td>${vo.listNum}</td>
+                                        		<td>${vo.content}</td>
+                                        		<td>${vo.created}</td>
+                                        	</tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
