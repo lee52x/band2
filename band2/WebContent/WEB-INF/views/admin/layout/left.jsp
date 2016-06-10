@@ -54,18 +54,18 @@
                   </li>
                   <li><a><i class="fa fa-table"></i> 일정관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<%=cp%>/event/${url}">일정 등록</a></li>
+                      <li><a href="<%=cp%>/event/event/${url}">일정 등록</a></li>
                       <li><a href="#">일정 조회</a></li>
                       <li><a href="#">추천 모임 장소</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> 커뮤니티 관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<%=cp%>/admin/manager/picture/${url}">그룹 사진 등록</a></li>
-                      <li><a href="<%=cp%>/admin/manager/insertBoard/${url}">게시판 추가</a></li>
-                      <li><a href="<%=cp%>/admin/manager/notice/notice/${url}">공지사항 업로드</a></li>
-                      <li><a href="<%=cp%>/admin/manager/update/${url}">그룹 정보 수정</a></li>
-                      <li><a href="<%=cp%>/admin/manager/interest/${url}">우리 그룹 관심사 </a></li>
+                      <li><a href="<%=cp%>/manager/picture/${url}">그룹 사진 등록</a></li>
+                      <li><a href="<%=cp%>/manager/insertBoard/${url}">게시판 추가</a></li>
+                      <li><a href="<%=cp%>/manager/notice/notice/${url}">공지사항 업로드</a></li>
+                      <li><a href="<%=cp%>/manager/update/${url}">그룹 정보 수정</a></li>
+                      <li><a href="<%=cp%>/manager/interest/${url}">우리 그룹 관심사 </a></li>
                     </ul>
                   </li>
                 </ul>

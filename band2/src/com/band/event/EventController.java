@@ -38,7 +38,7 @@ public class EventController {
 	}
 	
 	
-	@RequestMapping(value="/event/{url}")
+	@RequestMapping(value="/event/event/{url}")
 	public ModelAndView list(
 			@PathVariable String url) throws Exception{
 		
@@ -65,7 +65,7 @@ public class EventController {
 
 		service.insertEvent(dto);
 		
-		ModelAndView mav = new ModelAndView("redirect:/event/{url}");
+		ModelAndView mav = new ModelAndView("redirect:/event/event/{url}");
 		return mav;
 	}
 	
