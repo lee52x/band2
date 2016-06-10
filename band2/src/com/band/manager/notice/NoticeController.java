@@ -31,7 +31,7 @@ public class NoticeController {
 	@Autowired
 	private MyUtil myUtil;
 	
-	@RequestMapping("/admin/manager/notice/notice/{url}")
+	@RequestMapping("/manager/notice/notice/{url}")
 	public ModelAndView readNotice(
 			HttpServletRequest req,
 			@RequestParam(value="page", defaultValue="1") int current_page,
@@ -57,7 +57,7 @@ public class NoticeController {
 		return mav;
 	}
 	
-	@RequestMapping("/admin/manager/notice/list/{url}")
+	@RequestMapping("/manager/notice/list/{url}")
 	public ModelAndView listNotice(
 			HttpServletRequest req,
 			@RequestParam(value="pageNo", defaultValue="1") int current_page,
@@ -124,7 +124,7 @@ public class NoticeController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/manager/notice/created/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/manager/notice/created/{url}", method=RequestMethod.POST)
 	public ModelAndView submitNotice(
 			@PathVariable String url,
 			Notice dto
@@ -134,11 +134,11 @@ public class NoticeController {
 		dto.setGroupURL(url);
 		service.insertNotice(dto);
 		
-		return new ModelAndView("redirect:/admin/manager/notice/notice/{url}");
+		return new ModelAndView("redirect:/manager/notice/notice/{url}");
 		
 	}
 	
-	@RequestMapping(value="/admin/manager/notice/update/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/manager/notice/update/{url}", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> updateNotice(
 			Notice dto,
@@ -154,7 +154,7 @@ public class NoticeController {
 		return map;
 	}
 	 
-	@RequestMapping(value="/admin/manager/notice/delete/{url}")
+	@RequestMapping(value="/manager/notice/delete/{url}")
 	@ResponseBody
 	public Map<String, Object> deleteNotice(
 			@RequestParam("noticeNo") int noticeNo

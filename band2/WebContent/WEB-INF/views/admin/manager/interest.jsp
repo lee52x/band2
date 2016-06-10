@@ -12,7 +12,7 @@
 function searchInterest() {
 		var f=document.searchForm;
 		
-		f.action="<%=cp%>/admin/manager/interest/${url}";
+		f.action="<%=cp%>/manager/interest/${url}";
 		f.submit();
 }
 </script>
