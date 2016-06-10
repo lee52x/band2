@@ -116,7 +116,7 @@ function sendReplyAnswer(guestNo) {
 
 </script>
 <c:forEach var="dto" items="${list}">
-<div class="stream-list">
+<div class="stream-list" >
 								
 									<div class="media stream">
 										<a href="#" class="media-avatar medium pull-left">
@@ -161,9 +161,9 @@ function sendReplyAnswer(guestNo) {
 													</div>
 												</div>
 												
-													<div class="stream-options">
+													<div class="stream-options" style="background-color: #B7F0B1">
 													
-												<a  href="javascript:sendLike('${dto.guestNo}','1')"><span class="icon-thumbs-up shaded"></span>Like<span id="likeCount${dto.guestNo}">${dto.likeCount}</span>
+												<a  href="javascript:sendLike('${dto.guestNo}','1')">&nbsp<span class="icon-thumbs-up shaded"></span>Like<span id="likeCount${dto.guestNo}">${dto.likeCount}</span>
 													
 												</a>
 												<a href="javascript:sendReplyAnswerDlg('${dto.guestNo}');"  class="btn btn-small">

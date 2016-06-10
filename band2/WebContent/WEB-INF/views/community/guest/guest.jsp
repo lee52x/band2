@@ -217,14 +217,14 @@ function deleteGuest(guestNo,imageFilename){
 
 	
 		<div class="container">
-			<div class="row">
+			<div class="row" >
 			
 
 				<div class="span9">
 					<div class="content">
 
 						<div class="module">
-							<div class="module-head">
+							<div class="module-head" style="background-color: #B7F0B1">
 								<h3>News Feed</h3>
 							</div>
 							<div class="module-body">
@@ -232,10 +232,10 @@ function deleteGuest(guestNo,imageFilename){
 									<a href="#" class="media-avatar medium pull-left">
 										<img src="<%=cp%>/res/img/user.png">
 									</a>
-									<div class="media-body">
+									<div class="media-body" >
 									
 									<form name="guestForm" method="post" enctype="multipart/form-data">
-										<div class="row-fluid">
+										<div class="row-fluid" >
 											<textarea class="span12" id="content" name="content" placeholder="무슨 생각을 하고 계신가요?" style="height: 70px; width: 1045px"></textarea>
 										</div>
 										<br>
