@@ -7,6 +7,9 @@
 %>
 
 <style>
+.btn {
+    margin-bottom: 0px;
+}
 .aa{
 	color:red; 
 	cursor:pointer;
@@ -19,18 +22,42 @@
 	color:#1ABB9C; 
 	cursor:pointer;
 }
+
+.progressb{
+	background-color: #1abb9c;
+	border-radius: 15px;
+}
 </style>
 
 <script type="text/javascript">
-function updateFee(memberNo, state, eventNo) {
+$(function(){
+	var bar = document.getElementById("bar");
+	var width = 1;
+	var id = setInterval(frame, 0);
+	var ratio = ${ratio};
 	
+	function frame(){
+		if(width<=ratio){
+			width++;
+			bar.style.width=width+'%';
+		}
+		
+	}
+	
+});
+
+function updateFee(memberNo, state, eventNo) {
+  var td=$("#fee_"+memberNo);
   var params="memberNo="+memberNo+"&state="+state+"&eventNo="+eventNo;
-  
   if(state=="N"){
 	  var url="<%=cp%>/account/updateFee/${url}";
+	  $(td).empty();
+	  $(td).append("<a onclick='updateFee("+memberNo+",\"Y\","+eventNo+");' class='bb'>납부</a>");
   }
   if(state=="Y"){
 	  var url="<%=cp%>/account/updateFeeN/${url}";
+	  $(td).empty();
+	  $(td).append("<a onclick='updateFee("+memberNo+",\"N\","+eventNo+");' class='aa'>미납부</a>");
   }
 
 $.ajax({
@@ -49,13 +76,17 @@ $.ajax({
 </script>
 
 <div class="tab-content">
-	<div id="eventTable">
-		<p>[${detailDto.eventName}]회비 납부율 - ${detailDto.eventFee} -
-			${detailDto.todate}까지 ${ratio}%</p>
+	<div>
+		<div>
+		마감:${detailDto.todate} / <i class="fa fa-won"></i>${detailDto.eventFee}
+		<p style="float:right; margin-bottom:0">${ratio}%</p>
+	    </div>
+			
 		<div class="">
-			<div class="progress progress_sm" style="width: 100%;">
-				<div class="progress-bar bg-green" role="progressbar"
-					data-transitiongoal="50"></div>
+			<div class="progress progress-sm" style="height: 10px; border-radius: 15px;" id="progress">
+			<div class="progress-bar progress-bar-primary progressb" id="bar" role="progressbar" aria-valuenow="92" 
+			aria-valuemin="0" aria-valuemax="100" style="width:1%">
+			</div>
 			</div>
 		</div>
 		<table class="table table-bordered">
@@ -72,17 +103,23 @@ $.ajax({
 				<c:forEach var="dto" items="${memberList}">
 					<tr>
 						<td>${dto.name}</td>
-						<td>${dto.grade}</td>
+						<td>				
+						<c:choose>
+							<c:when test="${dto.grade == 1}"><div class="btn btn-danger btn-xs">그룹장</div></c:when>
+							<c:when test="${dto.grade == 2}"><div class="btn btn-warning btn-xs">운영진</div></c:when>
+							<c:when test="${dto.grade == 3}"><div class="btn btn-info btn-xs">일　반</div></c:when>
+							<c:when test="${dto.grade == 4}"><div class="btn btn-success btn-xs">O　&nbsp;&nbsp;B</div></c:when>
+							<c:when test="${dto.grade == 5}"><div class="btn btn-default btn-xs">미가입</div></c:when>
+						</c:choose></td>
 						<td>${dto.tel}</td>
 						<td>${dto.email}</td>
-						<td>
-						<c:if test="${dto.fee=='N'}">                   
-                        <a onclick="updateFee('${dto.memberNo}','N','${dto.eventNo}');" class="aa">미납부</a>
-                        </c:if>
-                        <c:if test="${dto.fee=='Y'}">                   
-                        <a onclick="updateFee('${dto.memberNo}','Y','${dto.eventNo}');" class="bb">납부</a>
-                        </c:if> 
-                    </td>
+						<td id="fee_${dto.memberNo}"><c:if test="${dto.fee=='N'}">
+								<a onclick="updateFee('${dto.memberNo}','N','${dto.eventNo}');"
+									class="aa">미납부</a>
+							</c:if> <c:if test="${dto.fee=='Y'}">
+								<a onclick="updateFee('${dto.memberNo}','Y','${dto.eventNo}');"
+									class="bb">납부</a>
+							</c:if></td>
 					</tr>
 				</c:forEach>
 			</tbody>

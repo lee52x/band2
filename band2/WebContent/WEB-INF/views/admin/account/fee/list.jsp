@@ -8,7 +8,6 @@
 
 <link href="<%=cp%>/res/css/admin/custom.css" rel="stylesheet">
 <link href="<%=cp%>/res/css/admin/green.css" rel="stylesheet">
-<link href="<%=cp%>/res/css/admin/switchery.min.css" rel="stylesheet">
 
 <style>
 	.row{
@@ -16,14 +15,6 @@
 	}
 	.tabs-left>li>a {
     background: rgba(70, 165, 146, 0.16);
-    }
-    .switchery>small {
-    height: 20px;
-    width: 20px;
-    }
-    .switchery {
-    height: 20px;
-    width: 40px;
     }
 </style>
 
@@ -80,7 +71,6 @@ function loadList(eventNo) {
 					<i class="fa fa-plus" style="float:right;"></i></a></li>
 				</ul>
 			</div>
-
 			<div class="col-xs-9">
 				<div id="memberList"></div>
 			</div>

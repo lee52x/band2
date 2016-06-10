@@ -216,6 +216,7 @@
 	FROM eventattend_${url} att JOIN event_${url} evt ON att.eventNo=evt.eventNo
                           	  JOIN member_${url} mem ON att.memberNo=mem.memberNo
 	WHERE evt.eventNo=#{eventNo}
+	ORDER BY Fee
 	</select>
 	
 	<!-- 상세 일정 정보 -->

@@ -1,7 +1,7 @@
 package com.band.account;
 
 public class Event {
-	private int eventNo, num, grade, memberNo;
+	private int eventNo, num, grade, memberNo, total, pay;
 	private String eventName, fee, name, tel, email, eventFee, todate, url;
 	
 	public int getEventNo() {
@@ -75,6 +75,18 @@ public class Event {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public int getPay() {
+		return pay;
+	}
+	public void setPay(int pay) {
+		this.pay = pay;
 	}
 	
 	
