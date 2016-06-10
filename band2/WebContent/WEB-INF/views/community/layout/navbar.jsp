@@ -37,8 +37,8 @@
                         <p>포토게시판</p>
                     </a>
                 </li>
-                <li>
-                    <a href="<%=cp%>/community/guest/${url}">
+               <li>
+                    <a href="<%=cp%>/guest/list/${url}">
                         <i class="pe-7s-news-paper"></i>
                         <p>방명록</p>
                     </a>

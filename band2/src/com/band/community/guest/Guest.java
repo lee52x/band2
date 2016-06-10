@@ -11,8 +11,7 @@ public class Guest {
 	private MultipartFile upload;
 	private int answer;
 	private int guestLike;
-	private int listNum;
-	private String groupURL;
+	
 	private int answerCount;
 	private int likeCount;
 	
@@ -20,18 +19,6 @@ public class Guest {
 	
 	
 	
-	public String getGroupURL() {
-		return groupURL;
-	}
-	public void setGroupURL(String groupURL) {
-		this.groupURL = groupURL;
-	}
-	public int getListNum() {
-		return listNum;
-	}
-	public void setListNum(int listNum) {
-		this.listNum = listNum;
-	}
 	public String getPlayer() {
 		return player;
 	}
