@@ -36,25 +36,9 @@ public class MemberController {
 	public ModelAndView memberSubmit(Member dto,
 			@PathVariable String url){
 
-		int result=service.insertMember(dto);
+		service.insertMember(dto);
 		
-		ModelAndView mav=new ModelAndView();
-		
-		if(result==1) {
-			
-			StringBuffer sb=new StringBuffer();
-			sb.append(dto.getName()+ "님의 회원 가입이 정상적으로 처리되었습니다.<br>");
-			sb.append("메인화면으로 이동하여 로그인 하시기 바랍니다.<br>");
-			
-			mav.setViewName(".mainLogin");
-			mav.addObject("message", sb.toString());
-			mav.addObject("title", "회원 가입");
-		} else {
-			mav.setViewName(".member");
-			mav.addObject("mode", "created");
-			mav.addObject("message", "아이디 중복으로 회원가입이 실패했습니다.");
-		}
-		return mav;
+		return new ModelAndView("redirect:/group/"+url);
 	}
 	
 	//회원정보수정시 아이디 비밀번호 다시 묻기
