@@ -35,7 +35,7 @@ public class MainController {
 	   }
 	   
 	   @RequestMapping(value="/group/{url}",method=RequestMethod.POST)
-	   public ModelAndView loginSubmit(
+	   public String loginSubmit(
 	         @PathVariable String url,
 	         HttpSession session,
 	         @RequestParam("userId") String userId,
@@ -58,9 +58,9 @@ public class MainController {
 	      session.setAttribute("url", url);
 
 	      if(dto.getGrade()==1||dto.getGrade()==2){
-	          return new ModelAndView(".adminLayout");
+	    	  return "redirect:/account/main/"+url;
 	       }else{
-	          return new ModelAndView(".communityLayout");
+	    	  return "redirect:/community/"+url;
 	       }
 	   }
 	   
