@@ -30,6 +30,7 @@
 </style>
 
 <script type="text/javascript">
+
 $(function(){
 	var bar = document.getElementById("bar");
 	var width = 1;
@@ -73,6 +74,40 @@ $.ajax({
 	}
 });
 }
+
+
+function sendMail(){
+  	var params="receiverEmail=";
+  	
+  	<c:forEach var="dto" items="${mailList}">
+  		params+="${dto.email},";
+    </c:forEach>
+    
+    <c:forEach var="dto" items="${leader}">
+		params+="&senderName=${dto.name}&senderEmail=${dto.email}&tel=${dto.tel}";
+		params+="&bankName=${dto.bankName}&accountNumber=${dto.accountNumber}";
+		params+="&accountHolder=${dto.accountHolder}&groupName=${dto.groupName}";
+	</c:forEach>
+	
+	params+="&todate=${detailDto.todate}&eventFee=${detailDto.eventFee}&eventName=${detailDto.eventName}";
+  	
+    alert(params);
+  	var url="<%=cp%>/account/mail/${url}";
+	
+  	$.ajax({
+  		type:"post"
+  		,url:url
+  		,data:params
+  		,dataType:"json"
+  		,success:function(data){
+  			alert("메일 전송이 성공적으로 완료되었습니다.");
+  		}
+  		,error:function(e) {
+    		alert(e.responseText);
+    	}
+  	});
+}
+
 </script>
 
 <div class="tab-content">
@@ -124,5 +159,50 @@ $.ajax({
 				</c:forEach>
 			</tbody>
 		</table>
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#mailModal"><i class="fa fa-envelope-o"></i> 미납자 메일 전송</button>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="mailModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top:100px;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					<i class="fa fa-share-alt"></i> 미납자 메일 전송
+				</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>이름</th>
+					<th>메일주소</th>
+					<th>납부여부</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="dto" items="${mailList}">
+					<tr>
+						<td>${dto.name}</td>
+						<td>${dto.email}</td>
+						<td id="fee_${dto.memberNo}">
+						<a onclick="updateFee('${dto.memberNo}','N','${dto.eventNo}');"
+									class="aa">미납부</a></td>
+					</tr>
+				</c:forEach>
+			  </tbody>
+			</table>
+			<button type="button" class="btn btn-default btn-sm" onclick="sendMail();"><i class="fa fa-envelope-o"></i> 보내기</button>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
 	</div>
 </div>

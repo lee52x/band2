@@ -91,4 +91,26 @@ public class FeeServiceImpl implements FeeService{
 		}
 		return result;
 	}
+
+	@Override
+	public List<Event> readMailMember(Map<String, Object> map) {
+		List<Event> list=null;
+		try {
+			list=dao.getListData("account.mailMember", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
+	@Override
+	public List<Event> readLeader(Map<String, Object> map) {
+		List<Event> list=null;
+		try {
+			list=dao.getListData("account.readLeader", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
 }

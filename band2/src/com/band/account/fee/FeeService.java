@@ -15,4 +15,7 @@ public interface FeeService {
 	
 	public int updateFee(Event dto);
 	public int updateFeeN(Event dto);
+	
+	public List<Event> readMailMember(Map<String, Object> map);
+	public List<Event> readLeader(Map<String, Object> map);
 }

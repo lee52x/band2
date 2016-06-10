@@ -2,7 +2,7 @@ package com.band.account;
 
 public class Event {
 	private int eventNo, num, grade, memberNo, total, pay;
-	private String eventName, fee, name, tel, email, eventFee, todate, url;
+	private String eventName, fee, name, tel, email, eventFee, todate, url, groupName,  bankName, accountNumber, accountHolder;
 	
 	public int getEventNo() {
 		return eventNo;
@@ -88,7 +88,30 @@ public class Event {
 	public void setPay(int pay) {
 		this.pay = pay;
 	}
-	
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+	public String getBankName() {
+		return bankName;
+	}
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	public String getAccountHolder() {
+		return accountHolder;
+	}
+	public void setAccountHolder(String accountHolder) {
+		this.accountHolder = accountHolder;
+	}
 	
 	
 }

@@ -239,5 +239,19 @@
 	<update id="updateFeeN" parameterType="com.band.account.Event">
 	UPDATE eventattend_${url} SET fee = 'N' WHERE memberNo=#{memberNo} AND eventNo=#{eventNo}
 	</update>
-
+	
+	<!-- 메일보낼 리스트 -->
+	<select id="mailMember" parameterType="map" resultType="com.band.account.Event">
+	SELECT evt.eventNo, att.memberNo, Fee, name, email
+	FROM eventattend_${url} att JOIN event_${url} evt ON att.eventNo=evt.eventNo
+                          	  JOIN member_${url} mem ON att.memberNo=mem.memberNo
+	WHERE evt.eventNo=#{eventNo} AND fee='N'
+	ORDER BY Fee
+	</select>
+	
+	<!-- 그룹장 -->
+	<select id="readLeader" parameterType="map" resultType="com.band.account.Event">
+	SELECT mem.name, email, tel, com.name groupName, bankName, accountNumber, accountHolder 
+	FROM member_${url} mem JOIN community com ON mem.groupUrl=com.groupUrl WHERE grade=1
+	</select>
 </mapper>
