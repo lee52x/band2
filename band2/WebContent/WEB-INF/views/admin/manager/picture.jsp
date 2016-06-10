@@ -9,14 +9,14 @@
 function check() {
     var f = document.pictureForm;
 
-	f.action="<%=cp%>/admin/manager/picture/created/${url}";
+	f.action="<%=cp%>/manager/picture/created/${url}";
 
     return true;
 }
 
 function deletePicture(){
 	
-	var url="<%=cp%>/admin/manager/picture/delete2/${url}";
+	var url="<%=cp%>/manager/picture/delete2/${url}";
 
 	
 	if(confirm("대표사진들을 삭제하시겠습니까?"))

@@ -26,7 +26,7 @@ public class InterestController {
 	@Autowired
 	private MyUtil myUtil;
 	
-	@RequestMapping("/admin/manager/interest/{url}")
+	@RequestMapping("/manager/interest/{url}")
 	public ModelAndView readInterest(
 			@PathVariable String url,
 			HttpServletRequest req,

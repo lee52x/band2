@@ -18,7 +18,7 @@ $(function(){
 });
 
 function listPage(page) {
-    url="<%=cp%>/admin/manager/notice/list/${url}";
+    url="<%=cp%>/manager/notice/list/${url}";
 
 	var params="pageNo="+page;
 	$.ajax({
@@ -71,7 +71,7 @@ function createCheck() {
         return false;
     }
   
-	f.action="<%=cp%>/admin/manager/notice/created/${url}";
+	f.action="<%=cp%>/manager/notice/created/${url}";
 	
     return true;
 }
@@ -91,7 +91,7 @@ function createCheck2() {
         return false;
     }
   
-	f.action="<%=cp%>/admin/manager/notice/update/${url}";
+	f.action="<%=cp%>/manager/notice/update/${url}";
 	
     return true;
 }
@@ -113,7 +113,7 @@ function updateNotice() {
 		+ "&endDate=" + endDate
 		+ "&noticeNo=" + noticeNo;
 	
-	var url = "<%=cp%>/admin/manager/notice/update/${url}";
+	var url = "<%=cp%>/manager/notice/update/${url}";
 	
 	if(confirm("해당 공지를 수정하시겠습니까?")) {
 		$.ajax({
@@ -122,7 +122,7 @@ function updateNotice() {
 			,data:params
 			,dataType:"json"
 			,success:function(data) {
-				location.href="<%=cp%>/admin/manager/notice/notice/${url}";
+				location.href="<%=cp%>/manager/notice/notice/${url}";
 			}
 			,error:function(e) {
 				
@@ -137,18 +137,18 @@ function deleteNotice() {
     
     if(confirm("해당 공지를 삭제하시겠습니까 ? ")) {
     	/*
-  	    $.post("<%=cp%>/admin/manager/notice/delete/${url}", {noticeNo:n}, function(data) {
-  	    	location.href="<%=cp%>/admin/manager/notice/notice/${url}";
+  	    $.post("<%=cp%>/manager/notice/delete/${url}", {noticeNo:n}, function(data) {
+  	    	location.href="<%=cp%>/manager/notice/notice/${url}";
   	    }, "json");
     	*/
     	
 		$.ajax({
 			type:"POST"
-			,url:"<%=cp%>/admin/manager/notice/delete/${url}"
+			,url:"<%=cp%>/manager/notice/delete/${url}"
 			,data:"noticeNo="+n
 			,dataType:"json"
 			,success:function(data) {
-				location.href="<%=cp%>/admin/manager/notice/notice/${url}";
+				location.href="<%=cp%>/manager/notice/notice/${url}";
 			}
 			,error:function(e) {
 				alert(e.responseText);

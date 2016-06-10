@@ -54,7 +54,7 @@ function submitUpdate() {
     
     if(confirm("수정하시겠습니까?")){
     	
-    	f.action = "<%=cp%>/admin/manager/update/${url}";
+    	f.action = "<%=cp%>/manager/update/${url}";
     	return true;
     }
     

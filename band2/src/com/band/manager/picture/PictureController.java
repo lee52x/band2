@@ -19,7 +19,7 @@ public class PictureController {
 	@Autowired
 	private PictureService service;
 	
-	@RequestMapping(value="/admin/manager/picture/{url}", method=RequestMethod.GET)
+	@RequestMapping(value="/manager/picture/{url}", method=RequestMethod.GET)
 	public ModelAndView listPicture(
 			@PathVariable String url
 			) throws Exception{
@@ -37,7 +37,7 @@ public class PictureController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/manager/picture/created/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/manager/picture/created/{url}", method=RequestMethod.POST)
 	public String createPicture(
 			HttpSession session,
 			@PathVariable String url,
@@ -49,10 +49,10 @@ public class PictureController {
 		
 		service.insertPicture(dto, path, url);
 		
-		return "redirect:/admin/manager/picture/{url}";		
+		return "redirect:/manager/picture/{url}";		
 	}
 	
-	@RequestMapping(value="/admin/manager/picture/delete2/{url}", method=RequestMethod.GET)
+	@RequestMapping(value="/manager/picture/delete2/{url}", method=RequestMethod.GET)
 	public String deletePicture(
 			@PathVariable String url,
 			HttpSession session
@@ -62,7 +62,7 @@ public class PictureController {
 		String path = root + File.separator + "uploads" + File.separator + "notice";
 		service.deletePicture(url, path);
 		
-		return "redirect:/admin/manager/picture/{url}";
+		return "redirect:/manager/picture/{url}";
 	}
 	
 	

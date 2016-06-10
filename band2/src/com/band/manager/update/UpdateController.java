@@ -16,7 +16,7 @@ public class UpdateController {
 	@Autowired
 	private UpdateService service;
 	
-	@RequestMapping(value= "/admin/manager/update/{url}", method=RequestMethod.GET)
+	@RequestMapping(value= "/manager/update/{url}", method=RequestMethod.GET)
 	public ModelAndView readUpdate(
 			HttpServletRequest req,
 			@PathVariable String url
@@ -32,7 +32,7 @@ public class UpdateController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/manager/update/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/manager/update/{url}", method=RequestMethod.POST)
 	public String submitUpdate(
 			Update dto,
 			@PathVariable String url
@@ -41,7 +41,7 @@ public class UpdateController {
 		dto.setGroupURL(url);
 		service.updateInfo(dto);
 		
-		return "redirect:/admin/manager/update/{url}";
+		return "redirect:/manager/update/{url}";
 	}
 	
 	
