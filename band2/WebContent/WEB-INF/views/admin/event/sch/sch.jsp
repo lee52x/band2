@@ -143,7 +143,7 @@ $(function() {
 				var startDay=start.format("YYYY-MM-DD");
 				var endDay=end.format("YYYY-MM-DD");
 		        
-				var url="<%=cp%>/sch/month?start="+startDay+"&end="+endDay+"&group="+group+"&dumi="+new Date().getTime();
+				var url="<%=cp%>/sch/month/${url}?start="+startDay+"&end="+endDay+"&group="+group+"&dumi="+new Date().getTime();
 
 				$.ajax({
 				    url: url,
