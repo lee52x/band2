@@ -2,11 +2,35 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="event">
-
-
 	<select id="listFriend" parameterType="map" resultType="com.band.event.Member">
            SELECT memberNo, userId, name, grade FROM member_${url} ORDER BY grade ASC
     </select>
+
+
+	<select id="listMonthEvent" resultType="com.band.event.Event" parameterType="map">
+	SELECT eventNo, eventName, content, eventPlace, TO_CHAR(fromDate,'MM/DD/YYYY') fromDate, 
+		TO_CHAR(toDate,'MM/DD/YYYY') toDate, fromTime, toTime, eventType, eventFee, eventComplete
+	FROM event_${url}
+	<where>
+		eventComplete='N' 
+        <![CDATA[
+             AND ((fromDate>=#{start} AND fromDate<=#{end})
+                OR (toDate>=#{start} AND toDate<=#{end}))
+        ]]>             
+   	  </where>
+             ORDER BY fromDate ASC, eventNo DESC
+	</select>
+	
+
+	
+	
+	<select id="readSchedule" resultType="com.band.event.Event" parameterType="Integer">
+		SELECT eventNo, eventName, content, eventPlace, TO_CHAR(fromDate,'MM/DD/YYYY') fromDate, 
+			TO_CHAR(toDate,'MM/DD/YYYY') toDate, fromTime, toTime, eventType, eventFee, eventComplete
+		FROM event_${url}
+		WHERE eventNo=#{eventNo}
+	</select>
+
 
 
 	<!-- 이벤트 목록 보기 (조회) -->
@@ -18,6 +42,7 @@
 	</select>
 	
 	
+	
 	<insert id="insertEvent" parameterType="com.band.event.Event">
 		INSERT INTO event_${url}(eventNo, eventName, content, eventPlace, fullDate, fromDate, toDate, fromTime, toTime, eventType, eventFee)
 		VALUES(event_seq.NEXTVAL, #{eventName}, #{content}, #{eventPlace}, #{fullDate}, 
@@ -26,15 +51,21 @@
 					#{fromTime}, #{toTime, jdbcType=VARCHAR}, #{eventType}, #{eventFee, jdbcType=VARCHAR}) 
 	</insert>
 	
+	
+	
 	<insert id="insertAttend" parameterType="com.band.event.Event">
 		INSERT INTO eventAttend_${url} (eventNo, memberNo)
 			VALUES (#{eventNo}, #{memberNo})
 	</insert>
 	
+	
+	
 	<!-- eventNo 가장 큰 값! (가장 최근에 추가된 값을 가져오기 위한) -->
 	<select id="listEventMax" parameterType="String" resultType="Integer">
 		SELECT MAX(eventNo) FROM event_${url}
 	</select>
+	
+	
 	
 	<delete id="deleteEvent" parameterType="map">
 		DELETE FROM event_${url} WHERE eventNo IN 
@@ -43,6 +74,14 @@
 				#{eventNo}			
 			</foreach>
 	</delete>
+
+
+
+	<delete id="deleteSchedule" parameterType="Integer">
+		DELETE FROM event_${url} WHERE eventNo=#{eventNo}			
+	</delete>
+	
+	
 	
 	<update id="updateEvent" parameterType="com.band.event.Event">
 		UPDATE event_${url}
@@ -55,6 +94,8 @@
 		WHERE eventNo=#{eventNo}
 	</update>
 	
+	
+	
 	<update id="updateEventComplete" parameterType="map">
 		UPDATE event_${url} SET eventComplete='Y' WHERE eventNo IN 
 			<foreach item="eventNo" collection="list" 
@@ -62,6 +103,4 @@
 				#{eventNo}
 			</foreach>
 	</update>
-	
-	
 </mapper>

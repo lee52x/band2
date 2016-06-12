@@ -2,6 +2,7 @@ package com.band.event;
 
 import java.util.List;
 import java.util.Map;
+import com.band.event.Event;
 
 
 
@@ -14,6 +15,11 @@ public interface EventService {
 	public int updateEvent (Event dto);
 	public int updateEvent (Map<String, Object> map);
 	public int deleteEvent(Map<String, Object> map);
-	
 	public List<Member> listFriend(Map<String, Object> map);
+	
+	
+	public int insertSchedule(Event dto);
+	public List<Event> listMonthSchedule(Map<String, Object> map);
+	public Event readSchedule(int eventNo);
+	public int deleteSchedule(int eventNo);
 }
