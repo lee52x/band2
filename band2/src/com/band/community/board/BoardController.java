@@ -138,6 +138,8 @@ public class BoardController {
 		
 		service.insertBoard(dto, path);
 		
+		//해쉬태그 존재시 해쉬태그 DB에 삽입
+		if(dto.getContent().indexOf('#')!=-1){
 		String content=dto.getContent().substring(dto.getContent().indexOf("#"));
 		content=content.substring(0, content.indexOf("</"));
 		String[] hashName= content.split("#");
@@ -146,6 +148,7 @@ public class BoardController {
 				continue;
 			
 			service.insertHash(hashName[i]);
+		}
 		}
 		
 

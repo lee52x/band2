@@ -13,7 +13,16 @@
 
 	SELECT * FROM (
 		SELECT tb.*, ROWNUM rnum FROM(
-			SELECT hashName, count(*) hashCount
+			SELECT hashName, count(*) hashCount, 
+			ROUND(count(*)/(
+							SELECT NVL(count(*),0) 
+							FROM hashcode
+							<where>
+								<if test="searchValue != null and searchValue!='' and searchValue2 != null and searchValue2!='' ">
+									<include refid="where-list"/>
+								</if>
+							</where>
+							)*100) hashRatio
 			FROM hashcode
 			<where>
 				<if test="searchValue != null and searchValue!='' and searchValue2 != null and searchValue2!='' ">
@@ -46,5 +55,6 @@
 	INSERT INTO hashcode(hashName, hashNum) 
 	VALUES(#{hashName}, hash_seq.NEXTVAL)
 </insert>
+
 	
 </mapper>

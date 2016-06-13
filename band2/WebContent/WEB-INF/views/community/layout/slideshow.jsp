@@ -24,8 +24,8 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                      </div>
                   </div>
-               	<c:forEach items="${plist}" var="dto">
-               		<div class="item" style="background-image: url(<%=cp%>/uploads/management/${dto.saveFilename}); background-repeat:no-repeat;
+               	<c:forEach items="${plist}" var="pdto2">
+               		<div class="item" style="background-image: url(<%=cp%>/uploads/management/${pdto2.saveFilename}); background-repeat:no-repeat;
                		 background-size: 100% 400px;">
                			<div class="carousel-caption">
                         	<h3>세번째 사진</h3>
