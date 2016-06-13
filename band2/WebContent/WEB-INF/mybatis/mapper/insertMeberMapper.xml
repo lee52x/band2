@@ -5,7 +5,7 @@
 	<!-- 커뮤니티 회원가입 & 운영진의 회원정보 입력 -->
 	<insert id="insertMember" parameterType="com.band.member.insertMember.Member">
 		INSERT INTO member_${url}(memberNo, userId, pwd, email, birth, name, tel, gender, address, grade, joinDate,groupUrl,cjoinDate)
-		VALUES(member_seq.NEXTVAL, #{userId, jdbcType = VARCHAR}, #{pwd}, #{email}, #{birth}, #{name}, #{tel,jdbcType = VARCHAR}, #{gender}, #{address,jdbcType = VARCHAR}, 3, #{joinDate,jdbcType = VARCHAR},#{url},#{cjoinDate,jdbcType = VARCHAR})     
+		VALUES(member_seq.NEXTVAL, #{userId, jdbcType = VARCHAR}, #{pwd}, #{email}, #{birth}, #{name}, #{tel,jdbcType = VARCHAR}, #{gender}, #{address,jdbcType = VARCHAR}, 3, sysdate ,#{url},sysdate)     
 	</insert>
 	
 	<!-- 회원정보 보기  -->
