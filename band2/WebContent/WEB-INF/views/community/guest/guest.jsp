@@ -142,6 +142,7 @@ function countLike(guestNo){
 	},"JSON");
 }
 
+
 //좋아요 추가
 function sendLike(guestNo,guestLike){
 	var uid="${sessionScope.main.userId}";

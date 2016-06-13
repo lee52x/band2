@@ -108,6 +108,27 @@ public class GuestController {
 		return model;
 	}
 	
+	//댓글보기 리스트
+	@RequestMapping(value="/guestBoard/viewReply/{url}")
+	public ModelAndView viewReply(
+			@PathVariable String url
+			,Guest vo
+			)throws Exception{
+		Map<String, Object> map=new HashMap<String,Object>();
+		map.put("url", url);
+		map.put("vo", vo);
+		
+		List<Guest> listReplyAnswer=service.listReplyAnswer(map);
+		
+		ModelAndView mav=new ModelAndView("community/guest/guestAnswer");
+		
+		mav.addObject("url",url);
+		mav.addObject("listReplyAnswer",listReplyAnswer);
+		
+		return mav;
+	}
+			
+	
 	
 	
 	//방명록 리스트
@@ -120,9 +141,6 @@ public class GuestController {
 			
 			) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("main");
-		
-		
-		
 		//리스트에 출력할 데이터
 		Map<String, Object> map=new HashMap<String , Object>();
 		map.put("url", url);
@@ -218,6 +236,7 @@ public class GuestController {
 			model.put("state", state);
 			return model;
 		}
+		
 	
 		
 	

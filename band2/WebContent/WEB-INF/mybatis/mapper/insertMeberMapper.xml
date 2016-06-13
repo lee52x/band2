@@ -18,9 +18,7 @@
 	
 	<!-- 회원정보 수정 -->
 	<update id="updateMember" parameterType="com.band.member.insertMember.Member">
-		UPDATE member_${url} SET pwd = #{pwd}, email = #{email}, birth = #{birth}, tel = #{tel}, 
-		
-							address = #{address}, gender = #{gender}
+		UPDATE member_${url} SET name=#{name}, pwd=#{pwd}, email=#{email}, birth=#{birth}, tel=#{tel}, address=#{address}, gender=#{gender}
 		WHERE memberNo = #{memberNo}
 	</update>
 	

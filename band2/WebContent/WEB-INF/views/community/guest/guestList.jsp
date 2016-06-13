@@ -11,6 +11,43 @@
 
 
 <script type="text/javascript">
+//방명록답글 리스트
+$(function(){
+	listPage1();
+});
+
+function listPage1(){
+	
+	$.post(url,function(data){
+		$("#guestAnswer").html(data);
+	});
+}
+
+
+//답글보기 클릭시 답글리스트
+function viewReply(guestNo)
+{
+	var uid="${sessionScope.main.userId}";
+	if(! uid){
+		login();
+		return false;
+	}
+	var params="guestNo"+guestNo;
+	
+	$.ajax({
+		type:"POST"
+	   ,url:"<%=cp%>/guestBoard/viewReply/${url}"
+	   ,data:params
+	   ,dataType:"json"
+	   ,succes:function(data){
+		   listPage1();
+	   }
+	   ,error:function(e){
+		   alert(e.responseText);
+	   }
+	});
+}
+
 
 function modalSendReply(){
 	
@@ -161,7 +198,7 @@ function sendReplyAnswer(guestNo) {
 													</div>
 												</div>
 												
-													<div class="stream-options" style="background-color: #B7F0B1">
+													<div class="stream-options" >
 													
 												<a  href="javascript:sendLike('${dto.guestNo}','1')">&nbsp<span class="icon-thumbs-up shaded"></span>Like<span id="likeCount${dto.guestNo}">${dto.likeCount}</span>
 													
@@ -175,12 +212,13 @@ function sendReplyAnswer(guestNo) {
 													Repost
 												</a>
 												
+												  <button class="pull-right" type="button" onclick="viewReply(${dto.guestNo});">댓글보기</button>
+												
 												
 											</div>
-											
-											
 
 		 </c:forEach>
+		 <div id="guestAnswer"></div>
 	
 	
 	
@@ -216,6 +254,28 @@ function sendReplyAnswer(guestNo) {
 	</div>
 	
 </div>
+
+
+
+								<div class="stream-respond" align="center" id="response">
+												<div class="media stream" align="left">
+													<a href="#" class="media-avatar small pull-left">
+														<img src="<%=cp%>/res/img/user.png">
+													</a>
+													<div class="media-body">
+														<div class="stream-headline">
+															<h5 class="stream-author">
+																John Donga 
+																<small>10 July 14</small>
+															</h5>
+															<div class="stream-text">
+																Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+															</div>
+														</div><!--/.stream-headline-->
+													</div>
+												</div><!--/.media .stream-->
+										
+											</div><!--/.stream-respond-->
 	
 	
 	
