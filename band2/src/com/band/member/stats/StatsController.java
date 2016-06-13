@@ -18,7 +18,7 @@ public class StatsController {
 	@Autowired
 	private StatsService service;
 	
-	@RequestMapping(value="/admin/member/stats/{url}")
+	@RequestMapping(value="/member/stats/{url}")
 	public ModelAndView stats(
 			@PathVariable String url
 			) throws Exception {
@@ -34,6 +34,7 @@ public class StatsController {
 		String foundationDay = service.foundationDay(map);
 		int cntFoundationDay = service.countFoundationDay(map);
 		List<Member> list = service.listJoinMember(map);
+		List<Member> birth = service.listBirthMember(map);
 				
 		ModelAndView mav = new ModelAndView(".admin.member.stats");
 		mav.addObject("total", totalMember);
@@ -44,6 +45,7 @@ public class StatsController {
 		mav.addObject("foundation", foundationDay);
 		mav.addObject("cntFoundation", cntFoundationDay);
 		mav.addObject("list", list);
+		mav.addObject("birthList", birth);
 		return mav;
 	}
 }

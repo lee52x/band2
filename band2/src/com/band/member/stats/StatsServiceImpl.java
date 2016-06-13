@@ -102,4 +102,15 @@ public class StatsServiceImpl implements StatsService {
 		}
 		return list;
 	}
+
+	@Override
+	public List<Member> listBirthMember(Map<String, Object> map) {
+		List<Member> list = null;
+		try {
+			list = dao.getListData("member.listBirthMember", map);
+		} catch(Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
 }
