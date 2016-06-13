@@ -28,7 +28,7 @@ function modalSendReply(){
 	
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/guest/created/${url}"
+		,url:"<%=cp%>/guestBoard/created/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data) {
@@ -91,7 +91,7 @@ function sendReplyAnswer(guestNo) {
 	
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/guest/createdReply/${url}"
+		,url:"<%=cp%>/guestBoard/createdReply/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data) {

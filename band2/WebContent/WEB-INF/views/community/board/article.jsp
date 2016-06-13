@@ -61,7 +61,7 @@ function deleteBoard() {
   var boardNo = "${dto.boardNo}";
   var page = "${page}";
   var params = "boardNo="+boardNo+"&page="+page;
-  var url = "<%=cp%>/community/delete/${url}?" + params;
+  var url = "<%=cp%>/freeBoard/delete/${url}?" + params;
 
   if(confirm("위 자료를 삭제 하시 겠습니까 ? "))
   	location.href=url;
@@ -77,7 +77,7 @@ function updateBoard() {
   var boardNo = "${dto.boardNo}";
   var page = "${page}";
   var params = "boardNo="+boardNo+"&page="+page;
-  var url = "<%=cp%>/community/update/${url}?" + params;
+  var url = "<%=cp%>/freeBoard/update/${url}?" + params;
 
   location.href=url;
 </c:if>
@@ -97,7 +97,7 @@ $(function(){
 });
 
 function listPage(page) {
-	var url="<%=cp%>/community/listReply/{url}";
+	var url="<%=cp%>/freeBoard/listReply/{url}";
 	var boardNo="${dto.boardNo}";
 	$.post(url, {boardNo:boardNo, pageNo:page}, function(data){
 		$("#listReply").html(data);
@@ -129,7 +129,7 @@ function sendReply() {
 	
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/community/insertReply/${url}"
+		,url:"<%=cp%>/freeBoard/insertReply/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data) {
@@ -158,7 +158,7 @@ function deleteReply(replyNum,page){
 	}
 	
 	if(confirm("댓글을 삭제하시겠습니까?")){
-		var url="<%=cp%>/community/deleteReply/${url}";
+		var url="<%=cp%>/freeBoard/deleteReply/${url}";
 		$.post(url,{replyNum:replyNum},function(data){
 			var state=data.state;
 				
@@ -212,7 +212,7 @@ function deleteReply(replyNum,page){
                          <td colspan="2">
                               <span style="display: inline-block; min-width: 45px;">첨부</span> :
                               <c:if test="${not empty dto.saveFilename}">
-                                  <a href="<%=cp%>/board/download/${url}?boardNo=${dto.boardNo}"><span class="glyphicon glyphicon-download-alt"></span> ${dto.originalFilename}</a>
+                                  <a href="<%=cp%>/freeBoard/download/${url}?boardNo=${dto.boardNo}"><span class="glyphicon glyphicon-download-alt"></span> ${dto.originalFilename}</a>
                               </c:if>
                          </td>
                      </tr>
@@ -220,7 +220,7 @@ function deleteReply(replyNum,page){
                          <td colspan="2">
                               <span style="display: inline-block; min-width: 45px;">이전글</span> :
                               <c:if test="${not empty preReadDto }">
-                                  <a href="<%=cp%>/community/article/${url}?${params}&boardNo=${preReadDto.boardNo}">${preReadDto.subject}</a>
+                                  <a href="<%=cp%>/freeBoard/article/${url}?${params}&boardNo=${preReadDto.boardNo}">${preReadDto.subject}</a>
                               </c:if>					
                          </td>
                      </tr>
@@ -228,7 +228,7 @@ function deleteReply(replyNum,page){
                          <td colspan="2" style="border-bottom: #d5d5d5 solid 1px;">
                               <span style="display: inline-block; min-width: 45px;">다음글</span> :
                               <c:if test="${not empty nextReadDto }">
-                                  <a href="<%=cp%>/community/article/${url}?${params}&boardNo=${nextReadDto.boardNo}">${nextReadDto.subject}</a>
+                                  <a href="<%=cp%>/freeBoard/article/${url}?${params}&boardNo=${nextReadDto.boardNo}">${nextReadDto.subject}</a>
                               </c:if>
                          </td>
                      </tr>                                          
@@ -244,7 +244,7 @@ function deleteReply(replyNum,page){
 </c:if>                		    
                 		</td>
                 		<td align="right">
-                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/community/board/${url}?${params}';"> 목록으로 </button>
+                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/freeBoard/list/${url}?${params}';"> 목록으로 </button>
                 		</td>
                 	</tr>
                 </tfoot>

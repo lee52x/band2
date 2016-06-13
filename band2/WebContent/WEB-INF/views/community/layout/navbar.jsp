@@ -26,19 +26,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<%=cp%>/community/board/${url}">
+                    <a href="<%=cp%>/freeBoard/list/${url}">
                         <i class="pe-7s-user"></i>
                         <p>자유게시판</p>
                     </a>
                 </li>
                 <li>
-                    <a href="<%=cp%>/community/photo/${url}">
+                    <a href="<%=cp%>/photoBoard/list/${url}">
                         <i class="pe-7s-note2"></i>
                         <p>포토게시판</p>
                     </a>
                 </li>
                <li>
-                    <a href="<%=cp%>/guest/list/${url}">
+                    <a href="<%=cp%>/guestBoard/list/${url}">
                         <i class="pe-7s-news-paper"></i>
                         <p>방명록</p>
                     </a>

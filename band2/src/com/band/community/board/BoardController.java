@@ -35,7 +35,7 @@ public class BoardController {
 	@Autowired
 	private FileManager fileManager;
 
-	@RequestMapping(value = "/community/board/{url}")
+	@RequestMapping(value = "/freeBoard/list/{url}")
 	public ModelAndView list(HttpServletRequest req, @RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(value = "searchKey", defaultValue = "subject") String searchKey,
 			@RequestParam(value = "searchValue", defaultValue = "") String searchValue, @PathVariable String url)
@@ -84,15 +84,15 @@ public class BoardController {
 		}
 
 		String params = "";
-		String urlList = cp + "/community/board/" + url;
-		String urlArticle = cp + "/community/article/" + url + "?page=" + current_page;
+		String urlList = cp + "/freeBoard/list/" + url;
+		String urlArticle = cp + "/freeBoard/article/" + url + "?page=" + current_page;
 		if (searchValue.length() != 0) {
 			params = "searchKey=" + searchKey + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
 		}
 
 		if (params.length() != 0) {
-			urlList = cp + "/community/board/" + url + "?" + params;
-			urlArticle = cp + "/community/article/" + url + "?page=" + current_page + "&" + params;
+			urlList = cp + "/freeBoard/list/" + url + "?" + params;
+			urlArticle = cp + "/freeBoard/article/" + url + "?page=" + current_page + "&" + params;
 
 		}
 
@@ -109,11 +109,11 @@ public class BoardController {
 
 	}
 
-	@RequestMapping(value = "/community/created/{url}", method = RequestMethod.GET)
+	@RequestMapping(value = "/freeBoard/created/{url}", method = RequestMethod.GET)
 	public ModelAndView createdForm(HttpSession session, @PathVariable String url) throws Exception {
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
 		 if(info==null) {
-		 return new ModelAndView("redirect:/group/{url}");
+		 return new ModelAndView("redirect:/group/"+url);
 		 }
 		
 		ModelAndView mav = new ModelAndView(".community.board.created");
@@ -123,12 +123,12 @@ public class BoardController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/community/created/{url}", method = RequestMethod.POST)
+	@RequestMapping(value = "/freeBoard/created/{url}", method = RequestMethod.POST)
 	public ModelAndView createdSubmit(HttpSession session, @PathVariable String url, Board dto) throws Exception {
 
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
 		 if(info==null) {
-		 return new ModelAndView("redirect:/group/{url}");
+		 return new ModelAndView("redirect:/group/"+url);
 		 }
 		String root = session.getServletContext().getRealPath("/");
 		String path = root + File.separator + "uploads" + File.separator + "board";
@@ -149,7 +149,7 @@ public class BoardController {
 		}
 		
 
-		return new ModelAndView("redirect:/community/board/{url}");
+		return new ModelAndView("redirect:/freeBoard/list/"+url);
 	}
 
 	/*
@@ -173,7 +173,7 @@ public class BoardController {
 	 * out=resp.getWriter(); out.print(
 	 * "<script>alert('파일 다운로드가 실패했습니다.');history.back();</script>"); } }
 	 */
-	@RequestMapping(value = "/community/article/{url}")
+	@RequestMapping(value = "/freeBoard/article/{url}")
 	public ModelAndView article(
 			HttpSession session, 
 			@RequestParam(value = "boardNo") int boardNo,
@@ -230,7 +230,7 @@ public class BoardController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/community/update/{url}", method = RequestMethod.GET)
+	@RequestMapping(value = "/freeBoard/update/{url}", method = RequestMethod.GET)
 	public ModelAndView updateForm(
 			HttpSession session,
 			@RequestParam(value = "boardNo") int boardNo,
@@ -239,15 +239,15 @@ public class BoardController {
 			) throws Exception {
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
 		 if(info==null) {
-		 return new ModelAndView("redirect:/group/{url}");
+		 return new ModelAndView("redirect:/group/"+url);
 		 }
 		Board dto = (Board) service.readBoard(boardNo);
 		if (dto == null) {
-			return new ModelAndView("redirect:/community/board/{url}?page=" + page);
+			return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
 		}
 
 		if (!info.getUserId().equals(dto.getUserId())) {
-			return new ModelAndView("redirect:/community/board/{url}?page=" + page);
+			return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
 		}
 
 		ModelAndView mav = new ModelAndView(".community.board.created");
@@ -260,13 +260,13 @@ public class BoardController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/community/update/{url}", method = RequestMethod.POST)
+	@RequestMapping(value = "/freeBoard/update/{url}", method = RequestMethod.POST)
 	public ModelAndView updateSubmit(HttpSession session, Board dto, @RequestParam(value = "page") String page,
 			@PathVariable String url) throws Exception {
 
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
 		 if(info==null) {
-		 return new ModelAndView("redirect:/group/{url}");
+		 return new ModelAndView("redirect:/group/"+url);
 		 }
 		String root = session.getServletContext().getRealPath("/");
 		String path = root + File.separator + "uploads" + File.separator + "board";
@@ -274,7 +274,7 @@ public class BoardController {
 		// 수정 하기
 		service.updateBoard(dto, path);
 
-		return new ModelAndView("redirect:/community/board/{url}?page=" + page);
+		return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
 	}
 
 	/*
@@ -306,23 +306,23 @@ public class BoardController {
 	 * ModelAndView("redirect:/board/update/{url}?boardNo="+boardNo+"&page="+
 	 * page); }
 	 */
-	@RequestMapping(value = "/community/delete/{url}")
+	@RequestMapping(value = "/freeBoard/delete/{url}")
 	public ModelAndView delete(HttpSession session, @RequestParam(value = "boardNo") int boardNo,
 			@RequestParam(value = "page") String page, @PathVariable String url
 
 	) throws Exception {
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
 		 if(info==null) {
-		 return new ModelAndView("redirect:/group/{url}");
+		 return new ModelAndView("redirect:/group/"+url);
 		 }
 		// 해당 레코드 가져 오기
 		Board dto = service.readBoard(boardNo);
 		if (dto == null) {
-			return new ModelAndView("redirect:/community/board/{url}?page=" + page);
+			return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
 		}
 
 		if (!info.getUserId().equals(dto.getUserId()) && !info.getUserId().equals("admin")) {
-			return new ModelAndView("redirect:/community/board/{url}?page=" + page);
+			return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
 		}
 
 		String root = session.getServletContext().getRealPath("/");
@@ -330,12 +330,12 @@ public class BoardController {
 
 		service.deleteBoard(boardNo, dto.getSaveFilename(), path);
 
-		return new ModelAndView("redirect:/community/board/{url}?page=" + page);
+		return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
 	}
 	
 	// -------------------------------------------------------------------------
 		// 댓글 리스트
-		@RequestMapping(value="/community/listReply/{url}")
+		@RequestMapping(value="/freeBoard/listReply/{url}")
 		
 		public ModelAndView listReply(
 				@RequestParam(value="boardNo") int boardNo,
@@ -389,7 +389,7 @@ public class BoardController {
 		}
 
 		// 리플 추가
-		@RequestMapping(value="/community/insertReply/{url}",
+		@RequestMapping(value="/freeBoard/insertReply/{url}",
 				method=RequestMethod.POST)
 		@ResponseBody
 		public Map<String, Object> insertReply(
@@ -419,7 +419,7 @@ public class BoardController {
 			return model;
 		}
 		//댓글 삭제
-		@RequestMapping(value="/community/deleteReply/{url}",method=RequestMethod.POST)
+		@RequestMapping(value="/freeBoard/deleteReply/{url}",method=RequestMethod.POST)
 		@ResponseBody
 		public Map<String, Object> deleteReply(
 				HttpSession session,

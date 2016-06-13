@@ -53,7 +53,7 @@ function insertPlayer(){
 	
 	var player=f.player.value;
 	
-	f.action="<%=cp%>/guest/player/${url}?"+player;
+	f.action="<%=cp%>/guestBoard/player/${url}?"+player;
 	f.submit();
 	
 	
@@ -77,7 +77,7 @@ $(function(){
 });
 
 function listPage(page){
-	var url="<%=cp%>/guest/listGuest/${url}";
+	var url="<%=cp%>/guestBoard/listGuest/${url}";
 	
 	$.post(url,{pageNo:page},function(data){
 		$("#guestList").html(data);
@@ -106,7 +106,7 @@ function sendGuest() {
 	
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/guest/created/${url}"
+		,url:"<%=cp%>/guestBoard/created/${url}"
 	    ,processData: false  // file 전송시 필수
 	    ,contentType: false  // file 전송시 필수
 	    ,data: formData
@@ -132,7 +132,7 @@ function sendGuest() {
 
 //좋아요 개수
 function countLike(guestNo){
-	var url="<%=cp%>/guest/countLike/${url}";
+	var url="<%=cp%>/guestBoard/countLike/${url}";
 	$.post(url,{guestNo:guestNo},function(data){
 
 		var likeCountId="#likeCount"+guestNo;
@@ -162,7 +162,7 @@ function sendLike(guestNo,guestLike){
 	
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/guest/guestLike/${url}"
+		,url:"<%=cp%>/guestBoard/guestLike/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data){
@@ -190,7 +190,7 @@ function deleteGuest(guestNo,imageFilename){
 	var params="guestNo="+guestNo+"&imageFilename="+imageFilename;
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/guest/delete/${url}"
+		,url:"<%=cp%>/guestBoard/delete/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data){

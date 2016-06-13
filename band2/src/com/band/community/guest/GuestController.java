@@ -37,7 +37,7 @@ public class GuestController {
 	private FileManager fileManager;
 	
 	
-	@RequestMapping(value="/guest/list/{url}", method=RequestMethod.GET)
+	@RequestMapping(value="/guestBoard/list/{url}", method=RequestMethod.GET)
 	public ModelAndView list(
 			@PathVariable String url
 			)throws Exception{
@@ -48,7 +48,7 @@ public class GuestController {
 	}
 	
 	
-	@RequestMapping(value="/guest/created/{url}" , method=RequestMethod.POST)
+	@RequestMapping(value="/guestBoard/created/{url}" , method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> createdSubmit(
 			HttpServletResponse resp,
@@ -79,7 +79,7 @@ public class GuestController {
 	}
 	
 	
-	@RequestMapping(value="/guest/delete/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/guestBoard/delete/{url}", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> delete(
 			HttpSession session,
@@ -111,7 +111,7 @@ public class GuestController {
 	
 	
 	//방명록 리스트
-	@RequestMapping(value="/guest/listGuest/{url}")
+	@RequestMapping(value="/guestBoard/listGuest/{url}")
 	public ModelAndView listGuest(
 			@RequestParam(value="pageNo",defaultValue="1") int current_page,
 			@PathVariable String url,
@@ -143,7 +143,7 @@ public class GuestController {
 }
 	
 	//좋아요 추가
-	@RequestMapping(value="/guest/guestLike/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/guestBoard/guestLike/{url}", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> guestLike(
 			HttpSession session,
@@ -170,7 +170,7 @@ public class GuestController {
 	
 	//좋아요 개수
 	
-	@RequestMapping(value="/guest/countLike/{url}",method=RequestMethod.POST)
+	@RequestMapping(value="/guestBoard/countLike/{url}",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> countLike(
 			@RequestParam(value="guestNo") int guestNo,
@@ -192,7 +192,7 @@ public class GuestController {
 	
 	
 	// 댓글 및 리플별 답글 추가
-		@RequestMapping(value="/guest/createdReply/{url}",
+		@RequestMapping(value="/guestBoard/createdReply/{url}",
 				method=RequestMethod.POST)
 		@ResponseBody
 		public Map<String, Object>  createdReply(
