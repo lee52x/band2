@@ -13,6 +13,9 @@
 	FROM event_${url}
 	<where>
 		eventComplete='N' 
+		<if test="group !='all' ">
+		    AND eventType=#{group}
+		</if>
         <![CDATA[
              AND ((fromDate>=#{start} AND fromDate<=#{end})
                 OR (toDate>=#{start} AND toDate<=#{end}))
@@ -77,7 +80,7 @@
 
 
 
-	<delete id="deleteSchedule" parameterType="Integer">
+	<delete id="deleteSchedule" parameterType="map">
 		DELETE FROM event_${url} WHERE eventNo=#{eventNo}			
 	</delete>
 	

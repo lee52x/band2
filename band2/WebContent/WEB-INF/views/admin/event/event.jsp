@@ -418,7 +418,7 @@ $(function(){
       <div class="x_panel">
          <div class="x_title">
             <h2>
-               <i class="fa fa-bars"></i> 일정관리 <small>Float left</small>
+               <i class="fa fa-bars"></i> <small>리스트 조회 및 등록</small>
             </h2>
             <ul class="nav navbar-right panel_toolbox">
                <li class="dropdown"><a href="#" class="dropdown-toggle"

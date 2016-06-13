@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="<%=cp%>/res/css/admin/fullcalendar.min.sp.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/res/css/admin/fullcalendar.print.css" media='print' type="text/css">
 
+<!-- 수정 시 날짜 선택 달력 테마 -->
+<link rel="stylesheet" href="<%=cp%>/res/css/admin/jquery-ui.min.css" type="text/css"/>
 
 <link href="<%=cp%>/res/css/admin/custom.css" rel="stylesheet">
  
@@ -104,6 +106,10 @@
 <script type="text/javascript" src="<%=cp%>/res/js/admin/fullcalendar.min.js"></script>
 <script type="text/javascript" src="<%=cp%>/res/js/admin/lang-all.js"></script>
 
+<!-- JQuery -->
+<script type="text/javascript" src="<%=cp%>/res/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<%=cp%>/res/jquery/jquery.ui.datepicker-ko.js"></script>
+
 <script type="text/javascript">
 //-------------------------------------------------------
 //달력
@@ -189,7 +195,7 @@ function classification(kind, idx) {
 function articleForm(calEvent) {
 	var str;
 	
-	var num=calEvent.id;
+	var eventNo=calEvent.id;
 	var title=calEvent.title;
 	var userName=calEvent.userName;
 	
@@ -250,8 +256,8 @@ function articleForm(calEvent) {
 		$("#schEndDay").html(eday);
 		$("#schContent").html(content);
 		
-		str="<button type='button' class='btn btn-primary' style='margin-right: 5px;' onclick='updateForm(\""+num+"\", \""+title+"\", \""+allDay+"\", \""+startDay+"\",\""+endDay+"\",\""+startTime+"\",\""+endTime+"\",\""+color+"\");'> 수정 <span class='glyphicon glyphicon-ok'></span></button>";
-		str+="<button type='button' class='btn btn-danger' style='margin-right: 5px;' onclick='deleteOk(\""+num+"\");'> 삭제 <span class='glyphicon glyphicon-remove'></span></button>";
+		str="<button type='button' class='btn btn-primary' style='margin-right: 5px;' onclick='updateForm(\""+eventNo+"\", \""+title+"\", \""+allDay+"\", \""+startDay+"\",\""+endDay+"\",\""+startTime+"\",\""+endTime+"\",\""+color+"\");'> 수정 <span class='glyphicon glyphicon-ok'></span></button>";
+		str+="<button type='button' class='btn btn-danger' style='margin-right: 5px;' onclick='deleteOk(\""+eventNo+"\");'> 삭제 <span class='glyphicon glyphicon-remove'></span></button>";
 		str+="<button type='button' class='btn btn-default' data-dismiss='modal' style='margin-left: 0px;'> 닫기 </button>";
 		$("#schFooter").html(str);
 		
@@ -627,16 +633,16 @@ function updateDrag(e) {
 }
 
 //-------------------------------------------
-function deleteOk(num) {
-	if(confirm("삭제 하시겠습니까 ?")) {
-		$.post("<%=cp%>/sch/delete", {num:num}, function(data){
-     	   var isLogin=data.isLogin;
+function deleteOk(eventNo) {
+	if(confirm(eventNo+"번 일정을 삭제 하시겠습니까 ?")) {
+		$.post("<%=cp%>/sch/delete/${url}", {eventNo:eventNo}, function(data){
+     	   var isLogin=true;
     	   if(isLogin=="false") {
     		   location.href="<%=cp%>/member/login";
     		   return;
-    	   }
+    	   } 
     	   
-			calendar.fullCalendar('removeEvents', num);
+			calendar.fullCalendar('removeEvents', eventNo);
 		}, "json");
 	}
     $('#scheduleModal').modal('hide');
@@ -690,30 +696,50 @@ $(function(){
 
 </script>
 
+<div class="col-md-12 col-sm-12 col-xs-12">
 <div class="bodyFrame">
-    <div class="body-title">
-          <h3><span class="glyphicon glyphicon-calendar"></span> 일정관리 </h3>
+  <div class="x_panel">
+    <div class="x_title">
+            <h2>
+               <i class="fa fa-calendar"></i> <small>캘린더 조회 및 등록</small>
+            </h2>
+            <ul class="nav navbar-right panel_toolbox">
+               <li class="dropdown"><a href="#" class="dropdown-toggle"
+                  data-toggle="dropdown" role="button" aria-expanded="false"><i
+                     class="fa fa-wrench"></i></a>
+                  <ul class="dropdown-menu" role="menu">
+                     <li><a href="#">Settings 1</a></li>
+                     <li><a href="#">Settings 2</a></li>
+                  </ul></li>
+               <li><a class="close-link"><i class="fa fa-file-excel-o"></i></a></li>
+               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+            </ul>
+            <div class="clearfix"></div>
     </div>
+    <div class="x_content">
+	    <div id="calendarHeader" style="height: 35px; line-height: 35px;">
+	        <div style="text-align: right;">
+	             <div class="btn-group" role="group" aria-label="header">
+	                 <a class="hbtn hbtn-bottom" style="background: white; color:#2f3741;"
+	                       href="javascript:classification('all', 0);">전체일정</a>
+	                 <a class="hbtn" style="background: #5bc0de;"
+	                       href="javascript:classification('#5bc0de', 1);">Regular</a>
+	                 <a class="hbtn" style="background: #169F85;"
+	                       href="javascript:classification('#169F85', 2);">Special</a>
+	            <!--      <a class="hbtn" style="background: green;"
+	                       href="javascript:classification('green', 3);">회사일정</a>
+	                 <a class="hbtn" style="background: red;"
+	                       href="javascript:classification('red', 4);">부서일정</a> -->
+	             </div>      
+	        </div>
+	    </div>
     
-    <div id="calendarHeader" style="height: 35px; line-height: 35px;">
-        <div style="text-align: right;">
-             <div class="btn-group" role="group" aria-label="header">
-                 <a class="hbtn hbtn-bottom" style="background: white; color:#2f3741;"
-                       href="javascript:classification('all', 0);">전체일정</a>
-                 <a class="hbtn" style="background: blue;"
-                       href="javascript:classification('blue', 1);">개인일정</a>
-                 <a class="hbtn" style="background: black;"
-                       href="javascript:classification('black', 2);">가족일정</a>
-                 <a class="hbtn" style="background: green;"
-                       href="javascript:classification('green', 3);">회사일정</a>
-                 <a class="hbtn" style="background: red;"
-                       href="javascript:classification('red', 4);">부서일정</a>
-             </div>      
-        </div>
+    
+    	<div id="calendar"></div>
     </div>
-    
-    <div id="calendar"></div>
 <!-- 	<div id='schLoading'>loading...</div> -->
+</div>
+</div>
 </div>
 
 

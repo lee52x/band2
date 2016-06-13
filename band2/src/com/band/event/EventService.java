@@ -21,5 +21,5 @@ public interface EventService {
 	public int insertSchedule(Event dto);
 	public List<Event> listMonthSchedule(Map<String, Object> map);
 	public Event readSchedule(int eventNo);
-	public int deleteSchedule(int eventNo);
+	public int deleteSchedule(Map<String, Object> map);
 }

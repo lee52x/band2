@@ -196,10 +196,10 @@ public class EventServiceImpl implements EventService{
 
 
 	@Override
-	public int deleteSchedule(int eventNo) {
+	public int deleteSchedule(Map<String, Object> map) {
 		int result=0;
 		try {
-			result=dao.deleteData("event.deleteSchedule", eventNo);
+			result=dao.deleteData("event.deleteSchedule", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

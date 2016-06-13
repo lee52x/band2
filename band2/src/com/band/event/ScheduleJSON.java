@@ -6,7 +6,7 @@ public class ScheduleJSON {
 
 	private String title;
 	private String userName;
-	private int color;
+	private String color;
 	private boolean allDay;
 	private String start;
 	private String end;
@@ -31,10 +31,10 @@ public class ScheduleJSON {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public int getColor() {
+	public String getColor() {
 		return color;
 	}
-	public void setColor(int color) {
+	public void setColor(String color) {
 		this.color = color;
 	}
 	public boolean isAllDay() {
