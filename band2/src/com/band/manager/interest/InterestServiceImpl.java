@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.band.common.dao.CommonDAO;
 
-@Service("band.manager.interest.interetService")
+@Service("nurida.manager.interest.interestService")
 public class InterestServiceImpl implements InterestService{
 
 	@Autowired
