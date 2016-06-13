@@ -47,9 +47,9 @@
                   </li>
                   <li><a><i class="fa fa-desktop"></i> 그룹관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<%=cp%>/admin/member/member/${url}">회원 관리</a></li>
-                      <li><a href="<%=cp%>/admin/member/stats/${url}">그룹현황 조회</a></li>
-                      <li><a href="<%=cp%>/admin/member/proceed">그룹 회의록</a></li>
+                      <li><a href="<%=cp%>/member/member/${url}">회원 관리</a></li>
+                      <li><a href="<%=cp%>/member/stats/${url}">그룹현황 조회</a></li>
+                      <li><a href="<%=cp%>/member/proceedList/${url}">그룹 회의록</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> 일정관리 <span class="fa fa-chevron-down"></span></a>
