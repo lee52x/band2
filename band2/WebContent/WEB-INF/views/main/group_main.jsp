@@ -227,7 +227,7 @@ function checkMember() {
 								<div class="form-top">
 									<div class="form-top-left">
 										<h3>Login to our site</h3>
-										<p>페이지를 이용하시려면 로그인이 필요합니다.</p>
+										<p>${message}</p>
 									</div>
 									<div class="form-top-right">
 										<i class="fa fa-lock"></i>
