@@ -70,7 +70,7 @@ public class EventController {
 		map.put("list", Arrays.asList(table_records));
 		
 		service.deleteEvent(map);	
-		ModelAndView mav = new ModelAndView("redirect:/event/{url}");
+		ModelAndView mav = new ModelAndView("redirect:/event/"+url);
 		return mav;
 	}
 	
@@ -85,7 +85,7 @@ public class EventController {
 		map.put("list", Arrays.asList(table_records));
 		
 		service.updateEvent(map);
-		ModelAndView mav = new ModelAndView("redirect:/event/{url}");
+		ModelAndView mav = new ModelAndView("redirect:/event/"+url);
 		return mav;
 	}
 	
@@ -97,7 +97,7 @@ public class EventController {
 
 		service.insertEvent(dto);
 		
-		ModelAndView mav = new ModelAndView("redirect:/event/list/{url}");
+		ModelAndView mav = new ModelAndView("redirect:/event/list/"+url);
 		return mav;
 	}
 	
@@ -282,7 +282,7 @@ public class EventController {
 	
 	
 	
-	// sch.jsp를 출력해주는 기능
+	// place.jsp를 출력해주는 기능
 		@RequestMapping(value="/event/place/{url}")
 		public String place(@PathVariable String url) throws Exception{
 			return(".admin.event.place.place");

@@ -10,11 +10,21 @@ public class Event {
 	
 	private List<Integer> memberNos;
 	private int memberNo;
+	private String latitude, longitude;
 
 
-	
-	
-	
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
 	public List<Integer> getMemberNos() {
 		return memberNos;
 	}
