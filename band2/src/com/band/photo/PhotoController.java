@@ -83,16 +83,16 @@ public class PhotoController {
 		}
 
         String params = "";
-        String urlList = cp+"/community/photo/"+url;
-        String urlArticle = cp+"/community/photoArticle/"+url+"?page=" + current_page;
+        String urlList = cp+"/photoBoard/list/"+url;
+        String urlArticle = cp+"/photoBoard/photoArticle/"+url+"?page=" + current_page;
         if(searchValue.length()!=0) {
         	params = "searchKey=" +searchKey + 
         	             "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");	
         }
         
         if(params.length()!=0) {
-            urlList = cp+"/community/photo/?"+url + params;
-            urlArticle = cp+"/community/photoArticle?page=" + current_page + "&"+ params;
+            urlList = cp+"/photoBoard/list/"+url+"?" + params;
+            urlArticle = cp+"/photoBoard/photoArticle"+url+"?page=" + current_page + "&"+ params;
         }
 		
 		ModelAndView mav=new ModelAndView(".community.photo.list");
