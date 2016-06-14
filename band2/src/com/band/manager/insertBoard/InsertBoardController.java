@@ -42,8 +42,8 @@ public class InsertBoardController {
 		
 	}
 	
-	@RequestMapping(value="/manager/insertBoard/delete2/{url}", method=RequestMethod.GET)
-	public ModelAndView deleteBoard(
+	@RequestMapping(value="/manager/insertBoard/delete2/{url}", method=RequestMethod.POST)
+	public String deleteBoard(
 			HttpServletRequest req,
 			@PathVariable String url,
 			@RequestParam(value="boCateNum") int boCateNum,
@@ -55,20 +55,11 @@ public class InsertBoardController {
 		map.put("groupURL", url);
 		map.put("boCateNum", boCateNum);
 		
-		String state="true";
 		
-		int result=service.deleteBoard(map);
-		
-		if(result==0){
-			state="false";
-		}
+		service.deleteBoard(map);
 		
 		
-		ModelAndView mav=new ModelAndView(".admin.manager.insertBoard");
-		mav.addObject("state",state);
-		mav.addObject("url",url);
-		
-		return mav;
+		return "redirect:/manager/insertBoard/"+url;
 		
 	}
 	
@@ -89,7 +80,7 @@ public class InsertBoardController {
 		
 		service.updateBoard(map);
 		
-		return "redirect:/manager/insertBoard/{url}";
+		return "redirect:/manager/insertBoard/"+url;
 		
 	}
 	
@@ -110,7 +101,7 @@ public class InsertBoardController {
 		
 		service.insertBoard(map);
 		
-		return "redirect:/manager/insertBoard/{url}";
+		return "redirect:/manager/insertBoard/"+url;
 		
 	}
 	
