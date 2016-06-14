@@ -57,9 +57,9 @@
 
         var mode="${mode}";
     	if(mode=="created")
-    		f.action="<%=cp%>/freeBoard/created/${url}";
+    		f.action="<%=cp%>/freeBoard/created/${boCateNum}/${url}";
     	else if(mode=="update")
-    		f.action="<%=cp%>/freeBoard/update/${url}";
+    		f.action="<%=cp%>/freeBoard/update/${boCateNum}/${url}";
 
     	// <input type='submit' ..>,  <input type='image' ..>, <button>은 submit() 메소드 호출하면 두번전송
         return true;
@@ -129,7 +129,7 @@
                         <tr>
                             <td colspan="4" style="text-align: center; padding-top: 15px;">
                                   <button type="submit" class="btn btn-primary"> 확인 <span class="glyphicon glyphicon-ok"></span></button>
-                                  <button type="button" class="btn btn-danger" onclick="javascript:location.href='<%=cp%>/freeBoard/list/${url}';"> 취소 </button>
+                                  <button type="button" class="btn btn-danger" onclick="javascript:location.href='<%=cp%>/freeBoard/list/${boCateNum}/${url}';"> 취소 </button>
                                   
                                   <c:if test="${mode=='update'}">
                                       <input type="hidden" name="boardNo" value="${dto.boardNo}">

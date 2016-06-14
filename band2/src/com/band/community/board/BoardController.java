@@ -106,15 +106,15 @@ public class BoardController {
 		}
 
 		String params = "";
-		String urlList = cp + "/freeBoard/"+boCateNum+"/list/" + url;
-		String urlArticle = cp + "/freeBoard/article/" + url + "?page=" + current_page;
+		String urlList = cp + "/freeBoard/list/"+boCateNum+"/"+ url;
+		String urlArticle = cp + "/freeBoard/article/"+boCateNum+"/" + url + "?page=" + current_page;
 		if (searchValue.length() != 0) {
 			params = "searchKey=" + searchKey + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
 		}
 
 		if (params.length() != 0) {
-			urlList = cp + "/freeBoard/"+boCateNum+"/list/" + url + "?" + params;
-			urlArticle = cp + "/freeBoard/article/" + url + "?page=" + current_page + "&" + params;
+			urlList = cp + "/freeBoard/list/"+boCateNum+"/" + url + "?" + params;
+			urlArticle = cp + "/freeBoard/article/"+boCateNum+"/" + url + "?page=" + current_page + "&" + params;
 
 		}
 
@@ -187,8 +187,13 @@ public class BoardController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/freeBoard/created/{url}", method = RequestMethod.POST)
-	public ModelAndView createdSubmit(HttpSession session, @PathVariable String url, Board dto) throws Exception {
+	@RequestMapping(value = "/freeBoard/created/{boCateNum}/{url}", method = RequestMethod.POST)
+	public ModelAndView createdSubmit(
+			HttpSession session, 
+			@PathVariable String url, 
+			Board dto
+			,@PathVariable String boCateNum
+			) throws Exception {
 
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
 		 if(info==null) {
@@ -216,7 +221,7 @@ public class BoardController {
 		}
 		
 
-		return new ModelAndView("redirect:/freeBoard/list/"+url);
+		return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url);
 	}
 
 	/*
@@ -240,16 +245,26 @@ public class BoardController {
 	 * out=resp.getWriter(); out.print(
 	 * "<script>alert('파일 다운로드가 실패했습니다.');history.back();</script>"); } }
 	 */
-	@RequestMapping(value = "/freeBoard/article/{url}")
+	@RequestMapping(value = "/freeBoard/article/{boCateNum}/{url}")
 	public ModelAndView article(
 			HttpSession session, 
 			@RequestParam(value = "boardNo") int boardNo,
 			@RequestParam(value = "page") String page,
 			@RequestParam(value = "searchKey", defaultValue = "subject") String searchKey,
 			@RequestParam(value = "searchValue", defaultValue = "") String searchValue,
-			@PathVariable String url)
+			@PathVariable String url,
+			@PathVariable String boCateNum,
+			Picture pdto
+			)
 			throws Exception {
 
+		
+		//대표사진 가져오기
+		List<Picture> plist=service2.listNonMainPicture(url);
+		pdto=service2.readMainPicture(url);
+		
+		
+		
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
 		 if(info==null) {
 		 return new ModelAndView("redirect:/group/{url}");
@@ -283,6 +298,16 @@ public class BoardController {
 		if (searchValue.length() != 0) {
 			params += "&searchKey=" + searchKey + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
 		}
+		
+		//네비게이션 바 조정하기
+		//동적 게시판 이름 가져오기
+		Map<String, Object> navMap=new HashMap<>();
+		navMap.put("groupURL", url);
+		navMap.put("boCateNum", boCateNum);
+		
+		String boardName=navService.readName(navMap);
+		List<InsertBoard> navList=navService.listBoard(navMap);
+		
 
 		ModelAndView mav = new ModelAndView(".community.board.article");
 		mav.addObject("subMenu", "2");
@@ -291,18 +316,25 @@ public class BoardController {
 		mav.addObject("preReadDto", preReadDto);
 		mav.addObject("nextReadDto", nextReadDto);
 		mav.addObject("url",url);
+		mav.addObject("boCateNum", boCateNum);
 		mav.addObject("page", page);
 		mav.addObject("params", params);
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
+		mav.addObject("boardName",boardName);
+		mav.addObject("navList", navList);
 
 		return mav;
 	}
 
-	@RequestMapping(value = "/freeBoard/update/{url}", method = RequestMethod.GET)
+	@RequestMapping(value = "/freeBoard/update/{boCateNum}/{url}", method = RequestMethod.GET)
 	public ModelAndView updateForm(
 			HttpSession session,
 			@RequestParam(value = "boardNo") int boardNo,
 			@RequestParam(value = "page") String page,
-			@PathVariable String url
+			@PathVariable String url,
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception {
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
 		 if(info==null) {
@@ -310,25 +342,47 @@ public class BoardController {
 		 }
 		Board dto = (Board) service.readBoard(boardNo);
 		if (dto == null) {
-			return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
+			return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
 		}
 
 		if (!info.getUserId().equals(dto.getUserId())) {
-			return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
+			return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
 		}
 
+		//네비게이션 바 조정하기
+		//동적 게시판 이름 가져오기
+		Map<String, Object> navMap=new HashMap<>();
+		navMap.put("groupURL", url);
+		navMap.put("boCateNum", boCateNum);
+		
+		String boardName=navService.readName(navMap);
+		List<InsertBoard> navList=navService.listBoard(navMap);
+		
+		
+		//대표사진 가져오기
+		List<Picture> plist=service2.listNonMainPicture(url);
+		pdto=service2.readMainPicture(url);
+		
+		
+		
 		ModelAndView mav = new ModelAndView(".community.board.created");
 		mav.addObject("subMenu", "2");
 		mav.addObject("dto", dto);
 		mav.addObject("mode", "update");
 		mav.addObject("page", page);
-		mav.addObject("url","url");
+		mav.addObject("url",url);
+		mav.addObject("boCateNum",boCateNum);
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
+		mav.addObject("boardName",boardName);
+		mav.addObject("navList", navList);
+
 		
 		return mav;
 	}
 
-	@RequestMapping(value = "/freeBoard/update/{url}", method = RequestMethod.POST)
-	public ModelAndView updateSubmit(HttpSession session, Board dto, @RequestParam(value = "page") String page,
+	@RequestMapping(value = "/freeBoard/update/{boCateNum}/{url}", method = RequestMethod.POST)
+	public ModelAndView updateSubmit(HttpSession session, Board dto, @RequestParam(value = "page") String page, @PathVariable String boCateNum,
 			@PathVariable String url) throws Exception {
 
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
@@ -341,7 +395,7 @@ public class BoardController {
 		// 수정 하기
 		service.updateBoard(dto, path);
 
-		return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
+		return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
 	}
 
 	/*
@@ -373,9 +427,9 @@ public class BoardController {
 	 * ModelAndView("redirect:/board/update/{url}?boardNo="+boardNo+"&page="+
 	 * page); }
 	 */
-	@RequestMapping(value = "/freeBoard/delete/{url}")
+	@RequestMapping(value = "/freeBoard/delete/{boCateNum}/{url}")
 	public ModelAndView delete(HttpSession session, @RequestParam(value = "boardNo") int boardNo,
-			@RequestParam(value = "page") String page, @PathVariable String url
+			@RequestParam(value = "page") String page, @PathVariable String url, @PathVariable String boCateNum
 
 	) throws Exception {
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
@@ -385,11 +439,11 @@ public class BoardController {
 		// 해당 레코드 가져 오기
 		Board dto = service.readBoard(boardNo);
 		if (dto == null) {
-			return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
+			return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
 		}
 
 		if (!info.getUserId().equals(dto.getUserId()) && !info.getUserId().equals("admin")) {
-			return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
+			return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
 		}
 
 		String root = session.getServletContext().getRealPath("/");
@@ -397,17 +451,18 @@ public class BoardController {
 
 		service.deleteBoard(boardNo, dto.getSaveFilename(), path);
 
-		return new ModelAndView("redirect:/freeBoard/list/"+url+"?page=" + page);
+		return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
 	}
 	
 	// -------------------------------------------------------------------------
 		// 댓글 리스트
-		@RequestMapping(value="/freeBoard/listReply/{url}")
+		@RequestMapping(value="/freeBoard/listReply/{boCateNum}/{url}")
 		
 		public ModelAndView listReply(
 				@RequestParam(value="boardNo") int boardNo,
 				@RequestParam(value="pageNo", defaultValue="1") int current_page,
-				@PathVariable String url
+				@PathVariable String url,
+				@PathVariable String boCateNum
 				
 				) throws Exception {
 			
@@ -456,14 +511,15 @@ public class BoardController {
 		}
 
 		// 리플 추가
-		@RequestMapping(value="/freeBoard/insertReply/{url}",
+		@RequestMapping(value="/freeBoard/insertReply/{boCateNum}/{url}",
 				method=RequestMethod.POST)
 		@ResponseBody
 		public Map<String, Object> insertReply(
 				HttpServletResponse resp,
 				HttpSession session,
 				Reply dto,
-				@PathVariable String url
+				@PathVariable String url,
+				@PathVariable String boCateNum
 				) throws Exception {
 		
 			SessionInfo info=(SessionInfo)session.getAttribute("main");
@@ -486,12 +542,13 @@ public class BoardController {
 			return model;
 		}
 		//댓글 삭제
-		@RequestMapping(value="/freeBoard/deleteReply/{url}",method=RequestMethod.POST)
+		@RequestMapping(value="/freeBoard/deleteReply/{boCateNum}/{url}",method=RequestMethod.POST)
 		@ResponseBody
 		public Map<String, Object> deleteReply(
 				HttpSession session,
 				@RequestParam(value="replyNum") int replyNum,
-				@PathVariable String url
+				@PathVariable String url,
+				@PathVariable String boCateNum
 				
 				)throws Exception{
 			SessionInfo info=(SessionInfo)session.getAttribute("main");
