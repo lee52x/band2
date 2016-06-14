@@ -30,7 +30,7 @@ public class CommunityController {
 	@Autowired
 	public CommunityService service;
 	
-	@RequestMapping(value="/community/{url}", method=RequestMethod.GET)
+	@RequestMapping(value="/community/main/{url}", method=RequestMethod.GET)
 	public ModelAndView method(
 			@PathVariable String url,
 			Notice ndto,

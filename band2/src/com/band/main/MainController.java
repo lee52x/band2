@@ -60,7 +60,7 @@ public class MainController {
 	      if(dto.getGrade()==1||dto.getGrade()==2){
 	    	  return "redirect:/account/main/"+url;
 	       }else{
-	    	  return "redirect:/community/"+url;
+	    	  return "redirect:/community/main/"+url;
 	       }
 	   }
 	   

@@ -50,4 +50,26 @@ SELECT * FROM(
 	DELETE FROM notice WHERE noticeNo = #{noticeNo}
 </delete>
 
+
+<!-- ********************* -->
+<!-- 회계내역 -->
+<select id="readAccount" parameterType="map" resultType="com.band.account.NoticeAccount">
+	SELECT listNum, listName, transactionNo FROM accountNotice WHERE groupURL=#{url}
+</select>
+
+<select id="accountList" parameterType="map" resultType="com.band.account.Account">
+	SELECT * FROM (
+		SELECT ROWNUM rnum, tb.* FROM(
+			SELECT transactionNo, TO_CHAR(tranDate, 'YYYY-MM-DD') tranDate, tranName, tranData, 
+				   withdrawal, deposit, memo, accountName, eventNo
+			FROM accounting_${url}
+			WHERE transactionNo IN
+			<foreach item="transactionNo" index="index" collection="transactionNo"
+                            open="(" separator="," close=")">
+                    #{transactionNo}
+            </foreach>
+			ORDER BY tranDate DESC, transactionNo DESC
+		)tb
+	) 
+</select>
 </mapper>

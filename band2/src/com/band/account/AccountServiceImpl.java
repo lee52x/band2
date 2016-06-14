@@ -176,4 +176,15 @@ public class AccountServiceImpl implements AccountService{
 		return list;
 	}
 
+	@Override
+	public int insertNoticeAccount(NoticeAccount dto) {
+		int result=0;
+		try {
+			result=dao.insertData("account.insertNoticeAccount", dto);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
 }

@@ -23,4 +23,7 @@ public interface AccountService {
 	
 	// 일정 관련
 	public List<Event> listEvent(Map<String, Object> map);
+	
+	// 커뮤니티 게시
+	public int insertNoticeAccount(NoticeAccount dto);
 }

@@ -246,7 +246,7 @@ public class AccountController {
 		
 		List<Account> list=service.allListAccount(map);
 		
-		String all = "전체 입출금 내역 조회";
+		String all = "전체 입출금 내역";
 		
 		ModelAndView mav=new ModelAndView("admin/account/money/searchList");
 		mav.addObject("url", url);
@@ -292,5 +292,20 @@ public class AccountController {
 	}
 	/***************************************************************/
 	
-	
+	@RequestMapping(value="/account/noticeAccount/{url}", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView noticeAccount(
+			@PathVariable String url,
+			@RequestParam String transactionNo,
+			@RequestParam String listName,
+			NoticeAccount dto
+			) {
+		
+		dto.setUrl(url);
+		dto.setListName(listName);
+		dto.setTransactionNo(transactionNo);
+		service.insertNoticeAccount(dto);
+		
+		return new ModelAndView("redirect:/account/main/"+url);
+	}
 }
