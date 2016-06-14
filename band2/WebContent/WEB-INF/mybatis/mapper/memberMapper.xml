@@ -5,7 +5,7 @@
 	<!-- 커뮤니티 회원가입 & 운영진의 회원정보 입력 -->
 	<insert id="insertMember" parameterType="com.band.member.member.Member">
 		INSERT INTO member_${url}(memberNo, userId, pwd, name, birth, address, gender, email, tel, joinDate, grade, groupUrl)
-		VALUES(member_seq.NEXTVAL, #{userId, jdbcType = VARCHAR}, #{pwd, jdbcType = VARCHAR}, #{name}, #{birth}, #{address}, #{gender}, #{email}, #{tel}, #{joinDate}, #{grade}, #{url})
+		VALUES(member_seq_${url}.NEXTVAL, #{userId, jdbcType = VARCHAR}, #{pwd, jdbcType = VARCHAR}, #{name}, #{birth}, #{address}, #{gender}, #{email}, #{tel}, #{joinDate}, #{grade}, #{url})
 	</insert>
 
 	<!-- 회원정보 목록 -->
@@ -93,7 +93,7 @@
 	<!-- 회의록 생성  -->
 	<insert id="insertProceed" parameterType="com.band.member.proceed.Proceed">
 		INSERT INTO proceedings(proceedNo, subject, content, proceedDate, place, attendee, saveFilename, OriginalFilename, note, groupURL)
-		VALUES(proceed_seq.NEXTVAL, #{subject}, #{content}, #{proceedDate}, #{place, jdbcType = VARCHAR}, #{attendee},
+		VALUES(proceed_seq_${url}.NEXTVAL, #{subject}, #{content}, #{proceedDate}, #{place, jdbcType = VARCHAR}, #{attendee},
 		 #{saveFilename, jdbcType = VARCHAR}, #{OriginalFilename, jdbcType = VARCHAR}, #{note, jdbcType = VARCHAR}, #{url})
 	</insert>
 
@@ -111,22 +111,22 @@
 	</sql>
 	
 	<!-- 회의록 리스트 검색 -->
-	<select id="proceedlist" parameterType="map" resultType="com.band.member.proceed.Proceed">
+	<select id="proceedList" parameterType="map" resultType="com.band.member.proceed.Proceed">
 		SELECT * FROM (
 		    SELECT ROWNUM rnum, tb.* FROM (
 			     SELECT subject, TO_CHAR(proceedDate, 'YYYY-MM-DD') created, saveFilename
 			        FROM proceedings p
 			        JOIN community c ON p.groupURL = c.groupURL			        
-                    <where>
+                    <!-- <where>
                          <if test="searchValue != null and searchValue != ''">
 			                  <include refid="where-list"/>
 		                 </if>
-	                </where>
+	                </where> -->
 	                ORDER BY proceedNo DESC
-	<![CDATA[
+	<!-- <![CDATA[
 	        ) tb WHERE ROWNUM <= #{end}
 	    ) WHERE rnum >= #{start}
-	]]>
+	]]> -->
 	</select>
 	
 	<!-- 회의록 개수 -->

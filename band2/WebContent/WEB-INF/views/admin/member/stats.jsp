@@ -218,8 +218,8 @@
 <script src="<%=cp%>/res/js/admin/echarts.min.js"></script>
 <!-- NProgress -->
 <script src="<%=cp%>/res/js/admin/nprogress.js"></script>
-<!-- Custom Theme Scripts -->
-<script src="<%=cp%>/res/js/admin/custom.js"></script>
+<!-- easy-pie-chart -->
+<script src="<%=cp%>/res/js/admin/jquery.easypiechart.min.js"></script>
 
 
 <script>

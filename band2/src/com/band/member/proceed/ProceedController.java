@@ -28,7 +28,7 @@ public class ProceedController {
 	@Autowired
 	private MyUtil myUtil;
 	
-	@RequestMapping(value="/member/insertProceed/{url}", method=RequestMethod.POST)
+	/*@RequestMapping(value="/member/insertProceed/{url}", method=RequestMethod.POST)
 	public ModelAndView proceedInsert(			
 			HttpSession session,
 			Proceed dto,
@@ -43,20 +43,20 @@ public class ProceedController {
 		service.insertProceed(dto, path);
 		
 		return mav;		
-	}	
+	}*/
 	
 	@RequestMapping(value="/member/proceedList/{url}")
 	public ModelAndView proceedList(HttpSession session, 
-			HttpServletRequest req,
-			@RequestParam(value="page", defaultValue="1") int current_page,
+			HttpServletRequest req
+			/*@RequestParam(value="page", defaultValue="1") int current_page,
 			@RequestParam(value="searchKey", defaultValue="subject") String searchKey,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue			
+			@RequestParam(value="searchValue", defaultValue="") String searchValue*/			
 			) throws Exception {
 		
 		String cp = req.getContextPath();
 		String url=(String)session.getAttribute("url");
 		
-		int numPerPage = 10;
+		/*int numPerPage = 10;
 		int total_page;
 		int dataCount;
 		
@@ -103,17 +103,17 @@ public class ProceedController {
 		if(params.length() != 0) {
 			urlList = cp + "/member/proceedList?" + params;
 			urlArticle = cp + "/member/article?page=" + current_page + "&" + params;
-		}
+		}*/
 		
 		ModelAndView mav = new ModelAndView(".admin.member.proceedings");
 		mav.addObject("url", url);
 		
-		mav.addObject("list", list);
+		/*mav.addObject("list", list);
 		mav.addObject("dataCount", dataCount);
 		mav.addObject("total_page", total_page);
 		mav.addObject("urlArticle", urlArticle);
 		mav.addObject("page", current_page);
-		mav.addObject("paging", myUtil.paging(current_page, total_page, urlList));
+		mav.addObject("paging", myUtil.paging(current_page, total_page, urlList));*/
 		
 		return mav;
 	}
