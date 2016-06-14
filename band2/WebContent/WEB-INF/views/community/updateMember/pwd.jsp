@@ -236,7 +236,7 @@ function sendOk() {
 		<div class="modal-content">
 			<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h2 id="myModalLabel" class="modal-title text-center fc-orange" style="font-family: sans-serif,나눔고딕, 맑은 고딕; font-weight: bold;">회원 가입</h2>
+					<h2 id="myModalLabel" class="modal-title text-center fc-orange" style="font-family: sans-serif,나눔고딕, 맑은 고딕; font-weight: bold;">회원정보수정</h2>
 			</div>
 			<div class="modal-body" style="background-color: #FFD8D8;">
 			    <form name="modalLoginForm" method="post">

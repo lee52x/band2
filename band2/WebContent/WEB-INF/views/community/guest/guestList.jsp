@@ -158,11 +158,13 @@ function sendReplyAnswer(guestNo) {
 										</a>
 											<div class="stream-headline">
 												<h5 class="stream-author">
-											<p style="font-weight: bolder;">${dto.name }</p>
+											<p style="font-weight: bolder;">${dto.name }
+												<a onclick="deleteGuest('${dto.guestNo}','${dto.imageFilename}')"><span style="color: red" class="icon-trash shaded pull-right">Delete</span></a>
+											</p>
 												<small>${dto.created}</small>
-													<p align="right">
-													<a onclick="deleteGuest('${dto.guestNo}','${dto.imageFilename}')"><span style="color: red" class="icon-trash shaded">Delete</span></a>
-													</p>
+													
+												
+													
 													
 												</h5>
 												
@@ -208,9 +210,9 @@ function sendReplyAnswer(guestNo) {
 													<i class="icon-retweet shaded"></i>
 													Repost
 												</a>
-												
-												  <button id="button1${dto.guestNo}"  class="pull-right" type="button" onclick="viewReply(${dto.guestNo});">댓글보기</button>
-												
+											
+												  <button id="button1${dto.guestNo}" style="" class="icon-retweet  pull-right "  onclick="viewReply(${dto.guestNo});">댓글보기</button>
+											
 												
 											</div>
 											<div id="listReplyAnswer${dto.guestNo}" style="padding-top: 5px;min-height: 50px;"></div>
@@ -231,7 +233,7 @@ function sendReplyAnswer(guestNo) {
 			    <form name="modalReplyForm" method="post">
 			         <div class="form-group">
 			            <label class="control-label" for="modalContent">작성자:${dto.name}</label><br>
-			           
+			            
 			            <div class="row-fluid">
 						<input type="text"  id="modalContent" name="content" placeholder="내용을 입력하세요" style="width: 510px"  >
 						<input type="hidden" id="modalGuestNo" name="guestNo">
@@ -255,27 +257,6 @@ function sendReplyAnswer(guestNo) {
 
 
 
-								<div class="stream-respond" align="center" id="response">
-												<div class="media stream" align="left">
-													<a href="#" class="media-avatar small pull-left">
-														<img src="<%=cp%>/res/img/user.png">
-													</a>
-													<div class="media-body">
-														<div class="stream-headline">
-															<h5 class="stream-author">
-																John Donga 
-																<small>10 July 14</small>
-															</h5>
-															<div class="stream-text">
-																Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-															</div>
-														</div><!--/.stream-headline-->
-													</div>
-												</div><!--/.media .stream-->
-										
-											</div><!--/.stream-respond-->
-	
-	
 	
 	
 	

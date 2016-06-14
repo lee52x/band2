@@ -59,15 +59,17 @@ function question(){
                                     가입밴드
                                     <b class="caret"></b>
                               </a>
+                             <c:forEach var="dto" items="${list}">  
                               <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
+                                <li><a href="">${url}</a></li>
+                                <li><a href="#">${url}</a></li>
+                                <li><a href="#">${url}</a></li>
+                                <li><a href="#">${url}</a></li>
+                                <li><a href="#">${url}</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">${url}</a></li>
                               </ul>
+                              </c:forEach>
                         </li>
                         
                         
