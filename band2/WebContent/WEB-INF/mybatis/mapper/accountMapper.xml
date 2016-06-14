@@ -6,13 +6,13 @@
 		<if test="memo!=null and accountName!=null and eventNo!=null">
 		INSERT INTO accounting_${url}(transactionNo, tranDate, tranName, tranData, 
 										withdrawal, deposit, memo, accountName, eventNo)
-		VALUES(transaction_seq_test.NEXTVAL, #{tranDate}, #{tranName}, #{tranData}, 
+		VALUES(transaction_seq_${url}.NEXTVAL, #{tranDate}, #{tranName}, #{tranData}, 
 										#{withdrawal}, #{deposit}, #{memo}, #{accountName}, #{eventNo})
 		</if>
 		<if test="memo==null and accountName==null and eventNo==null">
 		INSERT INTO accounting_${url}(transactionNo, tranDate, tranName, tranData, 
 										withdrawal, deposit)
-		VALUES(transaction_seq_test.NEXTVAL, #{tranDate}, #{tranName}, #{tranData}, 
+		VALUES(transaction_seq_${url}.NEXTVAL, #{tranDate}, #{tranName}, #{tranData}, 
 										#{withdrawal}, #{deposit})
 		</if>
 	</insert>

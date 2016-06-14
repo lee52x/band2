@@ -15,7 +15,321 @@
 	VALUES(#{userId}, #{name}, #{birth}, #{pwd}, #{gender}, #{tel}, #{email})
 	</insert>
 	
+	<insert id="insertOwner" parameterType="com.band.group.Group">
+	INSERT INTO member_${groupUrl} (memberNo, email, birth, name, tel, gender, grade, groupUrl, userId, pwd)
+	VALUES(member_seq_${groupUrl}.NEXTVAL, #{email}, #{birth}, #{name}, #{tel}, #{gender}, 1, #{groupUrl}, #{userId}, #{pwd})
+	</insert>
+	
+	<!-- 테이블 생성 -->
+	<!-- 회계관리 -->
+	<update id="createAccountTable" parameterType="String">
+	CREATE TABLE accounting_${value} (
+     transactionNo NUMBER NOT NULL
+     ,tranDate     DATE
+     ,tranName     VARCHAR2(30)
+     ,tranData     VARCHAR2(255)
+     ,withdrawal   NUMBER
+     ,deposit      NUMBER
+     ,memo         VARCHAR2(1000)
+     ,accountName  VARCHAR2(255) DEFAULT '미분류'
+     ,eventNo      VARCHAR2(255)
+     ,PRIMARY KEY(transactionNo)
+	)
+	</update>
+	
+	<update id="createAccountTable_seq" parameterType="String">
+	CREATE SEQUENCE transaction_seq_${value}
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
+	
+	<!-- 회원관리 -->
+	<update id="createMemberTable" parameterType="String">
+	CREATE TABLE member_${value} (
+     memberNo      NUMBER NOT NULL
+     ,userId       VARCHAR2(60)
+     ,pwd          VARCHAR2(100)
+     ,email        VARCHAR2(100)
+     ,birth        DATE    
+     ,name         VARCHAR2(60) NOT NULL
+     ,tel          VARCHAR2(60)
+     ,gender       NUMBER
+     ,address      VARCHAR2(255)
+     ,grade        NUMBER NOT NULL
+     ,joinDate     DATE
+     ,cjoinDate   DATE DEFAULT SYSDATE
+     ,groupURL     VARCHAR2(60) NOT NULL
+     ,PRIMARY KEY(memberNo)
+     ,FOREIGN KEY(groupURL)
+        REFERENCES community(groupURL)
+	)
+	</update>
+	
+	<update id="createMemberTable_seq" parameterType="String">
+	CREATE SEQUENCE member_seq_${value}
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
+	
+	<!-- 일정관리 -->
+	<update id="createEventTable" parameterType="String">
+	CREATE TABLE event_${value}(
+   eventNo  NUMBER NOT NULL
+   ,eventName    VARCHAR2(255)
+   ,content CLOB
+   ,eventPlace   VARCHAR2(1000) NOT NULL
+   ,latitude       NUMBER
+   ,longitude NUMBER
+   ,fromDate    DATE NOT NULL
+   ,toDate    DATE NOT NULL
+   ,fromTime VARCHAR2(5) NOT NULL
+   ,toTime VARCHAR2(5)
+   ,eventType NUMBER NOT NULL
+   ,eventfee    VARCHAR2(6)
+   ,fullDate  VARCHAR2(25) NOT NULL
+   ,eventComplete VARCHAR2(1) DEFAULT 'N'
+   ,PRIMARY KEY(eventNo)
+	)
+	</update>
+	
+	<update id="createEventAttendTable" parameterType="String">
+	CREATE TABLE eventAttend_${value}(
+  	eventNo  NUMBER NOT NULL
+  	,memberNo      NUMBER NOT NULL
+  	,fee VARCHAR2(1) DEFAULT 'N'
+	,PRIMARY KEY(eventNo, memberNo)
+	,FOREIGN KEY(eventNo)
+    REFERENCES event_${value}(eventNo)
+  	,FOREIGN KEY(memberNo)
+    REFERENCES member_${value}(memberNo)
+	)
+	</update>
+	
+	<update id="createEventTable_seq" parameterType="String">
+	CREATE SEQUENCE event_seq_${value}
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
+	
+	<!-- 커뮤니티 관리 -->
+	<update id="createCommunityTable" parameterType="String">
+	CREATE TABLE boardCategory_${value}(
+      boCateNum NUMBER NOT NULL,
+      boCateType VARCHAR2(1000) NOT NULL,
+      boCateName VARCHAR2(1000) NOT NUll,
+      PRIMARY KEY(boCateNum)
+    )
+	</update>
+	
+	<update id="createCommunityTable_seq" parameterType="String">
+	CREATE SEQUENCE boardCategory_${value}_seq
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
+	
+	<update id="createHashcodeTable" parameterType="String">
+	CREATE TABLE hashcode_${value}(
+    hashNum NUMBER NOT NULL,
+	hashDate DATE NOT NULL,
+	hashName VARCHAR2(1000),
+	PRIMARY KEY(hashNum)
+	)
+	</update>
+	
+	<update id="createHashcodeTable_seq" parameterType="String">
+	CREATE SEQUENCE hashcode_${value}_seq
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
 	
 	
+	<!-- 커뮤니티 -->
+	<!-- 방명록 -->
+	<update id="createGuestbookTable" parameterType="String">
+	CREATE TABLE guestbook_${value} (
+    guestNo   NUMBER NOT NULL
+    ,content  VARCHAR2(4000) NOT NULL
+    ,created  DATE DEFAULT SYSDATE
+    ,player VARCHAR2(255)
+    ,memberNo NUMBER 
+    ,answer NUMBER	
+    ,imageFilename VARCHAR2(255)
+    ,PRIMARY KEY(guestNo)
+    ,FOREIGN KEY(memberNo)
+       REFERENCES member_${value}(memberNo)
+       ON DELETE CASCADE
+	)
+	</update>
+	
+	<update id="createGuestbookTable_seq" parameterType="String">
+	CREATE SEQUENCE guestbook_seq_${value}
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
+	
+	<update id="createGuestbookLikeTable" parameterType="String">
+	CREATE TABLE  guestbook_${value}_like(
+    guestNo  NUMBER NOT NULL
+    ,memberNo   NUMBER NOT NULL
+    ,guestLike NUMBER(1) 
+    ,PRIMARY  KEY(guestNo, memberNo)
+    ,FOREIGN  KEY(guestNo) REFERENCES guestbook_${value}(guestNo)
+	      ON DELETE CASCADE
+    ,FOREIGN  KEY(memberNo) REFERENCES member_${value}(memberNo)
+	      ON DELETE CASCADE
+	)
+	</update>
+	
+	<!-- 자유게시판 -->
+	<update id="createFreeBoardTable" parameterType="String">
+	CREATE TABLE freeBoard_${value} (
+   	boardNo    NUMBER NOT NULL
+   	,subject   VARCHAR2(255) NOT NULL
+   	,content   CLOB NOT NULL
+   	,hitCount  NUMBER DEFAULT 0
+  	,created   DATE DEFAULT SYSDATE
+   	,saveFilename VARCHAR2(255)
+   	,originalFilename VARCHAR2(255)
+   	,groupNo NUMBER NOT NULL
+   	,memberNo NUMBER NOT NULL
+   	,PRIMARY KEY(boardNo)
+   	,FOREIGN KEY(memberNo)
+      REFERENCES member_${value}(memberNo)
+	)
+	</update>
+	
+	<update id="createFreeBoardTable_seq" parameterType="String">
+	CREATE SEQUENCE freeboard_seq_${value}
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
+	
+	<update id="createFreeBoardReplyTable" parameterType="String">
+	CREATE TABLE freeboardReply_${value} (
+    replyNum  NUMBER NOT NULL
+    ,content   VARCHAR2(4000) NOT NULL
+    ,created   DATE DEFAULT SYSDATE    
+    ,boardNo   NUMBER NOT NULL
+    ,memberNo  NUMBER NOT NULL
+    ,PRIMARY KEY(replyNum)
+    ,FOREIGN KEY(boardNo)
+       REFERENCES freeBoard_${value}(boardNo)
+     ON DELETE CASCADE
+    ,FOREIGN KEY(memberNo)
+       REFERENCES member_${value}(memberNo)
+       ON DELETE CASCADE
+	)
+	</update>
+	
+	<update id="createFreeBoardReplyTable_seq" parameterType="String">
+	CREATE SEQUENCE boardReply_${value}_seq
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
+	
+	<!-- 포토게시판 -->
+	<update id="createPhotoBoardTable" parameterType="String">
+	CREATE TABLE photoBoard_${value} (
+    photoNo  NUMBER NOT NULL
+    ,subject VARCHAR2(255) NOT NULL
+    ,content CLOB NOT NULL
+    ,hitcount NUMBER DEFAULT 0
+    ,created DATE DEFAULT SYSDATE    
+    ,imageFilename VARCHAR2(255)
+    ,memberNo NUMBER NOT NULL
+    ,PRIMARY KEY(photoNo)
+    ,FOREIGN KEY(memberNo)
+      REFERENCES member_${value}(memberNo)
+	)
+	</update>
+	
+	<update id="createPhotoBoardTable_seq" parameterType="String">
+	CREATE SEQUENCE photoBoard_seq_${value}
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
+	
+	<update id="createPhotoCommentTable" parameterType="String">
+	CREATE TABLE photoComment_${value} (
+    commentNo  NUMBER NOT NULL
+    ,photoNo   NUMBER NOT NULL
+    ,memberNo  NUMBER NOT NULL
+    ,content  VARCHAR2(4000) NOT NULL
+    ,created  DATE DEFAULT SYSDATE
+    ,PRIMARY KEY(commentNo)
+    ,FOREIGN KEY(photoNo)
+       REFERENCES photoBoard_${value}(photoNo)
+       ON DELETE CASCADE
+    ,FOREIGN KEY(memberNo)
+       REFERENCES member_${value}(memberNo)
+       ON DELETE CASCADE
+	)
+	</update>
+	
+	<update id="createPhotoCommentTable_seq" parameterType="String">
+	CREATE SEQUENCE photoComment_seq_${value}
+	INCREMENT BY 1
+	START WITH 1
+	NOMAXVALUE
+	NOCYCLE
+	NOCACHE
+	</update>
+	
+	<update id="createPhotoBoardLikeTable" parameterType="String">
+	CREATE TABLE photoBoardLike_${value} (
+    memberNo    NUMBER NOT NULL
+    ,photoNo     NUMBER NOT NULL
+    ,photoLike NUMBER NOT NULL
+    ,PRIMARY KEY(memberNo, photoNo)
+    ,FOREIGN KEY(memberNo)
+       REFERENCES member_${value}(memberNo)
+       ON DELETE CASCADE
+    ,FOREIGN KEY(photoNo)
+       REFERENCES photoBoard_${value}(photoNo)
+       ON DELETE CASCADE
+	)
+	</update>
+	
+	<update id="createPhotoReplyLikeTable" parameterType="String">
+	CREATE TABLE photoReplyLike_${value}(
+     memberNo   NUMBER NOT NULL
+     ,commentNo NUMBER NOT NULL
+     ,replyLike NUMBER NOT NULL
+     ,PRIMARY KEY(memberNo,commentNo)
+     ,FOREIGN KEY(memberNo)
+        REFERENCES member_${value}(memberNo)
+        ON DELETE CASCADE
+     ,FOREIGN KEY(commentNo)
+        REFERENCES photoComment_${value}(commentNo)
+        ON DELETE CASCADE
+	)	
+	</update>
 	
 </mapper>
