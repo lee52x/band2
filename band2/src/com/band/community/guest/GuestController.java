@@ -25,6 +25,8 @@ import com.band.common.MyUtil;
 import com.band.community.board.BoardService;
 import com.band.community.board.Reply;
 import com.band.main.SessionInfo;
+import com.band.manager.insertBoard.InsertBoard;
+import com.band.manager.insertBoard.InsertBoardService;
 import com.sun.org.apache.xml.internal.dtm.DTMDOMException;
 
 @Controller("community.guestController")
@@ -37,14 +39,35 @@ public class GuestController {
 	@Autowired
 	private FileManager fileManager;
 	
+	@Autowired
+	private InsertBoardService navService;
 	
-	@RequestMapping(value="/guestBoard/list/{url}", method=RequestMethod.GET)
+	
+	@RequestMapping(value="/guestBoard/list/{boCateNum}/{url}", method=RequestMethod.GET)
 	public ModelAndView list(
-			@PathVariable String url
+			@PathVariable String url,
+			@PathVariable String boCateNum
 			)throws Exception{
+		
+		//네비게이션 바 조정하기
+		//동적 게시판 이름 가져오기
+		Map<String, Object> navMap=new HashMap<>();
+		navMap.put("groupURL", url);
+		navMap.put("boCateNum", boCateNum);
+				
+		String boardName=navService.readName(navMap);
+		List<InsertBoard> navList=navService.listBoard(navMap);
+		
+		
+		
 		ModelAndView mav=new ModelAndView(".community.guest.guest");
 		mav.addObject("url", url);
+		mav.addObject("boardName",boardName);
+		mav.addObject("navList", navList);
+		
+		
 		return mav;
+		
 		
 	}
 	

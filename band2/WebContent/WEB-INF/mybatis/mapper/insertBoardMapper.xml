@@ -41,5 +41,12 @@
 
 </select>
 
+<select id="readName" parameterType="map" resultType="String">
+	
+	SELECT boCateName
+	FROM boardCategory_${groupURL}
+	WHERE boCateNum=#{boCateNum}
+	
+</select>
 
 </mapper>

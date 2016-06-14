@@ -24,7 +24,7 @@ function searchList(){
                             <div class="header">
                             
                              
-                               <h4 class="title" style="color: #5F00FF">자유게시판</h4>
+                               <h4 class="title" style="color: #5F00FF">${boardName}</h4>
                                
                                 <p class="category">회원들간 자유롭게 소통하세요! </p> 
                                 <p align="right">${dataCount}개(${page}/${total_page} 페이지)</p>

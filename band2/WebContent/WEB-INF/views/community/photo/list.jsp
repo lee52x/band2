@@ -48,7 +48,7 @@ function article(photoNo) {
 
 <div class="bodyFrame2">
     <div class="body-title">
-          <h3><span class="glyphicon glyphicon-picture"></span> 포토갤러리 </h3>
+          <h3><span class="glyphicon glyphicon-picture"></span> ${boardName} </h3>
     </div>
     
     <div class="alert alert-info">

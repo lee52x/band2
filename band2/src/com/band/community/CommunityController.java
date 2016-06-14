@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.band.account.Account;
 import com.band.account.NoticeAccount;
 import com.band.common.MyUtil;
+import com.band.manager.insertBoard.InsertBoard;
+import com.band.manager.insertBoard.InsertBoardService;
 import com.band.manager.notice.Notice;
 import com.band.manager.picture.Picture;
 
@@ -30,17 +32,21 @@ public class CommunityController {
 	@Autowired
 	public CommunityService service;
 	
+	@Autowired
+	public InsertBoardService navService;
+	
 	@RequestMapping(value="/community/main/{url}", method=RequestMethod.GET)
 	public ModelAndView method(
 			@PathVariable String url,
 			Notice ndto,
 			Picture pdto,
+			InsertBoard idto,
 			@RequestParam(value="pageNo", defaultValue="1") int current_page
 			)throws Exception{
 		
+		//대표사진 가져오기
 		List<Picture> plist=service.listNonMainPicture(url);
 		pdto=service.readMainPicture(url);
-		
 		
 		int numPerPage=20;
 		int total_page=0;
@@ -56,7 +62,6 @@ public class CommunityController {
         if(dataCount != 0)
             total_page = myUtil.pageCount(numPerPage, dataCount);
 
-        // 다른 사람이 자료를 삭제하여 전체 페이지수가 변화 된 경우
         if(total_page < current_page) 
             current_page = total_page;
 
@@ -85,6 +90,11 @@ public class CommunityController {
         List<NoticeAccount> accountList=service.readNoticeAccount(map2);
    
 		
+        //네비게이션 바 조정하기
+        Map<String, Object> navMap=new HashMap<>();
+        navMap.put("groupURL", url);
+        List<InsertBoard> navList=navService.listBoard(navMap);
+        
 		
 		ModelAndView mav=new ModelAndView(".communityLayout");
 		mav.addObject("ndto",ndto);
@@ -94,7 +104,8 @@ public class CommunityController {
 		mav.addObject("nlist",nlist);
 		mav.addObject("listNum", listNum);
 		mav.addObject("accountList", accountList);
-		
+		mav.addObject("navList", navList);
+		mav.addObject("idto",idto);
 		
 		return mav;
 	}

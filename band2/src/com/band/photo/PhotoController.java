@@ -23,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.band.common.MyUtil;
 import com.band.main.SessionInfo;
+import com.band.manager.insertBoard.InsertBoard;
+import com.band.manager.insertBoard.InsertBoardService;
 
 @Controller("photo.photoController")
 public class PhotoController {
@@ -30,14 +32,18 @@ public class PhotoController {
 	private PhotoService service;
 	@Autowired
 	private MyUtil myUtil;
+	
+	@Autowired
+	private InsertBoardService navService;
 
-	@RequestMapping(value="/photoBoard/list/{url}")
+	@RequestMapping(value="/photoBoard/list/{boCateNum}/{url}")
 	public ModelAndView list(
 			@PathVariable String url,
 			HttpServletRequest req,
 			@RequestParam(value="page", defaultValue="1") int current_page,
 			@RequestParam(value="searchKey", defaultValue="subject") String searchKey,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@PathVariable String boCateNum
 			) throws Exception{
 
 		String cp = req.getContextPath();
@@ -94,6 +100,17 @@ public class PhotoController {
             urlList = cp+"/photoBoard/list/"+url+"?" + params;
             urlArticle = cp+"/photoBoard/photoArticle"+url+"?page=" + current_page + "&"+ params;
         }
+        
+		//네비게이션 바 조정하기
+		//동적 게시판 이름 가져오기
+		Map<String, Object> navMap=new HashMap<>();
+		navMap.put("groupURL", url);
+		navMap.put("boCateNum", boCateNum);
+				
+		String boardName=navService.readName(navMap);
+		List<InsertBoard> navList=navService.listBoard(navMap);
+        
+        
 		
 		ModelAndView mav=new ModelAndView(".community.photo.list");
 		mav.addObject("subMenu", "3");
@@ -106,6 +123,8 @@ public class PhotoController {
 		mav.addObject("page", current_page);
 		mav.addObject("paging",
 				myUtil.paging(current_page, total_page, urlList));
+		mav.addObject("boardName",boardName);
+		mav.addObject("navList", navList);
 		
 		return mav;
 	}

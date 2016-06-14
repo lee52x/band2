@@ -73,6 +73,19 @@ public class InsertBoardServiceImpl implements InsertBoardService{
 		return result;
 	}
 
+	@Override
+	public String readName(Map<String, Object> map) {
+		String result=null;
+		
+		try {
+			result=dao.getReadData("insertBoard.readName", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+
 	
 	
 }

@@ -10,4 +10,5 @@ public interface InsertBoardService {
 	public List<InsertBoard> listBoard(Map<String, Object> map);
 	public int deleteBoard(Map<String, Object> map);
 	public int dataCount(Map<String, Object> map);
+	public String readName(Map<String, Object> map);
 }

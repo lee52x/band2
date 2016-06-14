@@ -19,30 +19,39 @@
             </div>
 
             <ul class="nav">
-                <li>
+            	<li>
                     <a href="<%=cp %>/community/main/${url}">
                         <i class="pe-7s-graph"></i>
                         <p>커뮤니티 홈</p>
                     </a>
                 </li>
-                <li>
-                    <a href="<%=cp%>/freeBoard/list/${url}">
+            
+            
+            	<c:forEach items="${navList}" var="nv">
+            		 <li>
+            		 	<c:if test="${nv.boCateType=='자유'}">
+            		 	<a href="<%=cp%>/freeBoard/list/${nv.boCateNum}/${url}">
                         <i class="pe-7s-user"></i>
-                        <p>자유게시판</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<%=cp%>/photoBoard/list/${url}">
-                        <i class="pe-7s-note2"></i>
-                        <p>포토게시판</p>
-                    </a>
-                </li>
-               <li>
-                    <a href="<%=cp%>/guestBoard/list/${url}">
-                        <i class="pe-7s-news-paper"></i>
-                        <p>방명록</p>
-                    </a>
-                </li>
+                       	<p>${nv.boCateName}</p>
+                    	</a>
+                    	</c:if>
+                    	
+                    	<c:if test="${nv.boCateType=='사진'}">
+            		 	<a href="<%=cp%>/photoBoard/list/${nv.boCateNum}/${url}">
+                        <i class="pe-7s-user"></i>
+                       	<p>${nv.boCateName}</p>
+                    	</a>
+                    	</c:if>
+                    	
+                    	<c:if test="${nv.boCateType=='방명록'}">
+            		 	<a href="<%=cp%>/guestBoard/list/${nv.boCateNum}/${url}">
+                        <i class="pe-7s-user"></i>
+                       	<p>${nv.boCateName}</p>
+                    	</a>
+                    	</c:if>
+               		 </li>
+            	</c:forEach>
+                
                 <li>
                     <a href="<%=cp%>/community/chat/${url}">
                         <i class="pe-7s-bell"></i>

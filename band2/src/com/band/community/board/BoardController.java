@@ -25,6 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.band.common.FileManager;
 import com.band.common.MyUtil;
 import com.band.main.SessionInfo;
+import com.band.manager.insertBoard.InsertBoard;
+import com.band.manager.insertBoard.InsertBoardService;
 
 @Controller("board.boardController")
 public class BoardController {
@@ -34,12 +36,20 @@ public class BoardController {
 	private MyUtil myUtil;
 	@Autowired
 	private FileManager fileManager;
+	
+	@Autowired
+	private InsertBoardService navService;
 
-	@RequestMapping(value = "/freeBoard/list/{url}")
-	public ModelAndView list(HttpServletRequest req, @RequestParam(value = "page", defaultValue = "1") int current_page,
+	@RequestMapping(value = "/freeBoard/list/{boCateNum}/{url}")
+	public ModelAndView list(
+			HttpServletRequest req, 
+			@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(value = "searchKey", defaultValue = "subject") String searchKey,
-			@RequestParam(value = "searchValue", defaultValue = "") String searchValue, @PathVariable String url)
-			throws Exception {
+			@RequestParam(value = "searchValue", defaultValue = "") String searchValue, 
+			@PathVariable String url,
+			@PathVariable String boCateNum,
+			InsertBoard idto
+			)throws Exception {
 		String cp = req.getContextPath();
 
 		int numPerPage = 10; // 한 화면에 보여주는 게시물 수
@@ -96,6 +106,18 @@ public class BoardController {
 
 		}
 
+		
+		//네비게이션 바 조정하기
+		//동적 게시판 이름 가져오기
+		Map<String, Object> navMap=new HashMap<>();
+		navMap.put("groupURL", url);
+		navMap.put("boCateNum", boCateNum);
+		
+		String boardName=navService.readName(navMap);
+		List<InsertBoard> navList=navService.listBoard(navMap);
+        
+		
+		
 		ModelAndView mav = new ModelAndView(".community.board.list");
 		mav.addObject("subMenu", "2");
 		mav.addObject("list", list);
@@ -104,6 +126,8 @@ public class BoardController {
 		mav.addObject("dataCount", dataCount);
 		mav.addObject("total_page", total_page);
 		mav.addObject("paging", myUtil.paging(current_page, total_page, urlList));
+		mav.addObject("boardName",boardName);
+		mav.addObject("navList", navList);
 
 		return mav;
 
