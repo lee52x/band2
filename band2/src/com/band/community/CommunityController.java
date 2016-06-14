@@ -1,5 +1,6 @@
 package com.band.community;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.band.account.Account;
+import com.band.account.NoticeAccount;
 import com.band.common.MyUtil;
 import com.band.manager.notice.Notice;
 import com.band.manager.picture.Picture;
@@ -75,7 +78,12 @@ public class CommunityController {
 			dto.setListNum(listNum);
 			n++;
         }
-
+        
+        // 회계내역 조회
+        Map<String, Object> map2=new HashMap<>();
+        map2.put("url", url);
+        List<NoticeAccount> accountList=service.readNoticeAccount(map2);
+   
 		
 		
 		ModelAndView mav=new ModelAndView(".communityLayout");
@@ -85,8 +93,29 @@ public class CommunityController {
 		mav.addObject("plist", plist);
 		mav.addObject("nlist",nlist);
 		mav.addObject("listNum", listNum);
+		mav.addObject("accountList", accountList);
 		
 		
+		return mav;
+	}
+	
+	@RequestMapping(value="/community/accountList/{url}", method=RequestMethod.POST)
+	public ModelAndView accountList(
+			@PathVariable String url,
+			@RequestParam(value="transactionNo") String transactionNo
+			) {
+		
+		String[] tranNo = transactionNo.split(",");
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("url", url);
+		map.put("transactionNo", Arrays.asList(tranNo));
+		
+		List<Account> accountList=service.accountList(map);
+		
+		ModelAndView mav=new ModelAndView("community/layout/accountList");
+		mav.addObject("url", url);
+		mav.addObject("accountList", accountList);
 		return mav;
 	}
 	/*

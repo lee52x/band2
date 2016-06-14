@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.band.account.Account;
+import com.band.account.NoticeAccount;
 import com.band.common.dao.CommonDAO;
 import com.band.manager.notice.Notice;
 import com.band.manager.picture.Picture;
@@ -61,6 +63,29 @@ public class CommunityServiceImpl implements CommunityService{
 			System.out.println(e.toString());
 		}
 		return result;
+	}
+
+	@Override
+	public List<NoticeAccount> readNoticeAccount(Map<String, Object> map) {
+		List<NoticeAccount> list=null;
+		try {
+			list=dao.getListData("notice.readAccount" , map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+
+
+	@Override
+	public List<Account> accountList(Map<String, Object> map) {
+		List<Account> list=null;
+		try {
+			list=dao.getListData("notice.accountList" , map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
 	}
 
 

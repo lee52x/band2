@@ -35,6 +35,12 @@ function loadList(eventNo) {
 	});	
 }
 
+function check() {
+    var f = document.addForm;
+    f.action="<%=cp%>/account/addFee/${url}";
+    return true;
+}
+
 </script>
 <div class="col-md-12 col-sm-12 col-xs-12">
 	<div class="x_panel">
@@ -61,14 +67,13 @@ function loadList(eventNo) {
 				<ul class="nav nav-tabs tabs-left">
 					<c:forEach var="dto" items="${eventList}">
 					<c:if test="${dto.num==1}">
-					<li class="active"><a onclick="loadList('${dto.eventNo}');" style="cursor:pointer;" data-toggle="tab">${dto.eventName}</a></li>
+					<li class="active"><a onclick="loadList('${dto.eventNo}');" style="cursor:pointer;" 
+					data-toggle="tab">${dto.eventName}</a></li>
 					</c:if>
 					<c:if test="${dto.num!=1}">
 					<li><a onclick="loadList('${dto.eventNo}');" style="cursor:pointer;" data-toggle="tab">${dto.eventName}</a></li>
 					</c:if>
 					</c:forEach>
-					<li><a href="#addFee" data-toggle="tab" style="background: rgba(42, 63, 84, 0.08);">정기회비 추가
-					<i class="fa fa-plus" style="float:right;"></i></a></li>
 				</ul>
 			</div>
 			<div class="col-xs-9">
@@ -80,4 +85,4 @@ function loadList(eventNo) {
 		</div>
 	</div>
 </div>
-					
+			

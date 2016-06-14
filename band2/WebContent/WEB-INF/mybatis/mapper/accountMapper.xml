@@ -254,4 +254,6 @@
 	SELECT mem.name, email, tel, com.name groupName, bankName, accountNumber, accountHolder 
 	FROM member_${url} mem JOIN community com ON mem.groupUrl=com.groupUrl WHERE grade=1
 	</select>
+	
+
 </mapper>

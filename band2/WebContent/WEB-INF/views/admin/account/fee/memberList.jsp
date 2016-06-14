@@ -199,9 +199,7 @@ function sendMail(){
 			  </tbody>
 			</table>
 			<button type="button" class="btn btn-default btn-sm" onclick="sendMail();"><i class="fa fa-envelope-o"></i> 보내기</button>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">전송 취소</button>
 			</div>
 		</div>
 	</div>
