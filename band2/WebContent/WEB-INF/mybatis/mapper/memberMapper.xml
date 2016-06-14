@@ -93,7 +93,7 @@
 	<!-- 회의록 생성  -->
 	<insert id="insertProceed" parameterType="com.band.member.proceed.Proceed">
 		INSERT INTO proceedings(proceedNo, subject, content, proceedDate, place, attendee, saveFilename, OriginalFilename, note, groupURL)
-		VALUES(proceed_seq_${url}.NEXTVAL, #{subject}, #{content}, #{proceedDate}, #{place, jdbcType = VARCHAR}, #{attendee},
+		VALUES(proceed_seq.NEXTVAL, #{subject}, #{content}, #{proceedDate}, #{place, jdbcType = VARCHAR}, #{attendee},
 		 #{saveFilename, jdbcType = VARCHAR}, #{OriginalFilename, jdbcType = VARCHAR}, #{note, jdbcType = VARCHAR}, #{url})
 	</insert>
 

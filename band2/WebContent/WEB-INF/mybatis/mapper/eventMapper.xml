@@ -48,7 +48,7 @@
 	
 	<insert id="insertEvent" parameterType="com.band.event.Event">
 		INSERT INTO event_${url}(eventNo, eventName, content, eventPlace, fullDate, fromDate, toDate, fromTime, toTime, eventType, eventFee, latitude, longitude)
-		VALUES(event_seq.NEXTVAL, #{eventName}, #{content}, #{place}, #{fullDate}, 
+		VALUES(event_seq_${url}.NEXTVAL, #{eventName}, #{content}, #{place}, #{fullDate}, 
 					TO_DATE((SUBSTR(#{fullDate}, 1 ,10)), 'MM/DD/YYYY'), 
 					TO_DATE((SUBSTR(#{fullDate}, -10 ,10)), 'MM/DD/YYYY'),
 					#{fromTime}, #{toTime, jdbcType=VARCHAR}, #{eventType}, #{eventFee, jdbcType=VARCHAR}, #{latitude}, #{longitude}) 
