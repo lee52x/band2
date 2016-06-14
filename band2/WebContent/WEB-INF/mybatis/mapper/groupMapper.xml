@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group">
+
+	<insert id="insertGroup" parameterType="com.band.group.Group">
+	INSERT INTO community(groupUrl, groupName, area, bankName, accountNumber, AccountHolder, 
+						  userId, foundationDay, introduce)
+	VALUES(#{groupUrl}, #{groupName}, #{area}, #{bankName}, #{accountNumber}, #{AccountHolder}, 
+		   #{userId}, #{foundationDay}, #{introduce})
+	</insert>
+
+	<insert id="insertManager" parameterType="com.band.group.Group">
+	INSERT INTO manager(userId, name, birth, pwd, gender, tel, email) 
+	VALUES(#{userId}, #{name}, #{birth}, #{pwd}, #{gender}, #{tel}, #{email})
+	</insert>
+	
+	
+	
+	
+</mapper>

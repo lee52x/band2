@@ -25,7 +25,17 @@
   <link href="<%=cp%>/res/img/favicon.ico" rel="shortcut icon" >
   <link href="<%=cp%>/res/css/gsdk-base.css" rel="stylesheet" />
  
+  <script type="text/javascript">
+  function check() {
+      var f = document.groupForm;
+      f.action="<%=cp%>/group/create";
+      
+	  	if(confirm("그룹을 생성하시겠습니까?")) {
+	  		 return true;
+	  	}
+	  }
   
+  </script>
 </head>
 <body>
 
@@ -268,11 +278,15 @@
                                      <br>
                                       <div class="form-group">
                                         <label>그 룹 명 <small>(required)</small></label>
-                                        <input name="name" type="text" class="mform-control">
+                                        <input name="groupName" type="text" class="mform-control">
                                       </div>
                                       <div class="form-group">
                                         <label>그 룹 아 이 디 <small>(required)</small></label>
-                                        <input name="groupURL" type="text" class="mform-control">
+                                        <input name="groupUrl" type="text" class="mform-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <label>그 룹 소 개<small>(required)</small></label>
+                                        <textarea name="introduce" class="mform-control"></textarea>
                                       </div>
                                       <div class="form-group">
                                         <label>그 룹 창 립 일 <small>(required)</small></label>
@@ -368,13 +382,13 @@
                         </div>
                         <div class="wizard-footer">
                             <div class="pull-right">
-                                <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Next' />
-                                <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Finish' />
+                                <input type="button" class="btn btn-next btn-fill btn-warning btn-wd btn-sm" name="next" value="Next" />
+                                <input type="submit" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" name="finish" value="Finish" />
         
                             </div>
                             
                             <div class="pull-left">
-                                <input type="button" class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
+                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd btn-sm" name="previous" value="Previous" />
                             </div>
                             <div class="clearfix"></div>
                         </div>   
