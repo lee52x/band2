@@ -9,56 +9,42 @@
 
 <script type="text/javascript">
 
-function deleteBoard(){
-	
-	var f=document.updateBoard;
-	
-	
-	
+function deleteBoard(f){
 	var str=f.boCateName.value;
-	
 	if(!str){
 		f.boCateName.focus();
         alert("미입력 자료가 있습니다.");
-        return false;
 	}
 	
 	var n=f.boCateNum.value;
-	
 	if(!n) {
         f.boCateNum.focus();
         alert("미입력 자료가 있습니다.");
-        return false;
     }
 	
 	str=f.boCateType.value;
-	
 	if(!str){
 		f.boCateType.focus();
         alert("미입력 자료가 있습니다.");
-        return false;
 	}
 	
 	
 	if(confirm("지우시겠습니까?")){
 		f.action="<%=cp%>/manager/insertBoard/delete2/${url}";
-		return true;
+		f.submit();
 	}
 	
-	return false;
 	
 }
 
-function updateSubmit(){
+function updateSubmit(f){
 	
-	var f=document.updateBoard;
 	
 	var n=f.boCateNum.value;
 	
 	if(!n) {
         f.boCateNum.focus();
         alert("미입력 자료가 있습니다.");
-        return false;
     }
 	
 	var str=f.boCateName.value;
@@ -66,23 +52,18 @@ function updateSubmit(){
 	if(!str){
 		f.boCateName.focus();
         alert("미입력 자료가 있습니다.");
-        return false;
 	}
 	
 	str=f.boCateType.value;
-	
 	if(!str){
 		f.boCateType.focus();
         alert("미입력 자료가 있습니다.");
-        return false;
 	}
 	
 	if(confirm("수정하시겠습니까?")){
 		f.action="<%=cp%>/manager/insertBoard/update/${url}";
-		return true;
+		f.submit();
 	}
-	
-	return false;
 	
 }
 
@@ -90,16 +71,8 @@ function insertSubmit(){
 	
 	var f=document.insertBoard;
 	
-	var n=f.boCateNum.value;
-	
-	if(!n) {
-        f.boCateNum.focus();
-        alert("미입력 자료가 있습니다.");
-        return false;
-    }
 	
 	var str=f.boCateName.value;
-	
 	if(!str){
 		f.boCateName.focus();
         alert("미입력 자료가 있습니다.");
@@ -107,18 +80,18 @@ function insertSubmit(){
 	}
 	
 	str=f.boCateType.value;
-	
 	if(!str){
 		f.boCateType.focus();
         alert("미입력 자료가 있습니다.");
         return false;
 	}
 	
-	var f=document.insertBoard;
+	if(confirm("게시판을 추가하시겠습니까?")){
+		f.action="<%=cp%>/manager/insertBoard/insert/${url}";
+		return true;
+	}
 	
-	f.action="<%=cp%>/manager/insertBoard/insert/${url}";
-	
-	return true;
+	return false;
 	
 }
 
@@ -139,8 +112,8 @@ function insertSubmit(){
 			<!-- required for floating -->
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs tabs-left">
-				<c:forEach items="${list}" var="dto">
-					<li>
+				<c:forEach items="${list}" var="dto" varStatus="state">
+					<li ${state.index==0?"class='active'":""}>
 					<a href="#tab${dto.boCateNum}" data-toggle="tab">${dto.boCateName}(${dto.boCateType})</a>
 					</li>
 				</c:forEach>
@@ -154,14 +127,12 @@ function insertSubmit(){
 		<div class="col-xs-9">
 			<!-- Tab panes -->
 			<div class="tab-content">
-				<c:forEach items="${list}" var="vo">
-					<div class="tab-pane" id="tab${vo.boCateNum}">
+				<c:forEach items="${list}" var="vo" varStatus="state">
+					<div ${state.index==0?"class='tab-pane active'":"class='tab-pane'"} id="tab${vo.boCateNum}">
 
 						<div class="x_content">
 							<br />
-							<form class="form-horizontal form-label-left" name="updateBoard"
-								onsubmit="return updateSubmit();" method="post">
-
+							<form class="form-horizontal form-label-left" name="updateBoard${vo.boCateNum}" method="post">
 								<div class="form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12">
 										게시판 이름
@@ -193,8 +164,8 @@ function insertSubmit(){
 								<div class="ln_solid"></div>
 								<div class="form-group">
 									<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-										<button type="submit" class="btn btn-success">수정 완료</button>
-										<button type="button" class="btn btn-primary" onclick="deleteBoard();">게시판 삭제</button>
+										<button type="button" class="btn btn-success" onclick="updateSubmit(form);">수정 완료</button>
+										<button type="button" class="btn btn-primary" onclick="deleteBoard(form);">게시판 삭제</button>
 									</div>
 								</div>
 							</form>

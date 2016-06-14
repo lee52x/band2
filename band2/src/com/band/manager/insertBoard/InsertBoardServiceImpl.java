@@ -18,7 +18,7 @@ public class InsertBoardServiceImpl implements InsertBoardService{
 	public int insertBoard(Map<String, Object> map) {
 		int result=0;
 		try {
-			result=dao.getIntValue("insertBoard.insertBoard",map);
+			result=dao.insertData("insertBoard.insertBoard",map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -29,7 +29,7 @@ public class InsertBoardServiceImpl implements InsertBoardService{
 	public int updateBoard(Map<String, Object> map) {
 		int result=0;
 		try {
-			result=dao.getIntValue("insertBoard.updateBoard",map);
+			result=dao.updateData("insertBoard.updateBoard",map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -55,7 +55,7 @@ public class InsertBoardServiceImpl implements InsertBoardService{
 	public int deleteBoard(Map<String, Object> map) {
 		int result=0;
 		try {
-			result=dao.getIntValue("insertBoard.deleteBoard",map);
+			result=dao.deleteData("insertBoard.deleteBoard",map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

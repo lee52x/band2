@@ -7,7 +7,7 @@
 
 	SELECT boCateNum, boCateType, boCateName
 	FROM boardCategory_${groupURL}
-	ORDER BY boCateType
+	ORDER BY boCateType DESC
 
 </select>
 
