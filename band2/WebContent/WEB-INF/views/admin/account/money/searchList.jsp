@@ -89,6 +89,12 @@
 	 document.body.innerHTML = s_table.innerHTML;   //taskInfoGrid는 출력하고자 하는 table이나 div  id이다.
 	 window.print(); 
 	}
+  
+  function check() {
+      var f = document.listForm;
+      f.action="<%=cp%>/account/noticeAccount/${url}";
+      return true;
+	}
  </script>
     	<div class="left_col" role="main" style="min-height:1300px;"> 
               <div class="clearfix"></div>
@@ -115,10 +121,10 @@
                   </div>
 
                   <div class="x_content">
-					
+					<form name="listForm" method="post" onsubmit="return check();">
                     <h1 style="text-align:center; padding-right:170px;">
                      	<button type="button" class="btn btn-default btn-sm" onclick="search_Print();" style="float:left;"><i class="fa fa-print"></i> 인쇄</button>
-                     	<button type="button" class="btn btn-default btn-sm" onclick="search_Print();" style="float:left;"><i class="fa fa-share-square-o"></i> 커뮤니티 게시</button>
+                     	<button type="submit" class="btn btn-default btn-sm" style="float:left;"><i class="fa fa-share-square-o"></i> 커뮤니티 게시</button>
                     	<c:if test="${not empty start}">
                     	${start}~${end}
                     	</c:if>
@@ -132,8 +138,6 @@
                     	${all}
                     	</c:if>
                     </h1>
-					
-				<form name="ListForm" method="post">
 			
                     <div class="table-responsive">
                      <div id="s_table">
@@ -176,7 +180,20 @@
                              ${dto.eventNo}</a></td>
                             <td class=" " style="width: 200px">${dto.memo}</td>
                           </tr>
-                          </c:forEach>
+                          <input type="hidden" name="transactionNo" value="${dto.transactionNo}">
+						</c:forEach>
+							<c:if test="${not empty start}">
+                    		<input type="hidden" name="listName" value="${start}~${end}">
+                    		</c:if>
+							<c:if test="${not empty category}">
+                    		<input type="hidden" name="listName" value="${category}">
+                    		</c:if>
+							<c:if test="${not empty event}">
+                    		<input type="hidden" name="listName" value="${event}">
+                    		</c:if>
+							<c:if test="${not empty all}">
+                    		<input type="hidden" name="listName" value="${all}">
+                    		</c:if>
                         </tbody> 
                       </table>
                      </div>

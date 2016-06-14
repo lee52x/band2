@@ -118,24 +118,7 @@ public class CommunityController {
 		mav.addObject("accountList", accountList);
 		return mav;
 	}
-	/*
-	@RequestMapping(value="/community/free/{url}", method=RequestMethod.GET)
-	public ModelAndView qna(
-			@PathVariable String url
-			) throws Exception{
-		return new ModelAndView(".community.free.free");
-	}
-	*/
-	
-//	@RequestMapping(value="/community/created/{url}")
-//	public ModelAndView created(
-//			@PathVariable String url
-//			)throws Exception{
-//		return new ModelAndView(".community.free.created");
-//		
-//	}
-//	
-	
+
 
 
 }

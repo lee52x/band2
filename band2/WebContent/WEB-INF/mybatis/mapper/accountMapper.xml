@@ -196,6 +196,14 @@
 		order by transactionNo
 	</select>
 	
+	<!-- ******************************************************* -->
+	<!-- ******************************************************* -->
+	
+	<!-- 커뮤니티 게시 -->
+	<insert id="insertNoticeAccount" parameterType="com.band.account.NoticeAccount">
+		INSERT INTO accountNotice(groupURL, listNum, listName, transactionNo)
+		VALUES(#{url} ,accountNotice_seq.NEXTVAL, #{listName}, #{transactionNo})
+	</insert>
 	
 	<!-- ******************************************************* -->
 	<!-- ******************************************************* -->
