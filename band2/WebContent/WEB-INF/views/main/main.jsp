@@ -38,21 +38,21 @@
       <div class="carousel-inner">
         <div class="item active" style="background-image: url(<%=cp%>/res/img/slider/1.jpg)">
           <div class="caption">
-            <h1 class="animated fadeInLeftBig">Welcome to <span>BAND</span></h1>
+            <h1 class="animated fadeInLeftBig">Welcome to <span>NURIDA</span></h1>
             <p class="animated fadeInRightBig">그룹 관리 서비스로 체계적인 모임 운영을!</p>
             <a data-scroll class="btn btn-start animated fadeInUpBig" data-toggle="modal" data-target="#groupModal">그룹 생성하기</a>
           </div>
         </div>
         <div class="item" style="background-image: url(<%=cp%>/res/img/slider/2.jpg)">
           <div class="caption">
-            <h1 class="animated fadeInLeftBig">Say Hello to <span>BAND</span></h1>
+            <h1 class="animated fadeInLeftBig">Say Hello to <span>NURIDA</span></h1>
             <p class="animated fadeInRightBig">우리 그룹만의 커뮤니티를 누려보세요!</p>
             <a data-scroll class="btn btn-start animated fadeInUpBig" data-toggle="modal" data-target="#groupModal">그룹 생성하기</a>
           </div>
         </div>
         <div class="item" style="background-image: url(<%=cp%>/res/img/slider/3.jpg)">
           <div class="caption">
-            <h1 class="animated fadeInLeftBig">We are <span>BAND</span></h1>
+            <h1 class="animated fadeInLeftBig">We are <span>NURIDA</span></h1>
             <p class="animated fadeInRightBig">간단한 가입으로 계정을 생성할 수 있습니다. 지금 바로 그룹을 만들어 보세요!</p>
             <a data-scroll class="btn btn-start animated fadeInUpBig" data-toggle="modal" data-target="#groupModal">그룹 생성하기</a>
           </div>
@@ -164,8 +164,8 @@
       <div class="container">
         <div class="row">
           <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-            <h2>Contact Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam</p>
+            <h2>Contact NURIDA</h2>
+            <p>누리다에 문의사항이 있으신가요? 누리다 개발진에게 문의사항을 남겨주세요!</p>
           </div>
         </div>
         <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
@@ -191,18 +191,18 @@
                   <textarea name="message" id="message" class="form-control" rows="4" placeholder="Enter your message" required="required"></textarea>
                 </div>                        
                 <div class="form-group">
-                  <button type="submit" class="btn-submit">Send Now</button>
+                  <button type="submit" class="btn-submit">문의하기</button>
                 </div>
               </form>   
             </div>
             <div class="col-sm-6">
               <div class="contact-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                <p>사이트를 이용하시는데 불만사항이나 건의사항이 있으시면 아래의 연락처로 문의주세요.</p>
                 <ul class="address">
                   <li><i class="fa fa-map-marker"></i> <span> Address:</span> 2400 South Avenue A </li>
                   <li><i class="fa fa-phone"></i> <span> Phone:</span> +928 336 2000  </li>
-                  <li><i class="fa fa-envelope"></i> <span> Email:</span><a href="mailto:someone@yoursite.com"> support@oxygen.com</a></li>
-                  <li><i class="fa fa-globe"></i> <span> Website:</span> <a href="#">www.sitename.com</a></li>
+                  <li><i class="fa fa-envelope"></i> <span> Email:</span><a href="#"> nuridaservice@gmail.com</a></li>
+                  <li><i class="fa fa-globe"></i> <span> Website:</span> <a href="#"> www.nurida.com</a></li>
                 </ul>
               </div>                            
             </div>
@@ -248,9 +248,7 @@
          <div class="wizard-container"> 
                 <!-- You can switch "ct-wizard-orange"  with one of the next bright colors: "ct-wizard-blue", "ct-wizard-green", "ct-wizard-orange", "ct-wizard-red" -->
                 <div class="card wizard-card ct-wizard-blue" id="wizardProfile">
-                    <form action="" method="">
-                
-                
+                    <form name="groupForm" method="post" onsubmit="check();">
                        <div class="wizard-header">
                            <h3>
                               <b>그룹</b> 생성하기 <br>
@@ -270,15 +268,15 @@
                                      <br>
                                       <div class="form-group">
                                         <label>그 룹 명 <small>(required)</small></label>
-                                        <input name="groupName" type="text" class="mform-control">
+                                        <input name="name" type="text" class="mform-control">
                                       </div>
                                       <div class="form-group">
                                         <label>그 룹 아 이 디 <small>(required)</small></label>
-                                        <input name="groupId" type="text" class="mform-control">
+                                        <input name="groupURL" type="text" class="mform-control">
                                       </div>
                                       <div class="form-group">
                                         <label>그 룹 창 립 일 <small>(required)</small></label>
-                                        <input name="groupCreated" type="date" class="mform-control">
+                                        <input name="foundationDay" type="date" class="mform-control">
                                       </div>
                                   </div>
                                   <div class="col-sm-10 col-sm-offset-1">
@@ -288,7 +286,11 @@
                                                 <option value="서울"> 서울 </option>
                                                 <option value="경기"> 경기 </option>
                                                 <option value="인천"> 인천 </option>
-                                                <option value="강원 "> 강원 </option>
+                                                <option value="강원"> 강원 </option>
+                                                <option value="강원"> 충청 </option>
+                                                <option value="강원"> 전라 </option>
+                                                <option value="강원"> 경상 </option>
+                                                <option value="강원"> 제주 </option>
                                                 <option value="기타"> 기타 </option>
                                             </select>
                                       </div>
@@ -301,19 +303,22 @@
                                    <div class="col-sm-10 col-sm-offset-1">
                                      <br>
                                       <div class="form-group">
-                                        <label>그 룹 계 좌 <small></small></label>
-                                        <input name="groupAccount" type="text" class="mform-control">
+                                        <label>그 룹 계 좌 <small>(required)</small></label>
+                                        <input name="accountNumber" type="text" class="mform-control">
                                       </div>
                                       <div class="form-group">
-                                        <label>은 행 명<small></small></label>
-                                        <select name="bank" class="mform-control">
-                                                <option value="우리"> 우리은행 </option>
-                                                <option value="신한"> 신한은행 </option>
+                                        <label>은 행 명<small>(required)</small></label>
+                                        <select name="bankName" class="mform-control">
+                                                <option value="우리은행"> 우리은행 </option>
+                                                <option value="신한은행"> 신한은행 </option>
+                                                <option value="국민은행"> 국민은행 </option>
+                                                <option value="하나은행"> 하나은행 </option>
+                                                <option value="기타"> 기타 </option>
                                         </select>
                                       </div>
                                       <div class="form-group">
-                                        <label>예 금 주<small></small></label>
-                                        <input name="AccountName" type="text" class="mform-control">
+                                        <label>예 금 주<small>(required)</small></label>
+                                        <input name="AccountHolder" type="text" class="mform-control">
                                       </div>
                                   </div>
 
@@ -326,20 +331,35 @@
                                      <div class="col-sm-10 col-sm-offset-1">
                                      <br>
                                       <div class="form-group">
-                                        <label>아 이 디 <small></small></label>
-                                        <input name="" type="text" class="mform-control">
+                                        <label>그 룹 장 아 이 디 <small>(required)</small></label>
+                                        <input name="userId" type="text" class="mform-control">
                                       </div>
                                       <div class="form-group">
-                                        <label>비 밀 번 호<small></small></label>
-                                        <input name="" type="text" class="mform-control">
+                                        <label>그 룹 장 비 밀 번 호<small>(required)</small></label>
+                                        <input name="pwd" type="text" class="mform-control">
                                       </div>
                                       <div class="form-group">
-                                        <label>이 름<small></small></label>
-                                        <input name="" type="text" class="mform-control">
+                                        <label>그 룹 장 이 름<small>(required)</small></label>
+                                        <input name="name" type="text" class="mform-control">
                                       </div>
                                       <div class="form-group">
-                                        <label>생 년 월 일<small></small></label>
-                                        <input name="" type="text" class="mform-control">
+                                        <label>생 년 월 일<small>(required)</small></label>
+                                        <input name="birth" type="text" class="mform-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <label>성 별<small>(required)</small></label>
+                                        <select name="gender" class="mform-control">
+                                                <option value="1"> 남성 </option>
+                                                <option value="2"> 여성 </option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label>전 화 번 호<small>(required)</small></label>
+                                        <input name="tel" type="text" class="mform-control">
+                                      </div>
+                                      <div class="form-group">
+                                        <label>이 메 일<small>(required)</small></label>
+                                        <input name="email" type="text" class="mform-control">
                                       </div>
                                   </div>
                                     
@@ -354,7 +374,7 @@
                             </div>
                             
                             <div class="pull-left">
-                                <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
+                                <input type="button" class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
                             </div>
                             <div class="clearfix"></div>
                         </div>   
