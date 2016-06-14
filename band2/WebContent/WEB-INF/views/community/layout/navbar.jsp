@@ -12,17 +12,17 @@
     
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="<%=cp %>/community/${url}" class="simple-text">
+                <a href="<%=cp %>/community/main/${url}" class="simple-text">
                 
-                    커뮤니티
+                    그룹 이름
                 </a>
             </div>
 
             <ul class="nav">
                 <li>
-                    <a href="">
+                    <a href="<%=cp %>/community/main/${url}">
                         <i class="pe-7s-graph"></i>
-                        <p>그룹정보</p>
+                        <p>커뮤니티 홈</p>
                     </a>
                 </li>
                 <li>
@@ -41,18 +41,6 @@
                     <a href="<%=cp%>/guestBoard/list/${url}">
                         <i class="pe-7s-news-paper"></i>
                         <p>방명록</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="pe-7s-science"></i>
-                        <p>질문사항</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<%=cp%>/community/note/${url}">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>쪽지</p>
                     </a>
                 </li>
                 <li>
