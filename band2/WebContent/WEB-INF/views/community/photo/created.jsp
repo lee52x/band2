@@ -64,9 +64,9 @@
     	}
         
     	if(mode=="created")
-    		f.action="<%=cp%>/photoBoard/photoCreated/${url}";
+    		f.action="<%=cp%>/photoBoard/photoCreated/${boCateNum}/${url}";
     	else if(mode=="update")
-    		f.action="<%=cp%>/photoBoard/photoUpdate/${url}";
+    		f.action="<%=cp%>/photoBoard/photoUpdate/${boCateNum}/${url}";
 
     	// <input type='submit' ..>,  <input type='image' ..>, <button>은 submit() 메소드 호출하면 두번전송
         return true;
@@ -145,7 +145,7 @@
                         <tr>
                             <td colspan="4" style="text-align: center; padding-top: 15px;">
                                   <button type="submit" class="btn btn-primary"> 확인 <span class="glyphicon glyphicon-ok"></span></button>
-                                  <button type="button" class="btn btn-danger" onclick="javascript:location.href='<%=cp%>/photoBoard/list/${url}';"> 취소 </button>
+                                  <button type="button" class="btn btn-danger" onclick="javascript:location.href='<%=cp%>/photoBoard/list/${boCateNum}/${url}';"> 취소 </button>
                                   
                                   <c:if test="${mode=='update'}">
                                       <input type="hidden" name="photoNo" value="${dto.photoNo}">

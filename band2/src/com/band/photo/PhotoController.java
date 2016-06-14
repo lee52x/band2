@@ -100,16 +100,16 @@ public class PhotoController {
 		}
 
         String params = "";
-        String urlList = cp+"/photoBoard/list/"+url;
-        String urlArticle = cp+"/photoBoard/photoArticle/"+url+"?page=" + current_page;
+        String urlList = cp+"/photoBoard/list/"+boCateNum+"/"+url;
+        String urlArticle = cp+"/photoBoard/photoArticle/"+boCateNum+"/"+url+"?page=" + current_page;
         if(searchValue.length()!=0) {
         	params = "searchKey=" +searchKey + 
         	             "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");	
         }
         
         if(params.length()!=0) {
-            urlList = cp+"/photoBoard/list/"+url+"?" + params;
-            urlArticle = cp+"/photoBoard/photoArticle"+url+"?page=" + current_page + "&"+ params;
+            urlList = cp+"/photoBoard/list/"+boCateNum+"/"+url+"?" + params;
+            urlArticle = cp+"/photoBoard/photoArticle"+boCateNum+"/"+url+"?page=" + current_page + "&"+ params;
         }
         
 		//네비게이션 바 조정하기
@@ -120,7 +120,8 @@ public class PhotoController {
 				
 		String boardName=navService.readName(navMap);
 		List<InsertBoard> navList=navService.listBoard(navMap);
-        
+
+		
         
 		
 		ModelAndView mav=new ModelAndView(".community.photo.list");
@@ -138,11 +139,12 @@ public class PhotoController {
 		mav.addObject("navList", navList);
 		mav.addObject("pdto",pdto);
 		mav.addObject("plist", plist);
+		mav.addObject("boCateNum", boCateNum);
 		
 		return mav;
 	}
 
-	@RequestMapping(value="/photoBoard/photoCreated/{url}", 
+	@RequestMapping(value="/photoBoard/photoCreated/{boCateNum}/{url}", 
 			method=RequestMethod.GET)
 	public ModelAndView createdForm(
 			@PathVariable String url,
@@ -180,15 +182,19 @@ public class PhotoController {
 		mav.addObject("navList", navList);
 		mav.addObject("pdto",pdto);
 		mav.addObject("plist", plist);
+		mav.addObject("boCateNum", boCateNum);
+		
 		return mav;
 	}
 	
-	@RequestMapping(value="/photoBoard/photoCreated/{url}",
+	@RequestMapping(value="/photoBoard/photoCreated/{boCateNum}/{url}",
 			method=RequestMethod.POST
 			)
 	public String createdSubmit(
 			@PathVariable String url,
 			HttpSession session,
+			@PathVariable String boCateNum,
+			Picture pdto,
 			Photo dto
 			) throws Exception {
 		String root=session.getServletContext().getRealPath("/");
@@ -196,7 +202,7 @@ public class PhotoController {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("main");
 		if(info==null) {
-			return "redirect:/group/"+url;
+			return "redirect:/group/"+boCateNum+"/"+url;
 		}
 		
 		dto.setUserId(info.getUserId());
@@ -204,10 +210,10 @@ public class PhotoController {
 		dto.setGroupURL(url);
 		service.insertPhoto(dto, path);
 		
-		return "redirect:/photoBoard/list/"+url;
+		return "redirect:/photoBoard/list/"+boCateNum+"/"+url;
 	}
 	
-	@RequestMapping(value="/photoBoard/photoArticle/{url}", 
+	@RequestMapping(value="/photoBoard/photoArticle/{boCateNum}/{url}", 
 			method=RequestMethod.GET)
 	public ModelAndView article(
 			@PathVariable String url,
@@ -215,13 +221,31 @@ public class PhotoController {
 			@RequestParam(value = "photoNo") int photoNo,
 			@RequestParam(value = "page") String page,
 			@RequestParam(value="searchKey", defaultValue="subject") String searchKey,
-			@RequestParam(value="searchValue", defaultValue="") String searchValue
+			@RequestParam(value="searchValue", defaultValue="") String searchValue,
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception{
+		
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("main");
 		if(info==null) {
 			return new ModelAndView("redirect:/group/"+url);
 		}
+		
+		
+		//네비게이션 바 조정하기
+		//동적 게시판 이름 가져오기
+		Map<String, Object> navMap=new HashMap<>();
+		navMap.put("groupURL", url);
+		navMap.put("boCateNum", boCateNum);
+				
+		String boardName=navService.readName(navMap);
+		List<InsertBoard> navList=navService.listBoard(navMap);
+        
+		//대표사진 가져오기
+		List<Picture> plist=service2.listNonMainPicture(url);
+		pdto=service2.readMainPicture(url);
+		
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("photoNo", photoNo);
@@ -259,33 +283,56 @@ public class PhotoController {
 		mav.addObject("page", page);
 		mav.addObject("params", params);
 		
+		mav.addObject("boardName",boardName); 
+		mav.addObject("navList", navList);
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
+		mav.addObject("boCateNum", boCateNum);
+		
 		
 		return mav;
 	}
 	
-	@RequestMapping(value="/photoBoard/photoUpdate/{url}", 
+	@RequestMapping(value="/photoBoard/photoUpdate/{boCateNum}/{url}", 
 			method=RequestMethod.GET)
 	public ModelAndView updateForm(
 			@PathVariable String url,
 			HttpSession session,
 			@RequestParam(value = "photoNo") int photoNo,
-			@RequestParam(value = "page") String page			
+			@RequestParam(value = "page") String page,
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception{
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("main");
 		if(info==null) {
-			return new ModelAndView("redirect:/group/"+url);
+			return new ModelAndView("redirect:/group/"+boCateNum+"/"+url);
 		}
+		
+		//네비게이션 바 조정하기
+		//동적 게시판 이름 가져오기
+		Map<String, Object> navMap=new HashMap<>();
+		navMap.put("groupURL", url);
+		navMap.put("boCateNum", boCateNum);
+				
+		String boardName=navService.readName(navMap);
+		List<InsertBoard> navList=navService.listBoard(navMap);
+        
+		//대표사진 가져오기
+		List<Picture> plist=service2.listNonMainPicture(url);
+		pdto=service2.readMainPicture(url);
+		
+		
 		Map<String, Object> map=new HashMap<>();
 		map.put("photoNo", photoNo);
 		map.put("url", url);
 		Photo dto = service.readPhoto(map);
 		if (dto == null)
-			return new ModelAndView("redirect:/photoBoard/list/"+url+"?page="+page);
+			return new ModelAndView("redirect:/photoBoard/list/"+boCateNum+"/"+url+"?page="+page);
 
 		// 글을 등록한 사람만 수정 가능
 		if(! dto.getUserId().equals(info.getUserId())) {
-			return new ModelAndView("redirect:/photoBoard/list/"+url+"?page="+page);
+			return new ModelAndView("redirect:/photoBoard/list/"+boCateNum+"/"+url+"?page="+page);
 		}
 		
 		ModelAndView mav=new ModelAndView(".community.photo.created");
@@ -295,16 +342,24 @@ public class PhotoController {
 		mav.addObject("page", page);
 		mav.addObject("mode", "update");
 		mav.addObject("url",url);
+		
+		mav.addObject("boardName",boardName); 
+		mav.addObject("navList", navList);
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
+		mav.addObject("boCateNum", boCateNum);
 		return mav;
 	}
 	
-	@RequestMapping(value="/photoBoard/photoUpdate/{url}",
+	@RequestMapping(value="/photoBoard/photoUpdate/{boCateNum}/{url}",
 			method=RequestMethod.POST)
 	public String updateSubmit(
 			@PathVariable String url,
 			HttpSession session,
 			Photo dto,
-			String page
+			String page,
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception {
 		String root=session.getServletContext().getRealPath("/");
 		String path=root+File.separator+"uploads"+File.separator+"photo";
@@ -319,16 +374,18 @@ public class PhotoController {
 		service.updatePhoto(dto, path);
 		
 		// return "redirect:/photo/list?page="+page;
-		return "redirect:/photoBoard/photoArticle/"+url+"?photoNo="+dto.getPhotoNo()+"&page="+page;
+		return "redirect:/photoBoard/photoArticle/"+boCateNum+"/"+url+"?photoNo="+dto.getPhotoNo()+"&page="+page;
 	}
 	
-	@RequestMapping(value="/photoBoard/photoDelete/{url}",
+	@RequestMapping(value="/photoBoard/photoDelete/{boCateNum}/{url}",
 			method=RequestMethod.GET)
 	public String delete(
 			@PathVariable String url,
 			HttpSession session,
 			@RequestParam(value = "photoNo") int photoNo,
-			@RequestParam(value = "page") String page			
+			@RequestParam(value = "page") String page,
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception {
 		String root=session.getServletContext().getRealPath("/");
 		String path=root+File.separator+"uploads"+File.separator+"photo";
@@ -337,6 +394,8 @@ public class PhotoController {
 		if(info==null) {
 			return "redirect:/group/"+url;
 		}
+		
+		
 		Map<String, Object> map=new HashMap<>();
 		map.put("photoNo", photoNo);
 		map.put("url", url);
@@ -353,16 +412,18 @@ public class PhotoController {
 		map.put("url", url);
 		service.deletePhoto(map, dto.getImageFilename(), path);
 		
-		return "redirect:/photoBoard/list/"+url+"?page="+page;
+		return "redirect:/photoBoard/list/"+boCateNum+"/"+url+"?page="+page;
 	}	
 	
 	// 댓글 처리...................................
 	// 댓글 리스트
-	@RequestMapping(value="/photoBoard/photoReply/{url}")
+	@RequestMapping(value="/photoBoard/photoReply/{boCateNum}/{url}")
 	public ModelAndView listReply(
 			@PathVariable String url,
 			@RequestParam(value="photoNo") int photoNo,
-			@RequestParam(value="pageNo", defaultValue="1") int current_page
+			@RequestParam(value="pageNo", defaultValue="1") int current_page,
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception {
 		
 		int numPerPage=5;
@@ -408,15 +469,19 @@ public class PhotoController {
 		mav.addObject("total_page", total_page);
 		mav.addObject("paging", paging);
 		mav.addObject("url",url);
+		mav.addObject("pdto",pdto);
+		mav.addObject("boCateNum", boCateNum);
 		
 		return mav;
 	}
 
 	// 댓글별 답글 리스트
-	@RequestMapping(value="/photoBoard/photoReplyAnswer/{url}")
+	@RequestMapping(value="/photoBoard/photoReplyAnswer/{boCateNum}/{url}")
 	public ModelAndView listReplyAnswer(
 			@PathVariable String url,
-			@RequestParam(value="answer") int answer
+			@RequestParam(value="answer") int answer,
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception {
 		Map<String, Object> map=new HashMap<>();
 		map.put("answer", answer);
@@ -440,12 +505,16 @@ public class PhotoController {
 	}
 	
 	// 댓글별 답글 개수
-	@RequestMapping(value="/photoBoard/photoCountAnswer/{url}",
+	@RequestMapping(value="/photoBoard/photoCountAnswer/{boCateNum}/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> replyCountAnswer(
 			@PathVariable String url,
-			@RequestParam(value="answer") int answer) throws Exception {
+			@RequestParam(value="answer") int answer,
+			@PathVariable String boCateNum,
+			Picture pdto
+			
+			) throws Exception {
 		
 		int count=0;
 		Map<String, Object> map=new HashMap<>();
@@ -461,13 +530,16 @@ public class PhotoController {
 	}
 	
 	// 댓글 및 리플별 답글 추가
-	@RequestMapping(value="/photoBoard/photoCreatedReply/{url}",
+	@RequestMapping(value="/photoBoard/photoCreatedReply/{boCateNum}/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> createdReply(
 			@PathVariable String url,
 			HttpSession session,
-			Reply dto) throws Exception {
+			Reply dto,
+			@PathVariable String boCateNum,
+			Picture pdto
+			) throws Exception {
 	
 		SessionInfo info=(SessionInfo) session.getAttribute("main");
 		
@@ -491,14 +563,16 @@ public class PhotoController {
 	}
 	
 	// 댓글 및 댓글별답글 삭제
-	@RequestMapping(value="/photoBoard/photoDeleteReply/{url}",
+	@RequestMapping(value="/photoBoard/photoDeleteReply/{boCateNum}/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> deleteReply(
 			@PathVariable String url,
 			HttpSession session,
 			@RequestParam(value="commentNo") int commentNo,
-			@RequestParam(value="mode") String mode
+			@RequestParam(value="mode") String mode,
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception {
 		SessionInfo info=(SessionInfo) session.getAttribute("main");
 		
@@ -528,13 +602,16 @@ public class PhotoController {
 	}
 	
 	// 좋아요/싫어요 추가
-	@RequestMapping(value="/photoBoard/photoReplyLike/{url}",
+	@RequestMapping(value="/photoBoard/photoReplyLike/{boCateNum}/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> replyLike(
 			@PathVariable String url,
 			HttpSession session,
-			Reply dto) throws Exception {
+			Reply dto,
+			@PathVariable String boCateNum,
+			Picture pdto
+			) throws Exception {
 	
 		SessionInfo info=(SessionInfo) session.getAttribute("main");
 		
@@ -558,12 +635,15 @@ public class PhotoController {
 	}
 	
 	// 좋아요/싫어요 개수
-	@RequestMapping(value="/photoBoard/photoReplyCountLike/{url}",
+	@RequestMapping(value="/photoBoard/photoReplyCountLike/{boCateNum}/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> countLike(
 			@PathVariable String url,
-			@RequestParam(value="commentNo") int commentNo) throws Exception {
+			@RequestParam(value="commentNo") int commentNo,
+			@PathVariable String boCateNum,
+			Picture pdto
+			) throws Exception {
 		
 		int likeCount=0, disLikeCount=0;
 		Map<String, Object> map1=new HashMap<>();
@@ -584,12 +664,14 @@ public class PhotoController {
 	}
 	
 	//게시물 좋아요,싫어요
-	@RequestMapping(value="/photoBoard/photoBoardLike/{url}",method=RequestMethod.POST)
+	@RequestMapping(value="/photoBoard/photoBoardLike/{boCateNum}/{url}",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> photoLike(
 			@PathVariable String url,
 			HttpSession session,
-			Photo dto
+			Photo dto,
+			@PathVariable String boCateNum,
+			Picture pdto
 			)throws Exception{
 			SessionInfo info=(SessionInfo) session.getAttribute("main");
 		
@@ -612,12 +694,15 @@ public class PhotoController {
 	}
 	
 	// 게시물 좋아요/싫어요 개수
-		@RequestMapping(value="/photoBoard/photoCountLike/{url}",
+		@RequestMapping(value="/photoBoard/photoCountLike/{boCateNum}/{url}",
 				method=RequestMethod.POST)
 		@ResponseBody
 		public Map<String, Object> photocountLike(
 				@PathVariable String url,
-				@RequestParam(value="photoNo") int photoNo) throws Exception {
+				@RequestParam(value="photoNo") int photoNo,
+				@PathVariable String boCateNum,
+				Picture pdto
+				) throws Exception {
 			
 			int likeCount=0, disLikeCount=0;
 			Map<String, Object> map1=new HashMap<>();
