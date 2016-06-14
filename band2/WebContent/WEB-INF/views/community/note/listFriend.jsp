@@ -6,12 +6,12 @@
 %>
 
 <c:forEach var="dto" items="${listFriend}">
-    <tr height='25' data-tid='${dto.friendUserId}'>
+    <tr height='25' data-tid='${dto.userId}'>
           <td align='center' width='30'>
-              <input type='checkbox' value='${dto.friendUserId}' >
+              <input type='checkbox' value='${dto.userId}' >
           </td>
           <td align='left' width='200'>
-              ${dto.friendUserName}(${dto.friendUserId})
+              ${dto.name}(${dto.userId})
           </td>
      </tr>
 </c:forEach>

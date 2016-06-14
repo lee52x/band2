@@ -43,11 +43,11 @@ function listPage(page) {
 	var searchKey=$("#searchKey").val();
 	var searchValue=$("#searchValue").val();
 	
-	var url="<%=cp%>/note/listNote";
+	var url="<%=cp%>/community/listNote/${url}";
 	$.post(url, {mode:mode, pageNo:page, searchKey:searchKey, searchValue:searchValue}, function(data){
 		var isLogin=data.isLogin;
 		if(isLogin=="false") {
-			location.href="<%=cp%>/member/login";
+			location.href="<%=cp%>/group/${url}";
 			return;
 		}
 		
@@ -62,11 +62,11 @@ function searchListNote() {
 	var searchKey=$("#noteSearchKey").val();
 	var searchValue=$("#noteSearchValue").val();
 	
-	var url="<%=cp%>/note/listNote";
+	var url="<%=cp%>/community/listNote/${url}}";
 	$.post(url, {mode:mode, searchKey:searchKey, searchValue:searchValue}, function(data){
 		var isLogin=data.isLogin;
 		if(isLogin=="false") {
-			location.href="<%=cp%>/member/login";
+			location.href="<%=cp%>/group/${url}";
 			return;
 		}
 		
@@ -93,7 +93,7 @@ function deleteListNote() {
 
 	$('#chkAll').attr("checked",false);
 	
-	var url="<%=cp%>/note/noteDeleteChk";
+	var url="<%=cp%>/community/noteDeleteChk/${url}}";
 	var params="mode="+mode+"&pageNo="+page+"&searchKey="+searchKey+"&searchValue="+searchValue;
 	$.each($(chks), function() {
 		params += "&nums="+$(this).val();
@@ -107,7 +107,7 @@ function deleteListNote() {
     	success:function(data){
     		var isLogin=data.isLogin;
 			if(isLogin=="false") {
-				location.href="<%=cp%>/member/login";
+				location.href="<%=cp%>/group/${url}";
 				return;
 			}
 			
@@ -138,24 +138,24 @@ function printNote(data) {
 	
 	if(dataCount!=0) {
 		for(var idx=0; idx<data.list.length; idx++) {
-			var num=data.list[idx].num;
-			var userName;
+			var messageNo=data.list[idx].messageNo;
+			var name;
 			if(mode=="listSend")
-				userName=data.list[idx].receiveUserName;
+				memberNo=data.list[idx].receiveMemberNo;
 			else
-				userName=data.list[idx].sendUserName;
+				memberNo=data.list[idx].sendMemberNo;
 			var content=data.list[idx].content;
 			var sendDay=data.list[idx].sendDay;
 			var identifyDay=data.list[idx].identifyDay;
 			if(identifyDay=="")
 				identifyDay="읽지않음";
 			
-			s="style='cursor: pointer;' onclick='articleNote(\""+num+"\");'";
+			s="style='cursor: pointer;' onclick='articleNote(\""+messageNo+"\");'";
 			out+="<tr>";
 			out+="  <td class='text-center'>";
-			out+="     <input type='checkbox' value='"+num+"'>";
+			out+="     <input type='checkbox' value='"+messageNo+"'>";
 			out+="  </td>";
-			out+="  <td class='text-center' "+s+">"+userName+"</td>";
+			out+="  <td class='text-center' "+s+">"+name+"</td>";
 			out+="  <td class='listContent' "+s+">"+content+"</td>";
 			out+="  <td class='text-center' "+s+">"+sendDay+"</td>";
 			out+="  <td class='text-center' "+s+">"+identifyDay+"</td>";
@@ -179,18 +179,18 @@ $(function() {
 });
 
 //쪽지 글보기 -------------
-function articleNote(num) {
+function articleNote(messageNo) {
 	var mode=$("#mode").val();
 	var page=$("#pageNo").val();
 	var searchKey=$("#searchKey").val();
 	var searchValue=$("#searchValue").val();
 	
-	var url="<%=cp%>/note/article";
+	var url="<%=cp%>/community/noteArticle/${url}";
 
-	$.post(url, {num:num, mode:mode, pageNo:page, searchKey:searchKey, searchValue:searchValue}, function(data){
+	$.post(url, {messageNo:messageNo, mode:mode, pageNo:page, searchKey:searchKey, searchValue:searchValue}, function(data){
 		var s=$.trim(data);
 		if(s=="loginFail") {
-			location.href="<%=cp%>/member/login";
+			location.href="<%=cp%>/group/${url}";
 			return;	
 		}
 		
