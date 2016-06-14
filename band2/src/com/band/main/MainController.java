@@ -49,8 +49,8 @@ public class MainController {
 		  
 	      Main dto=service.readMember(map);
 	      
-	      if(dto==null || (! dto.getPwd().equals(userPwd))) {
-				ModelAndView mav=new ModelAndView("redirect:/group/"+url);
+	      if(dto==null || (! dto.getPwd().equals(userPwd))||(!dto.getUserId().equals(userId))) {
+				ModelAndView mav=new ModelAndView(".mainLogin");
 				mav.addObject("message", "아이디 또는 패스워드가 일치하지 않습니다.");
 				return mav;
 			}
@@ -69,7 +69,7 @@ public class MainController {
 	       }else if(dto.getGrade()==3||dto.getGrade()==4||dto.getGrade()==5&&dto.getGroupURL().equals(url)){
 	    	  return new ModelAndView("redirect:/community/main/"+url);
 	       }else{
-	    	   ModelAndView mav=new ModelAndView("redirect:/group/"+url);
+	    	   ModelAndView mav=new ModelAndView(".mainLogin");
 	    	   mav.addObject("message","해당 사이트에 접근 권한이 없습니다.");
 	    	   return mav;
 	       }
