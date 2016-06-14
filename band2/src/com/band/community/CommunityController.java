@@ -70,7 +70,8 @@ public class CommunityController {
         int end = current_page * numPerPage;
         map.put("start", start);
         map.put("end", end);
-
+        
+        //공지사항 출력하기
         List<Notice> nlist=service.listCommunityNotice(map);
         Iterator<Notice> it=nlist.iterator();
         int listNum=0;

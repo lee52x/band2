@@ -18,7 +18,7 @@
                <!-- Wrapper for slides -->
                <div class="carousel-inner" role="listbox">
                   <div class="item active" style="background-repeat:no-repeat; background-image: url(<%=cp%>/uploads/management/${pdto.saveFilename});
-                     background-size: 100% 400px;">
+                     background-size: 100%;">
                      <div class="carousel-caption">
            	           <h3>대표 사진</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>

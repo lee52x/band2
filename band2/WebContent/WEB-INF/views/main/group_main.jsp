@@ -216,7 +216,7 @@ function checkMember() {
 			data-ride="carousel">
 			<div class="carousel-inner">
 				<div class="item active"
-					style="background-image: url(<%=cp%>/res/img/slider/3.jpg)">
+					style="background-image: url(<%=cp%>/uploads/management/${pdto.saveFilename}) background-size: 100%">
 					<div class="caption">
 						<div class="row">
 							<div class="col-sm-5 col-sm-offset-3 form-box">
