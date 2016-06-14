@@ -33,6 +33,18 @@
       ) 
 	</select>
 	
+		<!-- 방명록 댓글 리스트 -->
+		
+		<select id="listReplyAnswer" resultType="com.band.community.guest.Guest" 
+	          parameterType="map">
+	          
+	     select r.guestNo,r.memberNo,name,answer,content,created,userId
+       			 FROM guestbook_${url} r
+        		 JOIN member_${url} m ON r.memberNo=m.memberNo
+        	WHERE answer=#{guestNo}
+      </select>
+	          
+
 	
 	
 	<delete id="deleteGuest" parameterType="Integer">

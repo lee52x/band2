@@ -25,6 +25,7 @@ import com.band.common.MyUtil;
 import com.band.community.board.BoardService;
 import com.band.community.board.Reply;
 import com.band.main.SessionInfo;
+import com.sun.org.apache.xml.internal.dtm.DTMDOMException;
 
 @Controller("community.guestController")
 public class GuestController {
@@ -37,7 +38,7 @@ public class GuestController {
 	private FileManager fileManager;
 	
 	
-	@RequestMapping(value="/guest/list/{url}", method=RequestMethod.GET)
+	@RequestMapping(value="/guestBoard/list/{url}", method=RequestMethod.GET)
 	public ModelAndView list(
 			@PathVariable String url
 			)throws Exception{
@@ -48,7 +49,7 @@ public class GuestController {
 	}
 	
 	
-	@RequestMapping(value="/guest/created/{url}" , method=RequestMethod.POST)
+	@RequestMapping(value="/guestBoard/created/{url}" , method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> createdSubmit(
 			HttpServletResponse resp,
@@ -79,7 +80,7 @@ public class GuestController {
 	}
 	
 	
-	@RequestMapping(value="/guest/delete/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/guestBoard/delete/{url}", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> delete(
 			HttpSession session,
@@ -108,10 +109,32 @@ public class GuestController {
 		return model;
 	}
 	
+	//댓글보기 리스트
+	@RequestMapping(value="/guestBoard/viewReply/{url}")
+	public ModelAndView viewReply(
+			@PathVariable String url
+			,@RequestParam(value="guestNo") int guestNo
+			)throws Exception{
+		Map<String, Object> map=new HashMap<String,Object>();
+		map.put("url", url);
+		map.put("guestNo", guestNo);
+	
+		
+		List<Guest> listReplyAnswer=service.listReplyAnswer(map);
+		
+		ModelAndView mav=new ModelAndView("community/guest/guestAnswer");
+		
+		mav.addObject("url",url);
+		mav.addObject("listReplyAnswer",listReplyAnswer);
+
+		
+		
+		return mav;
+	}
 	
 	
 	//방명록 리스트
-	@RequestMapping(value="/guest/listGuest/{url}")
+	@RequestMapping(value="/guestBoard/listGuest/{url}")
 	public ModelAndView listGuest(
 			@RequestParam(value="pageNo",defaultValue="1") int current_page,
 			@PathVariable String url,
@@ -120,9 +143,6 @@ public class GuestController {
 			
 			) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("main");
-		
-		
-		
 		//리스트에 출력할 데이터
 		Map<String, Object> map=new HashMap<String , Object>();
 		map.put("url", url);
@@ -143,7 +163,7 @@ public class GuestController {
 }
 	
 	//좋아요 추가
-	@RequestMapping(value="/guest/guestLike/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/guestBoard/guestLike/{url}", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> guestLike(
 			HttpSession session,
@@ -170,7 +190,7 @@ public class GuestController {
 	
 	//좋아요 개수
 	
-	@RequestMapping(value="/guest/countLike/{url}",method=RequestMethod.POST)
+	@RequestMapping(value="/guestBoard/countLike/{url}",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> countLike(
 			@RequestParam(value="guestNo") int guestNo,
@@ -192,7 +212,7 @@ public class GuestController {
 	
 	
 	// 댓글 및 리플별 답글 추가
-		@RequestMapping(value="/guest/createdReply/{url}",
+		@RequestMapping(value="/guestBoard/createdReply/{url}",
 				method=RequestMethod.POST)
 		@ResponseBody
 		public Map<String, Object>  createdReply(
@@ -218,6 +238,7 @@ public class GuestController {
 			model.put("state", state);
 			return model;
 		}
+		
 	
 		
 	

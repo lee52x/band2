@@ -107,6 +107,19 @@ public class GuestServiceImpl implements GuestService{
 		return result;
 	}
 
+	@Override
+	public List<Guest> listReplyAnswer(Map<String, Object> map) {
+	List<Guest> listReplyAnswer=null;
+		
+		try{
+			listReplyAnswer=dao.getListData("guest.listReplyAnswer", map);
+		} catch(Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return listReplyAnswer;
+	}
+
 
 
 

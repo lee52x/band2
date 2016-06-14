@@ -31,7 +31,6 @@
 	<select id="selectTotalMember" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(memberNo), 0) FROM member_${url}
 	</select>
-
 	
 	<!-- 커뮤니티회원수 검색 -->
 	<select id="selectCommunityMember" parameterType="map" resultType="Integer">
@@ -78,6 +77,85 @@
 	<![CDATA[
 		) tb WHERE ROWNUM <= 5
 	]]>
-	</select>	
+	</select>
 	
+	<!-- 이번달에 생일인 회원정보 검색 -->
+	<select id="listBirthMember" parameterType="map" resultType="com.band.member.member.Member">
+		SELECT ROWNUM, tb.* FROM (
+			SELECT name, userId, TO_CHAR(birth, 'YYYY-MM-DD') birth FROM member_${url}
+			WHERE TO_CHAR(birth, 'MM') = (SELECT TO_CHAR(TRUNC(SYSDATE, 'MONTH'), 'MM') birth FROM dual) 
+			ORDER BY birth DESC
+		<![CDATA[
+		) tb WHERE ROWNUM <= 5
+	]]>
+	</select>
+	
+	<!-- 회의록 생성  -->
+	<insert id="insertProceed" parameterType="com.band.member.proceed.Proceed">
+		INSERT INTO proceedings(proceedNo, subject, content, proceedDate, place, attendee, saveFilename, OriginalFilename, note, groupURL)
+		VALUES(proceed_seq.NEXTVAL, #{subject}, #{content}, #{proceedDate}, #{place, jdbcType = VARCHAR}, #{attendee},
+		 #{saveFilename, jdbcType = VARCHAR}, #{OriginalFilename, jdbcType = VARCHAR}, #{note, jdbcType = VARCHAR}, #{url})
+	</insert>
+
+	<!-- 회의록 검색 조건  -->
+	<sql id="where-list">		
+		<if test="searchKey=='subject' ">
+			INSTR(subject, #{searchValue}) &gt; 0
+		</if>
+		<if test="searchKey=='content' ">
+			DBMS_LOB.INSTR(content, #{searchValue}) &gt; 0
+		</if>
+		<if test="searchKey=='created' ">
+			TO_CHAR(proceeDate, 'YYYY-MM-DD') = #{searchValue}
+		</if>
+	</sql>
+	
+	<!-- 회의록 리스트 검색 -->
+	<select id="proceedlist" parameterType="map" resultType="com.band.member.proceed.Proceed">
+		SELECT * FROM (
+		    SELECT ROWNUM rnum, tb.* FROM (
+			     SELECT subject, TO_CHAR(proceedDate, 'YYYY-MM-DD') created, saveFilename
+			        FROM proceedings p
+			        JOIN community c ON p.groupURL = c.groupURL			        
+                    <where>
+                         <if test="searchValue != null and searchValue != ''">
+			                  <include refid="where-list"/>
+		                 </if>
+	                </where>
+	                ORDER BY proceedNo DESC
+	<![CDATA[
+	        ) tb WHERE ROWNUM <= #{end}
+	    ) WHERE rnum >= #{start}
+	]]>
+	</select>
+	
+	<!-- 회의록 개수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM proceedings p
+			JOIN community c ON p.groupURL = c.groupURL
+		<where>
+			<if test="searchValue != null and serachValue != '' ">
+				<include refid="where-list" />
+			</if>
+		</where>
+	</select>
+	
+	<!-- 회의록 읽기 -->
+	<select id="readProceed" parameterType="Integer" resultType="com.band.member.proceed.Proceed">
+		SELECT proceedNo, subject, content, created, place, attendee, saveFilename, OriginalFilename, note
+			FROM proceedings p
+			JOIN community c ON p.groupURL = c.groupURL
+			WHERE proceedNo = #{proceedNo}
+	</select>
+	
+	<!-- 회의록 수정 -->
+	<update id="updateProceed" parameterType="com.band.member.proceed.Proceed">
+		UPDATE proceedings SET subject = #{subject}, content = #{content}, saveFilename = #{saveFilename}
+		WHERE proceedNo = #{proceedNo}	   
+	</update>
+	
+	<!-- 회의록 삭제 -->
+	<delete id="deleteProceed" parameterType="Integer">
+		DELETE FROM proceedings WHERE proceedNo = #{proceedNo}
+	</delete>
 </mapper>

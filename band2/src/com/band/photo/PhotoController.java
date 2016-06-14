@@ -31,7 +31,7 @@ public class PhotoController {
 	@Autowired
 	private MyUtil myUtil;
 
-	@RequestMapping(value="/community/photo/{url}")
+	@RequestMapping(value="/photoBoard/list/{url}")
 	public ModelAndView list(
 			@PathVariable String url,
 			HttpServletRequest req,
@@ -110,7 +110,7 @@ public class PhotoController {
 		return mav;
 	}
 
-	@RequestMapping(value="/community/photoCreated/{url}", 
+	@RequestMapping(value="/photoBoard/photoCreated/{url}", 
 			method=RequestMethod.GET)
 	public ModelAndView createdForm(
 			@PathVariable String url,
@@ -130,7 +130,7 @@ public class PhotoController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/community/photoCreated/{url}",
+	@RequestMapping(value="/photoBoard/photoCreated/{url}",
 			method=RequestMethod.POST
 			)
 	public String createdSubmit(
@@ -151,10 +151,10 @@ public class PhotoController {
 		dto.setGroupURL(url);
 		service.insertPhoto(dto, path);
 		
-		return "redirect:/community/photo/"+url;
+		return "redirect:/photoBoard/list/"+url;
 	}
 	
-	@RequestMapping(value="/community/photoArticle/{url}", 
+	@RequestMapping(value="/photoBoard/photoArticle/{url}", 
 			method=RequestMethod.GET)
 	public ModelAndView article(
 			@PathVariable String url,
@@ -176,7 +176,7 @@ public class PhotoController {
 		
 		Photo dto = service.readPhoto(map);
 		if (dto == null)
-			return new ModelAndView("redirect:/community/photo/"+url+"?page="+page);
+			return new ModelAndView("redirect:/photoBoard/list/"+url+"?page="+page);
 		
 		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 		
@@ -210,7 +210,7 @@ public class PhotoController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/community/photoUpdate/{url}", 
+	@RequestMapping(value="/photoBoard/photoUpdate/{url}", 
 			method=RequestMethod.GET)
 	public ModelAndView updateForm(
 			@PathVariable String url,
@@ -228,11 +228,11 @@ public class PhotoController {
 		map.put("url", url);
 		Photo dto = service.readPhoto(map);
 		if (dto == null)
-			return new ModelAndView("redirect:/community/photo/"+url+"?page="+page);
+			return new ModelAndView("redirect:/photoBoard/list/"+url+"?page="+page);
 
 		// 글을 등록한 사람만 수정 가능
 		if(! dto.getUserId().equals(info.getUserId())) {
-			return new ModelAndView("redirect:/community/photo/"+url+"?page="+page);
+			return new ModelAndView("redirect:/photoBoard/list/"+url+"?page="+page);
 		}
 		
 		ModelAndView mav=new ModelAndView(".community.photo.created");
@@ -245,7 +245,7 @@ public class PhotoController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/community/photoUpdate/{url}",
+	@RequestMapping(value="/photoBoard/photoUpdate/{url}",
 			method=RequestMethod.POST)
 	public String updateSubmit(
 			@PathVariable String url,
@@ -266,10 +266,10 @@ public class PhotoController {
 		service.updatePhoto(dto, path);
 		
 		// return "redirect:/photo/list?page="+page;
-		return "redirect:/community/photoArticle/"+url+"?photoNo="+dto.getPhotoNo()+"&page="+page;
+		return "redirect:/photoBoard/photoArticle/"+url+"?photoNo="+dto.getPhotoNo()+"&page="+page;
 	}
 	
-	@RequestMapping(value="/community/photoDelete/{url}",
+	@RequestMapping(value="/photoBoard/photoDelete/{url}",
 			method=RequestMethod.GET)
 	public String delete(
 			@PathVariable String url,
@@ -300,12 +300,12 @@ public class PhotoController {
 		map.put("url", url);
 		service.deletePhoto(map, dto.getImageFilename(), path);
 		
-		return "redirect:/community/photo/"+url+"?page="+page;
+		return "redirect:/photoBoard/list/"+url+"?page="+page;
 	}	
 	
 	// 댓글 처리...................................
 	// 댓글 리스트
-	@RequestMapping(value="/community/photoReply/{url}")
+	@RequestMapping(value="/photoBoard/photoReply/{url}")
 	public ModelAndView listReply(
 			@PathVariable String url,
 			@RequestParam(value="photoNo") int photoNo,
@@ -360,7 +360,7 @@ public class PhotoController {
 	}
 
 	// 댓글별 답글 리스트
-	@RequestMapping(value="/community/photoReplyAnswer/{url}")
+	@RequestMapping(value="/photoBoard/photoReplyAnswer/{url}")
 	public ModelAndView listReplyAnswer(
 			@PathVariable String url,
 			@RequestParam(value="answer") int answer
@@ -387,7 +387,7 @@ public class PhotoController {
 	}
 	
 	// 댓글별 답글 개수
-	@RequestMapping(value="/community/photoCountAnswer/{url}",
+	@RequestMapping(value="/photoBoard/photoCountAnswer/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> replyCountAnswer(
@@ -408,7 +408,7 @@ public class PhotoController {
 	}
 	
 	// 댓글 및 리플별 답글 추가
-	@RequestMapping(value="/community/photoCreatedReply/{url}",
+	@RequestMapping(value="/photoBoard/photoCreatedReply/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> createdReply(
@@ -438,7 +438,7 @@ public class PhotoController {
 	}
 	
 	// 댓글 및 댓글별답글 삭제
-	@RequestMapping(value="/community/photoDeleteReply/{url}",
+	@RequestMapping(value="/photoBoard/photoDeleteReply/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> deleteReply(
@@ -475,7 +475,7 @@ public class PhotoController {
 	}
 	
 	// 좋아요/싫어요 추가
-	@RequestMapping(value="/community/photoReplyLike/{url}",
+	@RequestMapping(value="/photoBoard/photoReplyLike/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> replyLike(
@@ -505,7 +505,7 @@ public class PhotoController {
 	}
 	
 	// 좋아요/싫어요 개수
-	@RequestMapping(value="/community/photoReplyCountLike/{url}",
+	@RequestMapping(value="/photoBoard/photoReplyCountLike/{url}",
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> countLike(
@@ -531,7 +531,7 @@ public class PhotoController {
 	}
 	
 	//게시물 좋아요,싫어요
-	@RequestMapping(value="/community/photoBoardLike/{url}",method=RequestMethod.POST)
+	@RequestMapping(value="/photoBoard/photoBoardLike/{url}",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> photoLike(
 			@PathVariable String url,
@@ -559,7 +559,7 @@ public class PhotoController {
 	}
 	
 	// 게시물 좋아요/싫어요 개수
-		@RequestMapping(value="/community/photoCountLike/{url}",
+		@RequestMapping(value="/photoBoard/photoCountLike/{url}",
 				method=RequestMethod.POST)
 		@ResponseBody
 		public Map<String, Object> photocountLike(

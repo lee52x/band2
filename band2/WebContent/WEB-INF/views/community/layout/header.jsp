@@ -78,7 +78,7 @@ function question(){
                                     <b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a href="<%=cp%>/comfimMember/pwd/${url}">정보수정</a></li>
+                                <li><a href="<%=cp%>/comfirmMember/pwd/${url}">정보수정</a></li>
                               
                                 <li class="divider"></li>
                                 <li><a href="<%=cp%>/group/${url}">로그아웃</a></li>

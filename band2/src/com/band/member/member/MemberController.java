@@ -19,7 +19,7 @@ public class MemberController {
 	@Autowired
 	private MemberService service;	
 	
-	@RequestMapping(value="/admin/member/member/{url}", method=RequestMethod.GET)
+	@RequestMapping(value="/member/member/{url}", method=RequestMethod.GET)
 	public ModelAndView list(
 			@PathVariable String url
 			) throws Exception {										
@@ -34,15 +34,15 @@ public class MemberController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/member/member/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/member/member/{url}", method=RequestMethod.POST)
 	public ModelAndView memberInsert(			
 			Member dto) throws Exception {			
 		service.insertMember(dto);
 		
-		return new ModelAndView("redirect:/admin/member/member/{url}");		
+		return new ModelAndView("redirect:/member/member/{url}");		
 	}	
 	
-	@RequestMapping(value="/admin/member/update/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/member/update/{url}", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> memberUpdate(
 			Member dto
@@ -55,7 +55,7 @@ public class MemberController {
 		return map;
 	}
 	
-	@RequestMapping(value="/admin/member/delete/{url}", method=RequestMethod.POST)
+	@RequestMapping(value="/member/delete/{url}", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> memberDelete(
 			@RequestParam("memberNo") int memberNo,

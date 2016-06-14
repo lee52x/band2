@@ -13,5 +13,6 @@ public interface StatsService {
 	public String today(); // 현재 날짜 검색
 	public String foundationDay(Map<String, Object> map); // 모임 창립일 검색
 	public int countFoundationDay(Map<String, Object> map); // 창립일 계산
-	public List<Member> listJoinMember(Map<String, Object> map);	// 최근 가입한 회원정보 검색
+	public List<Member> listJoinMember(Map<String, Object> map); // 최근 가입한 회원정보 검색
+	public List<Member> listBirthMember(Map<String, Object> map); // 이번 달에 생일인 회원정보 검색
 }

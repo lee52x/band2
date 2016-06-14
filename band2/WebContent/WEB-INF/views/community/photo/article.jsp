@@ -54,7 +54,7 @@ $(function(){
 });
 
 function listPage(page) {
-	var url="<%=cp%>/community/photoReply/${url}";
+	var url="<%=cp%>/photoBoard/photoReply/${url}";
 	var photoNo="${dto.photoNo}";
 	$.post(url, {photoNo:photoNo, pageNo:page}, function(data){
 		$("#listReply").html(data);
@@ -87,7 +87,7 @@ function sendReply() {
 	
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/community/photoCreatedReply/${url}"
+		,url:"<%=cp%>/photoBoard/photoCreatedReply/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data) {
@@ -110,7 +110,7 @@ function sendReply() {
 
 //좋아요/싫어요 개수
 function countLike(commentNo) {
-	var url="<%=cp%>/community/photoReplyCountLike/${url}";
+	var url="<%=cp%>/photoBoard/photoReplyCountLike/${url}";
 	$.post(url, {commentNo:commentNo}, function(data){
 		var likeCountId="#likeCount"+commentNo;
 		var disLikeCountId="#disLikeCount"+commentNo;
@@ -124,7 +124,7 @@ function countLike(commentNo) {
 
 //게시물 좋아요/싫어요 갯수
 function countLike1(photoNo) {
-	var url="<%=cp%>/community/photoCountLike/${url}";
+	var url="<%=cp%>/photoBoard/photoCountLike/${url}";
 	$.post(url, {photoNo:photoNo}, function(data){
 		var likeCountId="#likeCount1"+photoNo;
 		var disLikeCountId="#disLikeCount1"+photoNo;
@@ -155,7 +155,7 @@ function sendLike(commentNo, replyLike) {
 
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/community/photoReplyLike/${url}"
+		,url:"<%=cp%>/photoBoard/photoReplyLike/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data) {
@@ -194,7 +194,7 @@ function sendLike1(photoNo, photoLike) {
 
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/community/photoBoardLike/${url}"
+		,url:"<%=cp%>/photoBoard/photoBoardLike/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data) {
@@ -223,7 +223,7 @@ function deleteReply(commentNo, page) {
 	}
 	
 	if(confirm("게시물을 삭제하시겠습니까 ? ")) {	
-		var url="<%=cp%>/community/photoDeleteReply/${url}";
+		var url="<%=cp%>/photoBoard/photoDeleteReply/${url}";
 		$.post(url, {commentNo:commentNo, mode:"reply"}, function(data){
 		        var state=data.state;
 
@@ -242,7 +242,7 @@ function deletePhoto() {
   var photoNo = "${dto.photoNo}";
   var page = "${page}";
   var params = "photoNo="+photoNo+"&page="+page;
-  var url = "<%=cp%>/community/photoDelete/${url}?" + params;
+  var url = "<%=cp%>/photoBoard/photoDelete/${url}?" + params;
 
   if(confirm("위 자료를 삭제 하시 겠습니까 ? "))
   	location.href=url;
@@ -257,7 +257,7 @@ function updatePhoto() {
   var photoNo = "${dto.photoNo}";
   var page = "${page}";
   var params = "photoNo="+photoNo+"&page="+page;
-  var url = "<%=cp%>/community/photoUpdate/${url}?" + params;
+  var url = "<%=cp%>/photoBoard/photoUpdate/${url}?" + params;
 
   location.href=url;
 </c:if>
@@ -313,7 +313,7 @@ function updatePhoto() {
                          <td colspan="2">
                               <span style="display: inline-block; min-width: 45px;">이전글</span> :
                               <c:if test="${not empty preReadDto }">
-                                  <a href="<%=cp%>/community/photoArticle/${url}?${params}&photoNo=${preReadDto.photoNo}">${preReadDto.subject}</a>
+                                  <a href="<%=cp%>/photoBoard/photoArticle/${url}?${params}&photoNo=${preReadDto.photoNo}">${preReadDto.subject}</a>
                               </c:if>					
                          </td>
                      </tr>
@@ -321,7 +321,7 @@ function updatePhoto() {
                          <td colspan="2" style="border-bottom: #d5d5d5 solid 1px;">
                               <span style="display: inline-block; min-width: 45px;">다음글</span> :
                               <c:if test="${not empty nextReadDto }">
-                                  <a href="<%=cp%>/community/photoArticle/${url}?${params}&photoNo=${nextReadDto.photoNo}">${nextReadDto.subject}</a>
+                                  <a href="<%=cp%>/photoBoard/photoArticle/${url}?${params}&photoNo=${nextReadDto.photoNo}">${nextReadDto.subject}</a>
                               </c:if>
                          </td>
                      </tr>                                          
@@ -339,7 +339,7 @@ function updatePhoto() {
                 		<td align="right">
                 		<button type="button" class="btn btn-info btn-sm" onclick="sendLike1('${dto.photoNo}', '1')"><span class="glyphicon glyphicon-hand-up"></span> 좋아요 <span id="likeCount1${dto.photoNo}">${dto.likeCount}</span></button>
                         <button type="button" class="btn btn-warning btn-sm" onclick="sendLike1('${dto.photoNo}', '0')"><span class="glyphicon glyphicon-hand-down"></span> 싫어요 <span id="disLikeCount1${dto.photoNo}">${dto.disLikeCount}</span></button>
-                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/community/photo/${url}?${params}';"> 목록으로 </button>
+                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/photoBoard/list/${url}?${params}';"> 목록으로 </button>
                 		</td>
                 	</tr>
                 </tfoot>

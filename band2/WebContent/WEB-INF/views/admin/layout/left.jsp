@@ -47,16 +47,16 @@
                   </li>
                   <li><a><i class="fa fa-desktop"></i> 그룹관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<%=cp%>/admin/member/member/${url}">회원 관리</a></li>
-                      <li><a href="<%=cp%>/admin/member/stats/${url}">그룹현황 조회</a></li>
-                      <li><a href="<%=cp%>/admin/member/proceed">그룹 회의록</a></li>
+                      <li><a href="<%=cp%>/member/member/${url}">회원 관리</a></li>
+                      <li><a href="<%=cp%>/member/stats/${url}">그룹현황 조회</a></li>
+                      <li><a href="<%=cp%>/member/proceedList/${url}">그룹 회의록</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> 일정관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<%=cp%>/event/event/${url}">일정 등록</a></li>
-                      <li><a href="#">일정 조회</a></li>
-                      <li><a href="#">추천 모임 장소</a></li>
+                      <li><a href="<%=cp%>/event/list/${url}">리스트 조회 및 등록</a></li>
+                      <li><a href="<%=cp%>/event/sch/${url}">캘린더 조회 및 등록</a></li>
+                      <li><a href="<%=cp%>/event/place/${url}">추천 모임 장소</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> 커뮤니티 관리 <span class="fa fa-chevron-down"></span></a>

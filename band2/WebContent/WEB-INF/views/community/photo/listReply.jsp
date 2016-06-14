@@ -11,7 +11,7 @@
 // 댓글별 답글 리스트
 function listAnswer(answer) {
 	var listReplyAnswerId="#listReplyAnswer"+answer;
-	var url="<%=cp%>/community/photoReplyAnswer/${url}";
+	var url="<%=cp%>/photoBoard/photoReplyAnswer/${url}";
 	$.post(url, {answer:answer}, function(data){
 		$(listReplyAnswerId).html(data);
 	});
@@ -19,7 +19,7 @@ function listAnswer(answer) {
 
 // 댓글별 답글 갯수
 function countAnswer(answer) {
-	var url="<%=cp%>/community/photoCountAnswer/${url}";
+	var url="<%=cp%>/photoBoard/photoCountAnswer/${url}";
 	$.post(url, {answer:answer}, function(data){
 		var count="("+data.count+")";
 		var answerCountId="#answerCount"+answer;
@@ -80,7 +80,7 @@ function sendReplyAnswer(photoNo,commentNo) {
 	
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/community/photoCreatedReply/${url}"
+		,url:"<%=cp%>/photoBoard/photoCreatedReply/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data) {
@@ -111,7 +111,7 @@ function deleteReplyAnswer(commentNo, answer) {
 	}
 	
 	if(confirm("게시물을 삭제하시겠습니까 ? ")) {	
-		var url="<%=cp%>/community/photoDeleteReply/${url}";
+		var url="<%=cp%>/photoBoard/photoDeleteReply/${url}";
 		$.post(url, {commentNo:commentNo, mode:"answer"}, function(data){
 		        var state=data.state;
 				if(state=="loginFail") {

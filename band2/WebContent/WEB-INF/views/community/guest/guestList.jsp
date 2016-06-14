@@ -12,6 +12,47 @@
 
 <script type="text/javascript">
 
+
+
+//답글보기 클릭시 답글리스트
+function viewReply(guestNo)
+{	
+	$("#button1"+guestNo).html("댓글닫기");
+	$("#button1"+guestNo).click(function(){
+		   $("#listReplyAnswer"+guestNo).hide();
+		   $("#button1"+guestNo).html("댓글보기");
+		 });
+	
+	
+	
+	var uid="${sessionScope.main.userId}";
+	if(! uid){
+		login();
+		return false;
+	}
+	var params="guestNo="+guestNo;
+
+	$.ajax({
+		type:"POST"
+	   ,url:"<%=cp%>/guestBoard/viewReply/${url}"
+	   ,data:params
+	   ,success:function(data){
+		  // $("#listReplyAnswer").html(data);
+		  $("#listReplyAnswer"+guestNo).html(data);
+	   }
+	   ,error:function(e){
+		   alert(e.responseText);
+	   }
+	   
+	  
+		
+	   
+	});
+
+}
+
+
+
 function modalSendReply(){
 	
 	var f=document.modalReplyForm;
@@ -28,7 +69,7 @@ function modalSendReply(){
 	
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/guest/created/${url}"
+		,url:"<%=cp%>/guestBoard/created/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data) {
@@ -52,13 +93,6 @@ function modalSendReply(){
 		
 		
 	});
-	
-	
-	
-	
-	
-	
-
 }
 
 function sendReplyAnswerDlg(guestNo){
@@ -91,7 +125,7 @@ function sendReplyAnswer(guestNo) {
 	
 	$.ajax({
 		type:"POST"
-		,url:"<%=cp%>/guest/createdReply/${url}"
+		,url:"<%=cp%>/guestBoard/createdReply/${url}"
 		,data:params
 		,dataType:"json"
 		,success:function(data) {
@@ -161,7 +195,7 @@ function sendReplyAnswer(guestNo) {
 													</div>
 												</div>
 												
-													<div class="stream-options" style="background-color: #B7F0B1">
+													<div class="stream-options" >
 													
 												<a  href="javascript:sendLike('${dto.guestNo}','1')">&nbsp<span class="icon-thumbs-up shaded"></span>Like<span id="likeCount${dto.guestNo}">${dto.likeCount}</span>
 													
@@ -175,12 +209,14 @@ function sendReplyAnswer(guestNo) {
 													Repost
 												</a>
 												
+												  <button id="button1${dto.guestNo}"  class="pull-right" type="button" onclick="viewReply(${dto.guestNo});">댓글보기</button>
+												
 												
 											</div>
-											
-											
+											<div id="listReplyAnswer${dto.guestNo}" style="padding-top: 5px;min-height: 50px;"></div>
 
 		 </c:forEach>
+
 	
 	
 	
@@ -216,6 +252,28 @@ function sendReplyAnswer(guestNo) {
 	</div>
 	
 </div>
+
+
+
+								<div class="stream-respond" align="center" id="response">
+												<div class="media stream" align="left">
+													<a href="#" class="media-avatar small pull-left">
+														<img src="<%=cp%>/res/img/user.png">
+													</a>
+													<div class="media-body">
+														<div class="stream-headline">
+															<h5 class="stream-author">
+																John Donga 
+																<small>10 July 14</small>
+															</h5>
+															<div class="stream-text">
+																Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+															</div>
+														</div><!--/.stream-headline-->
+													</div>
+												</div><!--/.media .stream-->
+										
+											</div><!--/.stream-respond-->
 	
 	
 	

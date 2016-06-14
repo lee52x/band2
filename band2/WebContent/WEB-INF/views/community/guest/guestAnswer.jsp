@@ -7,20 +7,27 @@
 %>
 
 <c:if test="${not empty listReplyAnswer}">
-    <c:forEach var="vo" items="${listReplyAnswer}">
-        <div style="clear: both; border-top: #d5d5d5 solid 1px; margin-top: 7px; padding-top: 5px;">
-            <div style="float: left;">${vo.userName} | ${vo.created }</div>
-            <div style="float: right; text-align: rigth;">
-<c:if test="${sessionScope.member.userId==vo.userId || sessionScope.member.userId=='admin'}">   
-		     <a onclick='deleteReplyAnswer("${vo.replyNum}", "${vo.answer}");'>삭제</a>
-</c:if>
-<c:if test="${sessionScope.member.userId!=vo.userId && sessionScope.member.userId!='admin'}">   
-		   | <a href='#'>신고</a>
-</c:if>
-            </div>
-        </div>
-        <div style="clear: both; padding: 5px 0 5px 0px;  min-height: 70px;">
-            ${vo.content}
-        </div>
-    </c:forEach>
-</c:if>
+    <c:forEach var="dto" items="${listReplyAnswer}">
+								<div class="stream-respond" align="center" id="response">
+												<div class="media stream" align="left">
+													<a href="#" class="media-avatar small pull-left">
+														<img src="<%=cp%>/res/img/user.png">
+													</a>
+													<div class="media-body">
+														<div class="stream-headline">
+															<h5 class="stream-author">
+																${dto.name}
+																<small>${dto.created}</small>
+															</h5>
+															<div class="stream-text">
+																${dto.content}
+															</div>
+														</div><!--/.stream-headline-->
+													</div>
+												</div><!--/.media .stream-->
+										
+											</div><!--/.stream-respond-->
+											
+											  </c:forEach>
+											  </c:if>
+								

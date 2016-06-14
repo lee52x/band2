@@ -7,6 +7,8 @@
 %>
 <link href="<%=cp%>/res/css/communityManager/prettify.min.css" rel="stylesheet">
 <link href="<%=cp%>/res/css/admin/custom.css" rel="stylesheet">
+<link href="<%=cp%>/res/css/admin/bootstrap-progressbar-3.3.4.css" rel="stylesheet">
+
 
 <script type="text/javascript">
 function searchInterest() {
@@ -15,8 +17,10 @@ function searchInterest() {
 		f.action="<%=cp%>/manager/interest/${url}";
 		f.submit();
 }
+
 </script>
 
+ 
 
 <div class="row">
 	<div class="x_content">
@@ -26,6 +30,7 @@ function searchInterest() {
 					<th>관심 순위</th>
 					<th>해쉬 이름</th>
 					<th>해쉬 개수</th>
+					<th>비율</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,6 +39,12 @@ function searchInterest() {
 					<th scope="row">${dto.listNum}</th>
 					<td>${dto.hashName}</td>
 					<td>${dto.hashCount}</td>
+					<td class="">
+					<p style="float:right; margin-bottom:0">${dto.hashRatio}%</p>
+					<div class="progress progress_sm" style="width: 76%;">
+                    	<div class="progress-bar bg-green" role="progressbar" data-transitiongoal="${dto.hashRatio}"></div>
+                    </div>
+					</td>
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -61,3 +72,6 @@ function searchInterest() {
        	</div>
 	</div>
 </div>
+
+<!-- bootstrap-progressbar -->
+<script src="<%=cp%>/res/js/admin/bootstrap-progressbar/bootstrap-progressbar.js"></script>

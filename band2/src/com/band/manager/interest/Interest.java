@@ -4,9 +4,17 @@ public class Interest {
 	
 	private String hashName, hashDate;
 	private int hashNum;
-	private int hashCount, listNum;
+	private int hashCount, hashRatio, listNum;
 
 	
+	public int getHashRatio() {
+		return hashRatio;
+	}
+
+	public void setHashRatio(int hashRatio) {
+		this.hashRatio = hashRatio;
+	}
+
 	public int getListNum() {
 		return listNum;
 	}

@@ -8,7 +8,7 @@
 <script type="text/javascript">
 function searchList(){
 	var f=document.searchForm;
-	f.action="<%=cp%>/community/board/${url}";
+	f.action="<%=cp%>/freeBoard/list/${url}";
 	f.submit();
 	
 }
@@ -88,7 +88,7 @@ function searchList(){
         </form>
       </td>
       <td align="right">
-          <input type="button" value=" 글올리기 " class="btn" onclick="javascript:location.href='<%=cp%>/community/created/${url}';">
+          <input type="button" value=" 글올리기 " class="btn" onclick="javascript:location.href='<%=cp%>/freeBoard/created/${url}';">
          
       </td>
          

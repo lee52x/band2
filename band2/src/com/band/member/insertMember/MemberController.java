@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.band.main.SessionInfo;
@@ -42,7 +43,7 @@ public class MemberController {
 	}
 	
 	//회원정보수정시 아이디 비밀번호 다시 묻기
-	@RequestMapping(value="/comfimMember/pwd/{url}", method=RequestMethod.GET)
+	@RequestMapping(value="/comfirmMember/pwd/{url}", method=RequestMethod.GET)
 	public ModelAndView pwdForm(
 			HttpServletRequest req,
 			HttpSession session,
@@ -64,53 +65,41 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value="/comfimMember/pwd/{url}",method=RequestMethod.POST)
-	public ModelAndView pwdSubmit(
+	@RequestMapping(value="/comfirmMember/pwd/{url}",method=RequestMethod.POST)
+	
+	@ResponseBody
+	public Map<String, Object> pwdSubmit(
 			HttpSession session,
 			@RequestParam(value="pwd") String pwd,
-			@RequestParam(value="mode") String mode,
 			@RequestParam(value="memberNo") int memberNo,
 			@PathVariable String url
 			){
-		SessionInfo info=(SessionInfo)session.getAttribute("main");
-		if(info==null){
-			return new ModelAndView("redirect:/group/"+url);
-		}
-		
+	
 		Map<String, Object> map=new HashMap<>();
 		map.put("memberNo", memberNo);
 		map.put("url", url);
 		
-		Member dto=service.readMember(map);
 		
-		if(dto==null){
-			session.invalidate();
-			return new ModelAndView("redirect:/group/"+url);
+		String state="true";
+		Member vo=service.readMember(map);
+		
+		Map<String, Object> modal=new HashMap<>();
+		if(! vo.getPwd().equals(pwd)){
+			state="false";
+		}else{
+			state="true";
+			modal.put("dto", vo);
 		}
 		
-		if(! dto.getPwd().equals(pwd)){
-			ModelAndView mav=new ModelAndView(".community.updateMember.pwd");
-			if(mode.equals("update")){
-				mav.addObject("mode","update");
-			}else{
-				mav.addObject("mode","dropout");
-			}
-			
-			mav.addObject("url", url);
-			mav.addObject("message","패스워드가 일치하지 않습니다");
-			return mav;
-		}
-	
-		// 회원정보수정폼
-		ModelAndView mav=new ModelAndView(".community.updateMember.member2");
-		mav.addObject("dto", dto);
-		mav.addObject("mode", "update");
-		mav.addObject("url", url);		
-		return mav;
+		modal.put("state", state);
+		return modal;
+		
+
+
 	}
 	
 	
-	@RequestMapping(value="/updateMember/{url}",method=RequestMethod.POST)
+	@RequestMapping(value="/update/information/{url}",method=RequestMethod.POST)
 	public ModelAndView updateSubmit(
 			HttpSession session,
 			Member dto,

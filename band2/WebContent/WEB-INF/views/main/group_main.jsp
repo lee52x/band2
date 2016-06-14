@@ -62,6 +62,19 @@ a:hover{
 </head>
 
 <script type="text/javascript">
+
+function next(){
+	$("#first").hide();
+	$("#second").show();
+	$("#joinButton").show();
+}
+function previous(){
+	$("#second").hide();
+	$("#first").show();
+	$("#joinButton").hide();
+}	
+
+
 function dialogJoin(){
 	$("#userId").val("");
 	$("#pwd").val("");
@@ -72,73 +85,119 @@ function dialogJoin(){
 	$("#tel").val("");
 	$("#address").val("");
 	$("#gender").val("");
-	$("#modalJoin").modal("show");
+	$("#modalJoin").show("#first").modal("show");
+	$("#second").hide();
+	$("#third").hide();
+	$("#joinButton").hide();
 }
 
 
 function checkMember() {
 	var f = document.modalLoginForm;
-	var str;
 	
+	
+	
+	var str = f.name.value;
+		str = $.trim(str);
+	    if(!str) {
+	    	$("#second").hide();
+			$("#first").show();
+			 $("#joinButton").hide();
+	        f.name.focus();
+	    	alert("성명을 입력해 주세요.");
+	    	
+	        return false;
+	    }
+	
+	
+
 	str=f.userId.value;
 	if(!/^[a-z][a-z0-9_]{4,9}$/i.test(str)) {
+		$("#second").hide();
+		$("#first").show();
+		 $("#joinButton").hide();
 		f.userId.focus();
+		alert("아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.");
+		$("#joinButton").hide();
 		return false;
 	}
+	
+	
 	
 	str = f.pwd.value;
-	
 	if(!/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str)) { 
+		$("#second").hide();
+		$("#first").show();
+		 $("#joinButton").hide();
 		f.pwd.focus();
+		alert("패스워드는 5~10자이며 하나 이상의 숫자나 특수문자가 포함되어야 합니다.");
+		$("#joinButton").hide();
 		return false;
 	}
+	
+	
 
 	if(f.confirmPwd.value != str) {
 		$("#confirmPwd + .help-block").html("패스워드가 일치하지 않습니다.");
+		$("#second").hide();
+		$("#first").show();
+		 $("#joinButton").hide();
 		f.confirmPwd.focus();
+		alert("패스워드가 일치하지 않습니다.");
+		$("#joinButton").hide();
 		return false;
 	} else {
 		$("#confirmPwd + .help-block").html("패스워드를 한번 더 입력해주세요.");
 	}
 	if(f.confirmPwd.value != str) {
 		$("#confirmPwd + .help-block").html("패스워드가 일치하지 않습니다.");
+		$("#second").hide();
+		$("#first").show();
+		 $("#joinButton").hide();
 		f.userPwdCheck.focus();
+		$("#joinButton").hide();
 		return false;
 	} else {
 		$("#confirmPwd + .help-block").html("패스워드를 한번 더 입력해주세요.");
 	}
 	
-    str = f.name.value;
-
-	str = $.trim(str);
-    if(!str) {
-        f.name.focus();
-        return false;
-    }
 	
     str = f.birth.value;
     if(! /^(\d+)[/|\-|\s]+[0|1](\d)[/|\-|\s]+([0|1|2|3]\d)$/i.test(str)) {
         f.birth.focus();
+        alert("생년월일은 2000-01-01 형식으로 입력 합니다.");
         return false;
     }
 
     str = f.email.value;
     if(! /^(\w+)(((\.?)(\w+))*)[@](((\w+)[.])+)(\w{2,3})$/i.test(str)) {
         f.email.focus();
+        alert("이메일은 test@test.com 형식으로 입력 합니다");
         return false;
     }
     
     str = f.tel.value;
     if(!str) {
         f.tel.focus();
+        alert("전화번호를 입력해 주세요.");
+        return false;
+    }
+    
+    str = f.address.value;
+    if(!str) {
+        f.address.focus();
+        alert("주소를 입력해 주세요.");
         return false;
     }
     
     str = f.gender.value;
     if(!str) {
         f.gender.focus();
+        alert("성별을 선택해 주세요.");
         return false;
     }
+    
+    alert("회원가입이 완료되었습니다!! 로그인 후 이용해 주세요");
    
     
 
@@ -222,52 +281,65 @@ function checkMember() {
 			<div class="modal-body" style="background-color: #FFD8D8;">
 			    <form name="modalLoginForm" method="post">
 			 
-			         <div class="form-group">
+			         <div class="form-group" id="first">
+			           <label class="control-label" for="name">성명</label>
+			            <input class="form-control" id="name" name="name" type="text" placeholder="이름">
+			       
+			         
 			            <label class="control-label" for="uesrId">아이디</label>
 			            <input class="form-control" id="uesrId" name="userId" type="text" placeholder="아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.">
 			            
-			        </div>
-			         <div class="form-group">
+			       
+			         
 			            <label class="control-label" for="pwd">패스워드</label>
 			            <input class="form-control" id="pwd" name="pwd" type="password" placeholder="패스워드는 5~10자이며 하나 이상의 숫자나 특수문자가 포함되어야 합니다.">
-			        </div>
-			          <div class="form-group">
+			      
+			        
 			            <label class="control-label" for="confirmPwd">패스워드확인</label>
 			            <input class="form-control" id="confirmPwd" name="confirmPwd" type="password" placeholder="패스워드를 한번 더 입력해주세요.">
+			        
+			        
 			        </div>
-			        	          <div class="form-group">
-			            <label class="control-label" for="name">이름</label>
-			            <input class="form-control" id="name" name="name" type="text" placeholder="이름">
-			        </div>
-			        	          <div class="form-group">
+			        	         
+			        	         
+			        	         
+			         <div class="form-group" id="second">
+			           			        	         
 			            <label class="control-label" for="birth">생년월일</label>
 			            <input class="form-control" id="birth" name="birth" type="text" placeholder="생년월일은 2000-01-01 형식으로 입력 합니다.">
-			        </div>
-			        	          <div class="form-group">
+			      
+			        	       
 			            <label class="control-label" for="email">이메일</label>
 			            <input class="form-control" id="email" name="email" type="text" placeholder="이메일은 test@test.com 형식으로 입력 합니다">
-			        </div>
-			        	          <div class="form-group">
-			            <label class="control-label" for="tel">전화번호</label>
+			            
+			              <label class="control-label" for="tel">전화번호</label>
 			            <input class="form-control" id="tel" name="tel" type="text" placeholder="전화번호">
-			        </div>
-			        	          <div class="form-group">
+			    
+			        	      
 			            <label class="control-label" for="address">주소</label>
 			            <input class="form-control" id="address" name="address" type="text" placeholder="주소">
-			        </div>
-			        	       <div class="form-group">
+			     
+			        	       
       					<label class="control-label" for="gender">성별</label>
              			<select name="gender" id="gender" class="form-control" style="background-color: white">
                					<option value="1">남성 </option>
                					<option value="2">여성 </option>
             			</select>
-            </div>
+			        </div>
+			        	         
+			        	         
+			 
         
 			     
 
-			        <div class="form-group">
+			        <div class="form-group" id="joinButton">
 			            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="checkMember();">가입하기 <span class="glyphicon glyphicon-ok"></span></button>
                     </div>
+                       <div class="form-group">
+			            <button type="button" onclick="previous();">이전</button>
+             
+			            <button type="button" onclick="next();">다음</button>
+              			</div>
                
                     
 			        

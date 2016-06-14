@@ -8,8 +8,6 @@
 
 <!-- Custom Theme Style -->
 <link href="<%=cp%>/res/css/admin/custom.css" rel="stylesheet">
-<!-- jVectorMap -->
-<link href="<%=cp%>/res/css/admin/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
 
 <!-- page content -->
 <!-- 회원수 현황 -->
@@ -152,11 +150,11 @@
 					<div class="x_panel">
 						<div>
 							<div class="x_title">
-								<h2>이번 달 생일인 회원</h2>
+								<h2>이번 달에 생일인 회원</h2>
 								<div class="clearfix"></div>
 							</div>
 							<ul class="list-unstyled top_profiles scroll-view">
-								<c:forEach var="dto" items="${list}">
+								<c:forEach var="dto" items="${birthList}">
 									<li class="media event"><a class="pull-left border-aero profile_thumb">
 									<i class="fa fa-user blue"></i></a>
 										<div class="media-body">
@@ -165,7 +163,7 @@
 												<c:if test="${dto.userId != null}">커뮤니티 아이디 : ${dto.userId}</c:if>
 												<c:if test="${dto.userId == null}">
 												<p style="color: orange;">커뮤니티 미가입</p></c:if></strong></p>
-											<p><small>가입일: ${dto.joinDate}</small></p>
+											<p><small>생일: ${dto.birth}</small></p>
 										</div></li>
 								</c:forEach>
 							</ul>
@@ -214,14 +212,15 @@
 
 <!-- /page content -->
 
-<!-- jQuery -->
-<script src="<%=cp%>/res/js/admin/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="<%=cp%>/res/js/bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="<%=cp%>/res/js/admin/fastclick.js"></script>
 <!-- ECharts -->
 <script src="<%=cp%>/res/js/admin/echarts.min.js"></script>
+<!-- NProgress -->
+<script src="<%=cp%>/res/js/admin/nprogress.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="<%=cp%>/res/js/admin/custom.js"></script>
+
 
 <script>
     var theme = {
