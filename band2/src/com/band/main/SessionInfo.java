@@ -4,7 +4,7 @@ public class SessionInfo {
 	
 	private String userId;
 	private String userName;
-	private int memberNo;
+	private int memberNo, grade;
 
 	
 	public String getUserId() {
@@ -24,6 +24,12 @@ public class SessionInfo {
 	}
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 	
 }

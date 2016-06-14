@@ -18,4 +18,5 @@ public interface CommunityService {
 	
 	public List<NoticeAccount> readNoticeAccount(Map<String, Object> map);
 	public List<Account> accountList(Map<String, Object> map);
+	public int deleteAccountList(Map<String, Object> map);
 }

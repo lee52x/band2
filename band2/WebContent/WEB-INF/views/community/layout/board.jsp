@@ -30,16 +30,32 @@
     background-color: #DDD;
     border-color: #DDD;
 }
+.deletebtn{
+	float:right; 
+	cursor:pointer; 
+	color:red; 
+}
+.deletebtn:hover, .deletebtn:focus{
+	text-decoration: underline;
+}
 </style>
 
 <script>
 function list(transactionNo) {
-
-  	var url="<%=cp%>/community/accountList/${url}";
+    var v=$("#accountList").is(":visible");
+    var h=$("#accountList").text();
+    if(!v && h=="") {
+	 	var url="<%=cp%>/community/accountList/${url}";
+  	    $.post(url, {transactionNo:transactionNo}, function(data){
+  		 $("#accountList").html(data);
+  		 $("#accountList").show();
+	    });
+    } else if(!v && h!=""){
+    	$("#accountList").show();
+    } else {
+    	$("#accountList").hide();
+    }
   	
-  	$.post(url, {transactionNo:transactionNo}, function(data){
-  		$("#accountList").html(data);
-	});	
 }
 </script>
 
@@ -82,10 +98,14 @@ function list(transactionNo) {
 				<br>
                 <ul class="list-group">
               	  <c:forEach items="${accountList}" var="dto">
-                    <li><a href="#" onclick="list('${dto.transactionNo}');" class="list-group-item">${dto.listName}</a></li>
+                    <li><a href="#" onclick="list('${dto.transactionNo}');" class="list-group-item">${dto.listName}
+                    	<c:if test="${sessionScope.member.grade==1}">
+                    	<span onclick="javascript:location.href='<%=cp%>/community/deleteList/${url}?listNum=${dto.listNum}';" class="deletebtn">삭제</span>
+                    	</c:if>
+                    	</a></li>
                   </c:forEach>
                 </ul>
-                <div id="accountList"></div>
+                <div id="accountList" style="display:none;"></div>
 			</div>
 
 		</div>

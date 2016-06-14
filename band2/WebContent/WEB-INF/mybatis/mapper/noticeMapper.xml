@@ -72,4 +72,8 @@ SELECT * FROM(
 		)tb
 	) 
 </select>
+
+<delete id="deleteAccountList" parameterType="map">
+	DELETE FROM accountNotice WHERE listNum=#{listNum}
+</delete>
 </mapper>

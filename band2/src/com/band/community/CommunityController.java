@@ -118,6 +118,21 @@ public class CommunityController {
 		mav.addObject("accountList", accountList);
 		return mav;
 	}
+	
+	@RequestMapping(value="/community/deleteList/{url}", method=RequestMethod.GET)
+	public String deleteList(
+			@PathVariable String url,
+			@RequestParam(value="listNum") int listNum
+			) {
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("url", url);
+		map.put("listNum", listNum);
+		
+		service.deleteAccountList(map);
+		
+		return "redirect:/community/main/"+url;
+	}
 
 
 

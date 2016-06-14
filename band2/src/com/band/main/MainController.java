@@ -53,6 +53,8 @@ public class MainController {
 	      info.setUserId(userId);
 	      info.setMemberNo(dto.getMemberNo());
 	      info.setUserName(dto.getName());
+	      info.setGrade(dto.getGrade());
+	      
 	      
 	      session.setAttribute("main", info);
 	      session.setAttribute("url", url);
