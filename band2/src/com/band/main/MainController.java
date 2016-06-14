@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.band.photo.Photo;
+import com.band.community.CommunityService;
+import com.band.manager.picture.Picture;
 
 @Controller("main.mainController")
 public class MainController {
 	@Autowired
 	private MainService service;
+	
+	@Autowired
+	public CommunityService service2;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ModelAndView method() throws Exception {
@@ -27,10 +31,16 @@ public class MainController {
 
 	   @RequestMapping(value="/group/{url}",method=RequestMethod.GET)
 	   public ModelAndView loginForm(
-	         @PathVariable String url
+	         @PathVariable String url,
+	         Picture pdto
 	         )throws Exception{
+		   
+		   //대표사진 가져오기
+		   pdto=service2.readMainPicture(url);
+		   
 	      ModelAndView mav=new ModelAndView(".mainLogin");
 	         mav.addObject("url", url);
+	         mav.addObject("pdto",pdto);
 	      return mav;
 	   }
 	   
@@ -39,10 +49,14 @@ public class MainController {
 	         @PathVariable String url,
 	         HttpSession session,
 	         @RequestParam("userId") String userId,
-	         @RequestParam("userPwd") String userPwd
+	         @RequestParam("userPwd") String userPwd,
+	         Picture pdto
 
 	         )throws Exception{
 	      
+		  //대표사진 가져오기
+		  pdto=service2.readMainPicture(url);
+		   
 		  Map<String, Object> map=new HashMap<>();
 		  map.put("userId", userId);
 		  map.put("url", url);
@@ -71,6 +85,7 @@ public class MainController {
 	       }else{
 	    	   ModelAndView mav=new ModelAndView(".mainLogin");
 	    	   mav.addObject("message","해당 사이트에 접근 권한이 없습니다.");
+	    	   mav.addObject("pdto",pdto);
 	    	   return mav;
 	       }
 	   }

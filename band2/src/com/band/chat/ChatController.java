@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.band.community.CommunityService;
 import com.band.main.SessionInfo;
 import com.band.manager.insertBoard.InsertBoard;
 import com.band.manager.insertBoard.InsertBoardService;
+import com.band.manager.picture.Picture;
 
 
 @Controller("chat.chatController")
@@ -23,10 +25,22 @@ public class ChatController {
 	@Autowired
 	private InsertBoardService navService;
 	
+	@Autowired
+	public CommunityService service2;
+	
 	@RequestMapping(value="/community/chat/{url}")
 	public ModelAndView main(
 			@PathVariable String url,
-			HttpSession session) {
+			HttpSession session,
+			Picture pdto
+			
+			) {
+		
+		//대표사진 가져오기
+		List<Picture> plist=service2.listNonMainPicture(url);
+		pdto=service2.readMainPicture(url);
+		
+		
 		SessionInfo info = (SessionInfo) session.getAttribute("main");
 
 		if (info == null) {
@@ -45,6 +59,9 @@ public class ChatController {
 		mav.addObject("subMenu", "5");
 		mav.addObject("url",url);
 		mav.addObject("navList", navList);
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
+		
 		return mav;
 	}
 }

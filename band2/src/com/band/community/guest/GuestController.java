@@ -22,11 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.band.common.FileManager;
 import com.band.common.MyUtil;
+import com.band.community.CommunityService;
 import com.band.community.board.BoardService;
 import com.band.community.board.Reply;
 import com.band.main.SessionInfo;
 import com.band.manager.insertBoard.InsertBoard;
 import com.band.manager.insertBoard.InsertBoardService;
+import com.band.manager.picture.Picture;
 import com.sun.org.apache.xml.internal.dtm.DTMDOMException;
 
 @Controller("community.guestController")
@@ -42,12 +44,21 @@ public class GuestController {
 	@Autowired
 	private InsertBoardService navService;
 	
+	@Autowired
+	public CommunityService service2;
+	
 	
 	@RequestMapping(value="/guestBoard/list/{boCateNum}/{url}", method=RequestMethod.GET)
 	public ModelAndView list(
 			@PathVariable String url,
-			@PathVariable String boCateNum
+			@PathVariable String boCateNum,
+			Picture pdto
 			)throws Exception{
+		
+		//대표사진 가져오기
+		List<Picture> plist=service2.listNonMainPicture(url);
+		pdto=service2.readMainPicture(url);
+		
 		
 		//네비게이션 바 조정하기
 		//동적 게시판 이름 가져오기
@@ -64,7 +75,8 @@ public class GuestController {
 		mav.addObject("url", url);
 		mav.addObject("boardName",boardName);
 		mav.addObject("navList", navList);
-		
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
 		
 		return mav;
 		

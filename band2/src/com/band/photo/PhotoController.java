@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.band.common.MyUtil;
+import com.band.community.CommunityService;
 import com.band.main.SessionInfo;
 import com.band.manager.insertBoard.InsertBoard;
 import com.band.manager.insertBoard.InsertBoardService;
+import com.band.manager.picture.Picture;
 
 @Controller("photo.photoController")
 public class PhotoController {
@@ -35,6 +37,9 @@ public class PhotoController {
 	
 	@Autowired
 	private InsertBoardService navService;
+	
+	@Autowired
+	public CommunityService service2;
 
 	@RequestMapping(value="/photoBoard/list/{boCateNum}/{url}")
 	public ModelAndView list(
@@ -43,9 +48,15 @@ public class PhotoController {
 			@RequestParam(value="page", defaultValue="1") int current_page,
 			@RequestParam(value="searchKey", defaultValue="subject") String searchKey,
 			@RequestParam(value="searchValue", defaultValue="") String searchValue,
-			@PathVariable String boCateNum
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception{
 
+		//대표사진 가져오기
+		List<Picture> plist=service2.listNonMainPicture(url);
+		pdto=service2.readMainPicture(url);
+		
+		
 		String cp = req.getContextPath();
 
 		int numPerPage = 6;
@@ -125,6 +136,8 @@ public class PhotoController {
 				myUtil.paging(current_page, total_page, urlList));
 		mav.addObject("boardName",boardName);
 		mav.addObject("navList", navList);
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
 		
 		return mav;
 	}
@@ -133,7 +146,9 @@ public class PhotoController {
 			method=RequestMethod.GET)
 	public ModelAndView createdForm(
 			@PathVariable String url,
-			HttpSession session
+			HttpSession session,
+			@PathVariable String boCateNum,
+			Picture pdto
 			) throws Exception{
 		
 		SessionInfo info=
@@ -141,11 +156,30 @@ public class PhotoController {
 		if(info==null) {
 			return new ModelAndView("redirect:/group/"+url);
 		}
+		
+		
+		//대표사진 가져오기
+		List<Picture> plist=service2.listNonMainPicture(url);
+		pdto=service2.readMainPicture(url);
+		
+		//네비게이션 바 조정하기
+		//동적 게시판 이름 가져오기
+		Map<String, Object> navMap=new HashMap<>();
+		navMap.put("groupURL", url);
+		navMap.put("boCateNum", boCateNum);
+				
+		String boardName=navService.readName(navMap);
+		List<InsertBoard> navList=navService.listBoard(navMap);
+		
 
 		ModelAndView mav=new ModelAndView(".community.photo.created");
 		mav.addObject("subMenu", "3");
 		mav.addObject("url",url);
 		mav.addObject("mode", "created");
+		mav.addObject("boardName",boardName); 
+		mav.addObject("navList", navList);
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
 		return mav;
 	}
 	

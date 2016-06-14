@@ -24,9 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.band.common.FileManager;
 import com.band.common.MyUtil;
+import com.band.community.CommunityService;
 import com.band.main.SessionInfo;
 import com.band.manager.insertBoard.InsertBoard;
 import com.band.manager.insertBoard.InsertBoardService;
+import com.band.manager.picture.Picture;
 
 @Controller("board.boardController")
 public class BoardController {
@@ -36,6 +38,9 @@ public class BoardController {
 	private MyUtil myUtil;
 	@Autowired
 	private FileManager fileManager;
+	
+	@Autowired
+	public CommunityService service2;
 	
 	@Autowired
 	private InsertBoardService navService;
@@ -48,8 +53,15 @@ public class BoardController {
 			@RequestParam(value = "searchValue", defaultValue = "") String searchValue, 
 			@PathVariable String url,
 			@PathVariable String boCateNum,
-			InsertBoard idto
+			InsertBoard idto,
+			Picture pdto
 			)throws Exception {
+		
+		//대표사진 가져오기
+		List<Picture> plist=service2.listNonMainPicture(url);
+		pdto=service2.readMainPicture(url);
+		
+		
 		String cp = req.getContextPath();
 
 		int numPerPage = 10; // 한 화면에 보여주는 게시물 수
@@ -94,14 +106,14 @@ public class BoardController {
 		}
 
 		String params = "";
-		String urlList = cp + "/freeBoard/list/" + url;
+		String urlList = cp + "/freeBoard/"+boCateNum+"/list/" + url;
 		String urlArticle = cp + "/freeBoard/article/" + url + "?page=" + current_page;
 		if (searchValue.length() != 0) {
 			params = "searchKey=" + searchKey + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
 		}
 
 		if (params.length() != 0) {
-			urlList = cp + "/freeBoard/list/" + url + "?" + params;
+			urlList = cp + "/freeBoard/"+boCateNum+"/list/" + url + "?" + params;
 			urlArticle = cp + "/freeBoard/article/" + url + "?page=" + current_page + "&" + params;
 
 		}
@@ -128,22 +140,50 @@ public class BoardController {
 		mav.addObject("paging", myUtil.paging(current_page, total_page, urlList));
 		mav.addObject("boardName",boardName);
 		mav.addObject("navList", navList);
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
 
 		return mav;
 
 	}
 
-	@RequestMapping(value = "/freeBoard/created/{url}", method = RequestMethod.GET)
-	public ModelAndView createdForm(HttpSession session, @PathVariable String url) throws Exception {
+	@RequestMapping(value = "/freeBoard/created/{boCateNum}/{url}", method = RequestMethod.GET)
+	public ModelAndView createdForm(
+			HttpSession session,
+			@PathVariable String url,
+			@PathVariable String boCateNum,
+			InsertBoard idto,
+			Picture pdto
+			
+			) throws Exception {
 		 SessionInfo info=(SessionInfo)session.getAttribute("main");
 		 if(info==null) {
 		 return new ModelAndView("redirect:/group/"+url);
 		 }
 		
+			//대표사진 가져오기
+			List<Picture> plist=service2.listNonMainPicture(url);
+			pdto=service2.readMainPicture(url);
+		 
+		 
+			//네비게이션 바 조정하기
+			//동적 게시판 이름 가져오기
+			Map<String, Object> navMap=new HashMap<>();
+			navMap.put("groupURL", url);
+			navMap.put("boCateNum", boCateNum);
+			
+			String boardName=navService.readName(navMap);
+			List<InsertBoard> navList=navService.listBoard(navMap);
+		 
+		 
 		ModelAndView mav = new ModelAndView(".community.board.created");
 		mav.addObject("subMenu", "2");
 		mav.addObject("mode", "created");
 		mav.addObject("url", url);
+		mav.addObject("boardName",boardName);
+		mav.addObject("navList", navList);
+		mav.addObject("pdto",pdto);
+		mav.addObject("plist", plist);
 		return mav;
 	}
 
