@@ -7,7 +7,7 @@
 %>
 
 <c:if test="${not empty listReplyAnswer}">
-    <c:forEach var="vo" items="${listReplyAnswer}">
+    <c:forEach var="dto" items="${listReplyAnswer}">
 								<div class="stream-respond" align="center" id="response">
 												<div class="media stream" align="left">
 													<a href="#" class="media-avatar small pull-left">
@@ -16,11 +16,11 @@
 													<div class="media-body">
 														<div class="stream-headline">
 															<h5 class="stream-author">
-																${vo.name}
-																<small>${vo.created}</small>
+																${dto.name}
+																<small>${dto.created}</small>
 															</h5>
 															<div class="stream-text">
-																${vo.content}
+																${dto.content}
 															</div>
 														</div><!--/.stream-headline-->
 													</div>
@@ -29,5 +29,5 @@
 											</div><!--/.stream-respond-->
 											
 											  </c:forEach>
-											</c:if>
-	
+											  </c:if>
+								

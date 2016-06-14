@@ -38,30 +38,13 @@
 		<select id="listReplyAnswer" resultType="com.band.community.guest.Guest" 
 	          parameterType="map">
 	          
-	               SELECT * FROM (
-		    SELECT ROWNUM rnum, tb.* FROM (
-		          SELECT r.guestNo, r.memberNo, name, answer 
-                      ,content, created, imageFilename, NVL(likeCount, 0) likeCount,userId,player
-			        FROM guestbook_test r 
-	            JOIN member_test m ON r.memberNo=m.memberNo
-	            
-              LEFT OUTER JOIN
-              (
-                      SELECT guestNo,
-                             COUNT(DECODE(guestLike, 1, 1)) likeCount
-                      FROM guestbook_test_like GROUP BY guestNo
-              ) l
-              ON r.guestNo = l.guestNo
-	            ORDER BY guestNo DESC
-	          
-	           
-            ) tb 
-          WHERE  answer=#{guestNo}
-      ) 
-      
+	     select r.guestNo,r.memberNo,name,answer,content,created,userId
+       			 FROM guestbook_${url} r
+        		 JOIN member_${url} m ON r.memberNo=m.memberNo
+        	WHERE answer=#{guestNo}
       </select>
 	          
-	
+
 	
 	
 	<delete id="deleteGuest" parameterType="Integer">

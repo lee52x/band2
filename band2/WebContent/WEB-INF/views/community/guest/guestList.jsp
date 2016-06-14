@@ -11,42 +11,46 @@
 
 
 <script type="text/javascript">
-//방명록답글 리스트
-$(function(){
-	listPage1();
-});
 
-function listPage1(){
-	
-	$.post(url,function(data){
-		$("#guestAnswer").html(data);
-	});
-}
 
 
 //답글보기 클릭시 답글리스트
 function viewReply(guestNo)
-{
+{	
+	$("#button1"+guestNo).html("댓글닫기");
+	$("#button1"+guestNo).click(function(){
+		   $("#listReplyAnswer"+guestNo).hide();
+		   $("#button1"+guestNo).html("댓글보기");
+		 });
+	
+	
+	
 	var uid="${sessionScope.main.userId}";
 	if(! uid){
 		login();
 		return false;
 	}
-	var params="guestNo"+guestNo;
-	
+	var params="guestNo="+guestNo;
+
 	$.ajax({
 		type:"POST"
 	   ,url:"<%=cp%>/guestBoard/viewReply/${url}"
 	   ,data:params
-	   ,dataType:"json"
-	   ,succes:function(data){
-		   listPage1();
+	   ,success:function(data){
+		  // $("#listReplyAnswer").html(data);
+		  $("#listReplyAnswer"+guestNo).html(data);
 	   }
 	   ,error:function(e){
 		   alert(e.responseText);
 	   }
+	   
+	  
+		
+	   
 	});
+
 }
+
 
 
 function modalSendReply(){
@@ -89,13 +93,6 @@ function modalSendReply(){
 		
 		
 	});
-	
-	
-	
-	
-	
-	
-
 }
 
 function sendReplyAnswerDlg(guestNo){
@@ -212,13 +209,14 @@ function sendReplyAnswer(guestNo) {
 													Repost
 												</a>
 												
-												  <button class="pull-right" type="button" onclick="viewReply(${dto.guestNo});">댓글보기</button>
+												  <button id="button1${dto.guestNo}"  class="pull-right" type="button" onclick="viewReply(${dto.guestNo});">댓글보기</button>
 												
 												
 											</div>
+											<div id="listReplyAnswer${dto.guestNo}" style="padding-top: 5px;min-height: 50px;"></div>
 
 		 </c:forEach>
-		 <div id="guestAnswer"></div>
+
 	
 	
 	

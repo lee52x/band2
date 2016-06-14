@@ -25,6 +25,7 @@ import com.band.common.MyUtil;
 import com.band.community.board.BoardService;
 import com.band.community.board.Reply;
 import com.band.main.SessionInfo;
+import com.sun.org.apache.xml.internal.dtm.DTMDOMException;
 
 @Controller("community.guestController")
 public class GuestController {
@@ -112,11 +113,12 @@ public class GuestController {
 	@RequestMapping(value="/guestBoard/viewReply/{url}")
 	public ModelAndView viewReply(
 			@PathVariable String url
-			,Guest vo
+			,@RequestParam(value="guestNo") int guestNo
 			)throws Exception{
 		Map<String, Object> map=new HashMap<String,Object>();
 		map.put("url", url);
-		map.put("vo", vo);
+		map.put("guestNo", guestNo);
+	
 		
 		List<Guest> listReplyAnswer=service.listReplyAnswer(map);
 		
@@ -124,11 +126,11 @@ public class GuestController {
 		
 		mav.addObject("url",url);
 		mav.addObject("listReplyAnswer",listReplyAnswer);
+
+		
 		
 		return mav;
 	}
-			
-	
 	
 	
 	//방명록 리스트
