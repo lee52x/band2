@@ -35,7 +35,7 @@ public class MainController {
 	   }
 	   
 	   @RequestMapping(value="/group/{url}",method=RequestMethod.POST)
-	   public String loginSubmit(
+	   public ModelAndView loginSubmit(
 	         @PathVariable String url,
 	         HttpSession session,
 	         @RequestParam("userId") String userId,
@@ -49,6 +49,11 @@ public class MainController {
 		  
 	      Main dto=service.readMember(map);
 	      
+	      if(dto==null || (! dto.getPwd().equals(userPwd))) {
+				ModelAndView mav=new ModelAndView("redirect:/group/"+url);
+				mav.addObject("message", "아이디 또는 패스워드가 일치하지 않습니다.");
+				return mav;
+			}
 	      SessionInfo info=new SessionInfo();
 	      info.setUserId(userId);
 	      info.setMemberNo(dto.getMemberNo());
@@ -59,10 +64,14 @@ public class MainController {
 	      session.setAttribute("main", info);
 	      session.setAttribute("url", url);
 
-	      if(dto.getGrade()==1||dto.getGrade()==2){
-	    	  return "redirect:/account/main/"+url;
+	      if(dto.getGrade()==1||dto.getGrade()==2&&dto.getGroupURL().equals(url)){
+	    	  return new ModelAndView("redirect:/account/main/"+url);
+	       }else if(dto.getGrade()==3||dto.getGrade()==4||dto.getGrade()==5&&dto.getGroupURL().equals(url)){
+	    	  return new ModelAndView("redirect:/community/main/"+url);
 	       }else{
-	    	  return "redirect:/community/main/"+url;
+	    	   ModelAndView mav=new ModelAndView("redirect:/group/"+url);
+	    	   mav.addObject("message","해당 사이트에 접근 권한이 없습니다.");
+	    	   return mav;
 	       }
 	   }
 	   
