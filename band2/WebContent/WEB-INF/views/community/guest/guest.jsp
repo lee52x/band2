@@ -267,9 +267,9 @@ function deleteGuest(guestNo,imageFilename){
       
       <div class="modal-body" style="background-color: #FFFFF6">
       1.Youtube에 원하는 동영상 클릭<br><br>
-      2.사진과 같이 주소창의 맨뒤에  고유코드 붙여넣기<br>
+      2.주소창의 뒤의  고유코드 붙여넣기<br>
       <hr>
-<img src="<%=cp%>/res/img/kkkk.PNG" width="500" height="200">
+
 
 
 

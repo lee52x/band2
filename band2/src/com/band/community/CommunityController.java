@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.band.account.Account;
 import com.band.account.NoticeAccount;
 import com.band.common.MyUtil;
+import com.band.main.SessionInfo;
 import com.band.manager.insertBoard.InsertBoard;
 import com.band.manager.insertBoard.InsertBoardService;
 import com.band.manager.notice.Notice;
@@ -42,7 +45,10 @@ public class CommunityController {
 			Picture pdto,
 			InsertBoard idto,
 			@RequestParam(value="pageNo", defaultValue="1") int current_page
+			,HttpServletRequest session
 			)throws Exception{
+	
+		
 		
 		//대표사진 가져오기
 		List<Picture> plist=service.listNonMainPicture(url);
@@ -57,6 +63,7 @@ public class CommunityController {
 		Map<String, Object> map=new HashMap<>();
         map.put("groupURL", url);
         map.put("todate", todate);
+        
         
         dataCount = service.dataCount(map);
         if(dataCount != 0)
@@ -107,7 +114,7 @@ public class CommunityController {
 		mav.addObject("accountList", accountList);
 		mav.addObject("navList", navList);
 		mav.addObject("idto",idto);
-		
+	
 		return mav;
 	}
 	

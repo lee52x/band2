@@ -84,10 +84,10 @@ function question(){
                               
                                 <li class="divider"></li>
                                 <li><a href="<%=cp%>/group/${url}">로그아웃</a></li>
-                                
+                               <c:if test="${sessionScope.main.grade==1||sessionScope.main.grade==2}">
                                  <li class="divider"></li>
-                                <li><a href="javascript:question();">1:1문의</a></li>
-                                
+                                <li><a href="<%=cp%>/account/main/${url}">관리자페이지</a></li>
+                                </c:if>
                               </ul>
                         </li>
                       
