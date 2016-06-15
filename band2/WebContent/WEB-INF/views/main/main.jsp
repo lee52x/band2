@@ -25,6 +25,7 @@
   <link href="<%=cp%>/res/img/favicon.ico" rel="shortcut icon" >
   <link href="<%=cp%>/res/css/gsdk-base.css" rel="stylesheet" />
  
+  <script type="text/javascript" src="<%=cp%>/res/js/util.js"></script>
   <script type="text/javascript">
   function check() {
       var f = document.groupForm;
@@ -35,6 +36,246 @@
 	  	}
 	  }
   
+  
+  function groupUrlCheck(){
+	  var groupUrl=$("#groupUrl").val();
+	  if(!/^[a-z][a-z0-9_]{4,9}$/i.test(groupUrl)) { 
+		  var str= "<span style='color:red;'>5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</span>";
+  		  $("#groupUrl").focus();
+		  $("#groupUrl + .help-block").html(str);
+		  return false;
+		}
+	  
+	  var str= "<span style='color:#028fcc; font-weight: bold; '>사용 가능합니다.</span>";
+	  $("#groupUrl + .help-block").html(str);
+	  
+	  
+	  <%-- // 그룹URL 중복 검사 하기
+	  var url="<%=cp%>/member/groupUrlCheck";
+	  var params = "groupUrl"+groupUrl;
+	  $.ajax({
+			type:"POST"
+			,url:url
+			,data:params
+			,dataType:"JSON"
+			,success:function(data) {
+				var passed=data.passed;
+				if(passed=="true") {
+					var str="<span style='color:blue;font-weight: bold;'>"+groupUrl+"</span> 아이디는 사용가능 합니다.";
+					$("#groupUrl + .help-block").html(str);
+				} else {
+					var str="<span style='color:red;font-weight: bold;'>"+groupUrl+"</span> 아이디는 사용할수 없습니다.";
+					$("#groupUrl + .help-block").html(str);
+					$("#groupUrl").val("");
+					$("#groupUrl").focus();
+				}
+			}
+		}); --%>
+  }
+  
+  
+  function userIdCheck(){
+	  var userId=$("#userId").val();
+	  if(!/^[a-z][a-z0-9_]{4,9}$/i.test(userId)) { 
+		  var str= "<span style='color:red;font-weight: bold;'>5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</span>";
+  		  $("#userId").focus();
+		  $("#userId + .help-block").html(str);
+		  return false;
+		}
+	  
+	  var str= "<span style='color:#028fcc; font-weight: bold; '>사용 가능합니다.</span>";
+	  $("#userId + .help-block").html(str);
+	  
+	  
+	<%--   // 그룹장 아이디 중복 검사 하기
+	  var url="<%=cp%>/member/userIdCheck";
+		var params = "userId" + userId;
+		$.ajax({
+			type : "POST",
+			url : url,
+			data : params,
+			dataType : "JSON",
+			success : function(data) {
+				var passed = data.passed;
+				if (passed == "true") {
+					var str = "<span style='color:blue;font-weight: bold;'>"
+							+ userId + "</span> 아이디는 사용가능 합니다.";
+					$("#userId + .help-block").html(str);
+				} else {
+					var str = "<span style='color:red;font-weight: bold;'>"
+							+ userId + "</span> 아이디는 사용할수 없습니다.";
+					$("#userId + .help-block").html(str);
+					$("#userId").val("");
+					$("#userId").focus();
+				}
+			}
+		}); --%>
+	}
+
+	function check01() {
+		var f=document.groupForm;
+		var str;
+		var msg;
+		
+		str=f.groupName.value;
+		if(str==""){
+			msg="필수 항목 입니다.";
+			$("#groupName + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+		} else{
+			msg="";
+			$("#groupName + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+		}
+	}
+		
+		function check02(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+			
+			str=f.introduce.value;
+			if(str==""){
+				msg="필수 항목 입니다.";
+				$("#introduce + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+			} else{
+				msg="";
+				$("#introduce + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+			}
+		}
+		
+		
+		function check03(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+
+			str=f.foundationDay.value;
+			if(!isValidDateFormat(str)){
+				msg="날짜 형식이 맞지 않습니다.";
+				$("#foundationDay + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+			} else{
+				msg="";
+				$("#foundationDay + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+			}
+		}
+		
+		function check04(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+			
+			str=f.accountNumber.value;
+			if(!isValidNumber(str)){
+				msg="계좌번호는 숫자만 입력 가능합니다.";
+			} else{
+				msg="";
+			}
+				$("#accountNumber + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+		}
+		
+		function check05(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+			
+			str=f.bankName.value;
+			if(str==""){
+				msg="필수 선택 항목입니다.";
+			} else{
+				msg="";
+			}
+				$("#bankName + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+		}
+		
+		
+		function check06(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+			
+			str=f.accountHolder.value;
+			if(!isValidKorean(str)){
+				msg="예금주명을 올바르게 입력하세요.";
+			} else{
+				msg="";
+			}
+				$("#accountHolder + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+		}
+		
+		function check07(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+			
+			str=f.pwd.value;
+			if(!/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str)){
+				msg="패스워드는 5~10자이며 하나 이상의 숫자나 특수문자가 포함되어야 합니다.";
+			} else{
+				msg="";
+			}
+			$("#pwd + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+		}
+		
+		function check08(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+			
+			str=f.pwd.value;
+			if(f.pwdCheck.value != str) {
+				$("#pwdCheck + .help-block").html("패스워드가 일치하지 않습니다.");
+				f.pwdCheck.focus();
+				return false;
+			} else {
+				$("#pwdCheck + .help-block").html("패스워드를 일치합니다.");
+			}
+		}
+		
+		
+		function check09(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+			
+			str=f.name.value;
+			if(!isValidKorean(str)){
+				msg="이름을 올바르게 입력하세요.";
+			} else{
+				msg="";
+			}
+				$("#name + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+		}
+		
+		function check10(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+
+			str=f.birth.value;
+			if(!isValidDateFormat(str)){
+				msg="날짜 형식이 맞지 않습니다.";
+				$("#birth + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+			} else{
+				msg="";
+				$("#birth + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+			}
+		}
+		
+		function check11(){
+			var f=document.groupForm;
+			var str;
+			var msg;
+			
+			str=f.tel.value;
+			if(!isValidPhoneNumber(str)){
+				msg="연락처의 형식을 확인해주십시오.";
+			} else{
+				msg="";
+			}
+				$("#tel + .help-block").html("<span style='color:red;font-weight: bold;'>" +msg+ "</span>");
+		}
+		
+
+		 
   </script>
 </head>
 <body>
@@ -277,20 +518,28 @@
                                   <div class="col-sm-10 col-sm-offset-1">
                                      <br>
                                       <div class="form-group">
-                                        <label>그 룹 명 <small>(required)</small></label>
-                                        <input name="groupName" type="text" class="mform-control">
+										 <label>그 룹 명 <small>(required)</small></label> <input
+										 	id="groupName" name="groupName" type="text" class="mform-control"
+										    oninput="check01();">
+										 	<p class="help-block">그룹명을 입력하세요.</p>
                                       </div>
                                       <div class="form-group">
-                                        <label>그 룹 아 이 디 <small>(required)</small></label>
-                                        <input name="groupUrl" type="text" class="mform-control">
+										 <label>그 룹 아 이 디 <small>(required)</small></label> <input
+										 	id="groupUrl" name="groupUrl" type="text"
+											 class="mform-control" onchange="groupUrlCheck();">
+										 	<p class="help-block">그룹 아이디는 5~10자 이내이며, 소문자만 사용 가능합니다.</p>
                                       </div>
                                       <div class="form-group">
-                                        <label>그 룹 소 개<small>(required)</small></label>
-                                        <textarea name="introduce" class="mform-control"></textarea>
+										 <label>그 룹 소 개<small>(required)</small></label>
+										 	<textarea id="introduce" name="introduce" class="mform-control" 
+										 	oninput="check02();"></textarea>
+										 	<p class="help-block">그룹 소개글을 입력하세요.</p>
                                       </div>
                                       <div class="form-group">
-                                        <label>그 룹 창 립 일 <small>(required)</small></label>
-                                        <input name="foundationDay" type="date" class="mform-control">
+										 <label>그 룹 창 립 일 <small>(required)</small></label> <input
+										 	id="foundationDay" name="foundationDay" type="date" class="mform-control"
+										 	onchange="check03();">
+										 	<p class="help-block">그룹 창립일은 YYYY-MM-DD 형식으로 입력 합니다.</p>
                                       </div>
                                   </div>
                                   <div class="col-sm-10 col-sm-offset-1">
@@ -317,22 +566,29 @@
                                    <div class="col-sm-10 col-sm-offset-1">
                                      <br>
                                       <div class="form-group">
-                                        <label>그 룹 계 좌 <small>(required)</small></label>
-                                        <input name="accountNumber" type="text" class="mform-control">
+										<label>그 룹 계 좌 <small>(required)</small></label> <input
+											id="accountNumber" name="accountNumber" type="text" class="mform-control"
+											oninput="check04();">
+										<p class="help-block">- 없이 숫자로만 입력하세요.</p>
                                       </div>
                                       <div class="form-group">
-                                        <label>은 행 명<small>(required)</small></label>
-                                        <select name="bankName" class="mform-control">
-                                                <option value="우리은행"> 우리은행 </option>
-                                                <option value="신한은행"> 신한은행 </option>
-                                                <option value="국민은행"> 국민은행 </option>
-                                                <option value="하나은행"> 하나은행 </option>
-                                                <option value="기타"> 기타 </option>
-                                        </select>
+										<label>은 행 명<small>(required)</small></label> <select
+											id="bankName" name="bankName" class="mform-control"
+											oninput="check05();">
+											<option value="">선택하기</option>
+											<option value="우리은행">우리은행</option>
+											<option value="신한은행">신한은행</option>
+											<option value="국민은행">국민은행</option>
+											<option value="하나은행">하나은행</option>
+											<option value="기타">기타</option>
+											</select>
+										<p class="help-block">계좌 은행을 선택하세요.</p>
                                       </div>
                                       <div class="form-group">
-                                        <label>예 금 주<small>(required)</small></label>
-                                        <input name="AccountHolder" type="text" class="mform-control">
+										<label>예 금 주<small>(required)</small></label> <input
+											id="accountHolder" name="accountHolder" type="text" class="mform-control"
+											oninput="check06();">
+											<p class="help-block">예금주를 입력하세요.</p>
                                       </div>
                                   </div>
 
@@ -344,37 +600,60 @@
                                 <div class="row">
                                      <div class="col-sm-10 col-sm-offset-1">
                                      <br>
-                                      <div class="form-group">
-                                        <label>그 룹 장 아 이 디 <small>(required)</small></label>
-                                        <input name="userId" type="text" class="mform-control">
-                                      </div>
-                                      <div class="form-group">
-                                        <label>그 룹 장 비 밀 번 호<small>(required)</small></label>
-                                        <input name="pwd" type="text" class="mform-control">
-                                      </div>
-                                      <div class="form-group">
-                                        <label>그 룹 장 이 름<small>(required)</small></label>
-                                        <input name="name" type="text" class="mform-control">
-                                      </div>
-                                      <div class="form-group">
-                                        <label>생 년 월 일<small>(required)</small></label>
-                                        <input name="birth" type="text" class="mform-control">
-                                      </div>
-                                      <div class="form-group">
-                                        <label>성 별<small>(required)</small></label>
-                                        <select name="gender" class="mform-control">
-                                                <option value="1"> 남성 </option>
-                                                <option value="2"> 여성 </option>
-                                        </select>
-                                      </div>
-                                      <div class="form-group">
-                                        <label>전 화 번 호<small>(required)</small></label>
-                                        <input name="tel" type="text" class="mform-control">
-                                      </div>
-                                      <div class="form-group">
-                                        <label>이 메 일<small>(required)</small></label>
-                                        <input name="email" type="text" class="mform-control">
-                                      </div>
+												<div class="form-group">
+													<label>그 룹 장 아 이 디 <small>(required)</small></label> <input
+														id="userId" name="userId" type="text"
+														class="mform-control" onchange="userIdCheck();">
+													<p class="help-block">그룹장 아이디는 5~10자 이내이며, 소문자만 사용 가능합니다.</p>
+												</div>
+												<div class="form-group">
+													<label>그 룹 장 비 밀 번 호<small>(required)</small></label> <input
+														id="pwd" name="pwd" type="password" class="mform-control"
+														oninput="check07();">
+													<p class="help-block">패스워드는 5~10자이며 하나 이상의 숫자나 특수문자가 포함되어야 합니다.</p>
+												</div>
+
+												<div class="form-group">
+													<label>그 룹 장 비 밀 번 호 확 인<small>(required)</small></label> <input
+														id="pwdCheck" name="pwdCheck" type="password"
+														class="mform-control"
+														oninput="check08();">
+													<p class="help-block">패스워드를 한번 더 입력해주세요.</p>
+												</div>
+
+												<div class="form-group">
+													<label>그 룹 장 이 름<small>(required)</small></label> <input
+														id="name" name="name" type="text" class="mform-control"
+														oninput="check09();">
+													<p class="help-block">이름을 입력하세요.</p>
+												</div>
+												<div class="form-group">
+													<label>생 년 월 일<small>(required)</small></label> <input
+														id="birth" name="birth" type="text" class="mform-control"
+														oninput="check10();">
+													<p class="help-block">생년월일은 2000-01-01 형식으로 입력 합니다.</p>
+												</div>
+												<div class="form-group">
+													<label>성 별<small>(required)</small></label> <select
+														id="gender" name="gender" class="mform-control">
+														<option value="1">남성</option>
+														<option value="2">여성</option>
+													</select>
+													<p class="help-block">성별을 선택하세요.</p>
+												</div>
+												<div class="form-group">
+													<label>전 화 번 호<small>(required)</small></label> <input
+														id="tel" name="tel" type="text" class="mform-control"
+														oninput="check11();">
+														
+													<p class="help-block">전화번호는은 010-0000-0000 형식으로 입력 합니다.</p>
+												</div>
+												<div class="form-group">
+													<label>이 메 일<small>(required)</small></label> <input
+														id="email" name="email" type="email" class="mform-control"
+														oninput="check12();">
+													<p class="help-block">id@email.com 형식으로 입력하세요.</p>
+												</div>
                                   </div>
                                     
                                 </div>
