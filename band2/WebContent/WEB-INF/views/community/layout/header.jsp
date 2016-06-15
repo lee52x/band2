@@ -6,12 +6,6 @@
    String cp = request.getContextPath();
 %>
 
-<script type="text/javascript">
-function question(){
-
-}
-
-</script>
 
 <!-- Start : header Bar -->
     <nav class="navbar navbar-default navbar-fixed">

@@ -8,21 +8,14 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<head>
 
 
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Edmin</title>
-	<link type="text/css" href="<%=cp%>/res/css/bootstrap.min.css" rel="stylesheet">
-	<link type="text/css" href="<%=cp%>/res/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-	<link type="text/css" href="<%=cp%>/res/css/theme.css" rel="stylesheet">
-	<link type="text/css" href="<%=cp%>/res/img/font-awesome.css" rel="stylesheet">
-	<link type="text/css" href='<%=cp%>/res/http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
-</head>
+	
+	<link type="text/css" href="<%=cp%>/res/css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+	<link type="text/css" href="<%=cp%>/res/css/font-awesome.css" rel="stylesheet">
+	
+
 
 
 <script type="text/javascript">
@@ -210,32 +203,29 @@ function deleteGuest(guestNo,imageFilename){
 
 
 	
-		<div class="container">
+		<div class="container" style="width:870px;">
 			<div class="row" >
 			
 
-				<div class="span9">
+				<div class="span9" style="margin-left:0px">
 					<div class="content">
 
 						<div class="module">
-							<div class="module-head" style="background-color: #B7F0B1">
-								<h3>News Feed</h3>
+							<div class="module-head" style="background-color: #5d5d5d">
+								<h3 style="color:#fff;">News Feed</h3>
 							</div>
 							<div class="module-body">
 								<div class="stream-composer media">
-									<a href="#" class="media-avatar medium pull-left">
-										<img src="<%=cp%>/res/img/user.png">
-									</a>
-									<div class="media-body" >
+								  <div class="media-body" >
 									
 									<form name="guestForm" method="post" enctype="multipart/form-data">
 										<div class="row-fluid" >
-											<textarea class="span12" id="content" name="content" placeholder="무슨 생각을 하고 계신가요?" style="height: 70px; width: 1045px"></textarea>
+											<textarea class="span12" id="content" name="content" placeholder="무슨 생각을 하고 계신가요?" style="height: 70px;"></textarea>
 										</div>
 										<br>
                      <p style="font-weight: bolder;">Youtube링크 <a href="javascript:howYoutube();"><i class="icon-question-sign shaded" style="color: blue"></i></a></p>
                     
-                     <input type="text" class="span12" id="player" name="player" placeholder="주소">
+                     <input style="margin-left:0px;"type="text" class="span12" id="player" name="player" placeholder="주소">
                     <br><br>
                     
                   	<p style="font-weight: bolder;">사진등록</p>
@@ -245,7 +235,7 @@ function deleteGuest(guestNo,imageFilename){
                     <button class="btn btn-primary pull-right" type="button" onclick="sendGuest();">글올리기</button>
 										
 										</form>
-									</div>
+								  </div>
 								</div>
 
 								<div id="guestList"></div>
@@ -256,7 +246,7 @@ function deleteGuest(guestNo,imageFilename){
     <div class="modal-content">
      
       <!-- header -->
-      <div class="modal-header" style="background-color: #FFFFE4">
+      <div class="modal-header" style="background-color: #FFFFFF">
         <!-- 닫기(x) 버튼 -->
         <button type="button" class="close" data-dismiss="modal" ><span aria-hidden="true">×</span></button>
         <!-- header title -->
@@ -265,7 +255,7 @@ function deleteGuest(guestNo,imageFilename){
       
       <!-- body -->
       
-      <div class="modal-body" style="background-color: #FFFFF6">
+      <div class="modal-body" style="background-color: #FFFFFF">
       1.Youtube에 원하는 동영상 클릭<br><br>
       2.주소창의 뒤의  고유코드 붙여넣기<br>
       <hr>

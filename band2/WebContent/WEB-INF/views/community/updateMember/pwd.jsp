@@ -198,7 +198,6 @@ function sendOk() {
 			}
 		});
 }
-
 </script>
 <div class="bodyFrame">
 
@@ -238,10 +237,10 @@ function sendOk() {
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h2 id="myModalLabel" class="modal-title text-center fc-orange" style="font-family: sans-serif,나눔고딕, 맑은 고딕; font-weight: bold;">회원정보수정</h2>
 			</div>
-			<div class="modal-body" style="background-color: #FFD8D8;">
-			    <form name="modalLoginForm" method="post">
+			<div class="modal-body" style="background-color: #FFF;">
+			    <form name="modalLoginForm" method="post" style="width:80%;" >
 			 
-			         <div class="form-group" id="first">
+			         <div class="form-group" id="first" >
 			           <label class="control-label" for="name">성명</label>
 			            <input class="form-control" id="name" name="name" type="text" placeholder="이름">
 			       
