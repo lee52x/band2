@@ -3,6 +3,20 @@ package com.band.community.board;
 public class Reply {
 	private int replyNum, boardNo,memberNo;
 	private String userId, name, content, created;
+	private String url;
+	
+	
+	
+	
+	
+	
+	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public int getReplyNum() {
 		return replyNum;
 	}

@@ -77,6 +77,7 @@ public class BoardController {
 		map.put("searchKey", searchKey);
 		map.put("searchValue", searchValue);
 		map.put("url", url);
+		
 
 		dataCount = service.dataCount(map);
 		if (dataCount != 0)
@@ -91,6 +92,7 @@ public class BoardController {
 		int end = current_page * numPerPage;
 		map.put("start", start);
 		map.put("end", end);
+		map.put("url", url);
 
 		// 글 리스트
 		List<Board> list = service.listBoard(map);
@@ -204,6 +206,7 @@ public class BoardController {
 
 		dto.setMemberNo(info.getMemberNo());
 		dto.setUserId(info.getUserId());
+		dto.setUrl(url);
 		
 		service.insertBoard(dto, path);
 		
@@ -270,12 +273,17 @@ public class BoardController {
 		 return new ModelAndView("redirect:/group/{url}");
 		 }
 		searchValue = URLDecoder.decode(searchValue, "utf-8");
-
+		Map<String, Object>map=new HashMap<>();
+		map.put("boardNo", boardNo);
+		map.put("url", url);
+		
+		
+		
 		// 조회수 증가
-		service.updateHitCount(boardNo);
+		service.updateHitCount(map);
 
 		// 해당 레코드 가져 오기
-		Board dto = service.readBoard(boardNo);
+		Board dto = service.readBoard(map);
 		// if(dto==null)
 		// return new ModelAndView("redirect:/community/list/{url}?page="+page);
 
@@ -286,13 +294,14 @@ public class BoardController {
 		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 
 		// 이전 글, 다음 글
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("searchKey", searchKey);
-		map.put("searchValue", searchValue);
-		map.put("boardNo", boardNo);
+		Map<String, Object> map1 = new HashMap<String, Object>();
+		map1.put("searchKey", searchKey);
+		map1.put("searchValue", searchValue);
+		map1.put("boardNo", boardNo);
+		map1.put("url", url);
 
-		Board preReadDto = service.preReadBoard(map);
-		Board nextReadDto = service.nextReadBoard(map);
+		Board preReadDto = service.preReadBoard(map1);
+		Board nextReadDto = service.nextReadBoard(map1);
 
 		String params = "page=" + page;
 		if (searchValue.length() != 0) {
@@ -340,7 +349,10 @@ public class BoardController {
 		 if(info==null) {
 		 return new ModelAndView("redirect:/group/"+url);
 		 }
-		Board dto = (Board) service.readBoard(boardNo);
+		 Map<String, Object> map=new HashMap<>();
+		 map.put("boardNo", boardNo);
+		 map.put("url", url);
+		Board dto = (Board) service.readBoard(map);
 		if (dto == null) {
 			return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
 		}
@@ -393,6 +405,8 @@ public class BoardController {
 		String path = root + File.separator + "uploads" + File.separator + "board";
 
 		// 수정 하기
+		
+		dto.setUrl(url);
 		service.updateBoard(dto, path);
 
 		return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
@@ -437,7 +451,10 @@ public class BoardController {
 		 return new ModelAndView("redirect:/group/"+url);
 		 }
 		// 해당 레코드 가져 오기
-		Board dto = service.readBoard(boardNo);
+		 Map<String, Object> map=new HashMap<>();
+		 map.put("boardNo", boardNo);
+		 map.put("url", url);
+		Board dto = service.readBoard(map);
 		if (dto == null) {
 			return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
 		}
@@ -448,8 +465,12 @@ public class BoardController {
 
 		String root = session.getServletContext().getRealPath("/");
 		String path = root + File.separator + "uploads" + File.separator + "board";
-
-		service.deleteBoard(boardNo, dto.getSaveFilename(), path);
+		
+		Map<String, Object>map1=new HashMap<>();
+		map1.put("boardNo", boardNo);
+		map1.put("url", url);
+		
+		service.deleteBoard(map1, dto.getSaveFilename(), path);
 
 		return new ModelAndView("redirect:/freeBoard/list/"+boCateNum+"/"+url+"?page=" + page);
 	}
@@ -470,7 +491,13 @@ public class BoardController {
 			int total_page=0;
 			int dataCount=0;
 			
-			dataCount=service.dataCountReply(boardNo);
+			Map<String, Object> map1=new HashMap<String,Object>();
+			map1.put("boardNo", boardNo);
+			map1.put("url", url);
+			
+			dataCount=service.dataCountReply(map1);
+			
+			
 			total_page=myUtil.pageCount(numPerPage, dataCount);
 			if(current_page>total_page)
 				current_page=total_page;
@@ -484,7 +511,7 @@ public class BoardController {
 			map.put("start", start);
 			map.put("end", end);
 			map.put("url", url);
-			
+		
 			
 			List<Reply> list=service.listReply(map);
 			
@@ -531,7 +558,7 @@ public class BoardController {
 			} else {
 				dto.setUserId((info.getUserId()));
 				dto.setMemberNo(info.getMemberNo());
-				
+				dto.setUrl(url);
 				int result=service.insertReply(dto);
 				if(result==0)
 					state="false";
@@ -557,7 +584,11 @@ public class BoardController {
 			if(info==null){
 				state="loginFail";
 			}else{
-				int result=service.deleteReply(replyNum);
+				
+				Map<String, Object> map = new HashMap<String,Object>();
+				map.put("replyNum", replyNum);
+				map.put("url", url);
+				int result=service.deleteReply(map);
 				if(result==0)
 					state="false";
 			}

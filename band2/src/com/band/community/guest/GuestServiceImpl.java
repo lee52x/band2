@@ -61,11 +61,11 @@ public class GuestServiceImpl implements GuestService{
 	}
 
 	@Override
-	public int deleteGuest(int guestNo, String pathname,String imageFilename) {
+	public int deleteGuest(Map<String, Object> map, String pathname,String imageFilename) {
 		int result=0;
 
 		try{
-			dao.deleteData("guest.deleteGuest", guestNo);
+			dao.deleteData("guest.deleteGuest", map);
 			result=1;
 		} catch(Exception e) {
 		}
@@ -86,14 +86,14 @@ public class GuestServiceImpl implements GuestService{
 	}
 
 	@Override
-	public Map<String, Object> guestCountLike(int guestNo) {
-		Map<String, Object> map=null;
+	public Map<String, Object> guestCountLike(Map<String, Object> map) {
+		Map<String, Object> map1=null;
 		try {
-			map=dao.getReadData("guest.guestCountLike",guestNo);
+			map1=dao.getReadData("guest.guestCountLike",map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		return map;
+		return map1;
 	}
 
 	@Override

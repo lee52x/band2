@@ -3,8 +3,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="guest">
 	<insert id="insertGuest" parameterType="com.band.community.guest.Guest">
-	INSERT INTO guestbook_test(guestNo, memberNo, content,imageFilename,player,answer)
-	   VALUES(guestbook_seq_test.NEXTVAL, #{memberNo}, #{content},#{imageFilename, jdbcType=VARCHAR},#{player, jdbcType=VARCHAR},#{answer} )
+	INSERT INTO guestbook_${url}(guestNo, memberNo, content,imageFilename,player,answer)
+	   VALUES(guestbook_seq_${url}.NEXTVAL, #{memberNo}, #{content},#{imageFilename, jdbcType=VARCHAR},#{player, jdbcType=VARCHAR},#{answer} )
 	</insert>
 
 			<!-- 방명록 리스트 -->
@@ -15,14 +15,14 @@
 		    SELECT ROWNUM rnum, tb.* FROM (
 		          SELECT r.guestNo, r.memberNo, name, answer 
                       ,content, created, imageFilename, NVL(likeCount, 0) likeCount,userId,player
-			        FROM guestbook_test r 
-	            JOIN member_test m ON r.memberNo=m.memberNo
+			        FROM guestbook_${url} r 
+	            JOIN member_${url} m ON r.memberNo=m.memberNo
 	            
               LEFT OUTER JOIN
               (
                       SELECT guestNo,
                              COUNT(DECODE(guestLike, 1, 1)) likeCount
-                      FROM guestbook_test_like GROUP BY guestNo
+                      FROM guestbook_${url}_like GROUP BY guestNo
               ) l
               ON r.guestNo = l.guestNo
 	            ORDER BY guestNo DESC
@@ -47,28 +47,28 @@
 
 	
 	
-	<delete id="deleteGuest" parameterType="Integer">
-		DELETE FROM guestbook_test WHERE guestNo=#{guestNo}
+	<delete id="deleteGuest" parameterType="map">
+		DELETE FROM guestbook_${url} WHERE guestNo=#{guestNo}
 	</delete>
 	
 	
 	<!-- 좋아요처리 -->
-	<insert id="insertGuestLike">
-		INSERT INTO guestbook_test_like(guestNo,memberNo,guestLike)
+	<insert id="insertGuestLike" parameterType="com.band.community.guest.Guest">
+		INSERT INTO guestbook_${url}_like(guestNo,memberNo,guestLike)
 			VALUES(#{guestNo},#{memberNo},#{guestLike})
 	</insert>
 	
 	<!-- 좋아요개수 -->
 	<select id="guestCountLike" resultType="map"
-		 parameterType="Integer">
+		 parameterType="map">
 	   SELECT  NVL(COUNT(DECODE(guestLike, 1, 1)), 0) likeCount
-	        FROM guestbook_test_like WHERE guestNo=#{guestNo}
+	        FROM guestbook_${url}_like WHERE guestNo=#{guestNo}
 	</select>
 	
 		<!-- 댓글 처리................. -->
 		<insert id="insertReply" parameterType="com.band.community.guest.GuestReply">
-	INSERT INTO guestReply_test(replyNum, guestNo, memberNo, content, answer)
-	   VALUES (guestReply_test_seq.NEXTVAL, #{guestNo},#{memberNo},
+	INSERT INTO guestReply_${url}(replyNum, guestNo, memberNo, content, answer)
+	   VALUES (guestReply_${url}_seq.NEXTVAL, #{guestNo},#{memberNo},
 	        #{content}, #{answer})
 	</insert>
 

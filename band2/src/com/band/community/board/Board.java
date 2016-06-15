@@ -8,10 +8,22 @@ public class Board {
     private String name, userId, subject, content, created;
     private int hitCount;
 	private MultipartFile upload;  // <input type='file' name='upload' ..
-	
 	private String saveFilename;
 	private String originalFilename;
+	private String url;
 	
+	
+	
+	
+	
+	
+	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public int getMemberNo() {
 		return memberNo;
 	}

@@ -97,7 +97,7 @@ $(function(){
 });
 
 function listPage(page) {
-	var url="<%=cp%>/freeBoard/listReply/${boCateNum}/{url}";
+	var url="<%=cp%>/freeBoard/listReply/${boCateNum}/${url}";
 	var boardNo="${dto.boardNo}";
 	$.post(url, {boardNo:boardNo, pageNo:page}, function(data){
 		$("#listReply").html(data);
@@ -105,7 +105,7 @@ function listPage(page) {
 }
 
 function login() {
-	location.href="<%=cp%>/group/{url}";
+	location.href="<%=cp%>/group/${url}";
 }
 
 //댓글 추가

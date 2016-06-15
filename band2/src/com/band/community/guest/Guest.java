@@ -11,6 +11,7 @@ public class Guest {
 	private MultipartFile upload;
 	private int answer;
 	private int guestLike;
+	private String url;
 	
 	private int answerCount;
 	private int likeCount;
@@ -18,7 +19,13 @@ public class Guest {
 	
 	
 	
-	
+
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public String getPlayer() {
 		return player;
 	}

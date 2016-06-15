@@ -52,17 +52,13 @@ function searchList(){
                                         	
                                         </tr>
                                       </c:forEach>
-                                        
-                                    </tbody>
-                                </table>
-  
-                            </div>
-                        </div>
-                    </div>
-                </div>
-     		<table style="width: 700px; margin: 0px auto; border-spacing: 0px;">
+                                      <hr>
+                                      
+<table style="width: 700px; margin: 0px auto; border-spacing: 0px;">
+
 			   <tr height="35">
 				<td align="center">
+				
 			        <c:if test="${dataCount==0 }">
 			                   등록된 게시물이 없습니다.
 			         </c:if>
@@ -72,10 +68,10 @@ function searchList(){
 				</td>
 			   </tr>
 			</table>
-			 <div class="content table-responsive table-full-width">
+<div class="content table-responsive table-full-width">
    <table style="width: 610px; margin: 20px auto 0px; border-spacing: 0px;">
    <tr height="35">
-      <td align="left" width="50%">
+      <td align="center" width="50%">
           <form name="searchForm" action="" method="post">
               <select name="searchKey" class="selectField">
                   <option value="subject">제목</option>
@@ -89,16 +85,19 @@ function searchList(){
       </td>
       <td align="right">
           <input type="button" value=" 글올리기 " class="btn" onclick="javascript:location.href='<%=cp%>/freeBoard/created/${boCateNum}/${url}';">
-         
       </td>
-         
-       
-   </tr>
-</table>
-
-
-
-            </div>
+   		</tr>
+	</table>
+</div>
+                                        
+                                    </tbody>
+                                </table>
+  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+  
             
         </div>
         </div>

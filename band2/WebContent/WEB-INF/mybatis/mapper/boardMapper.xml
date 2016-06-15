@@ -3,8 +3,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 <insert id="insertBoard" parameterType="com.band.community.board.Board">
-	  INSERT INTO freeBoard_test(boardNo, groupNo, subject, content,saveFilename,originalFilename, memberNo) VALUES
-	         (freeboard_seq_test.NEXTVAL,#{groupNo}, #{subject}, #{content},#{saveFilename, jdbcType=VARCHAR}, 
+	  INSERT INTO freeBoard_${url}(boardNo, groupNo, subject, content,saveFilename,originalFilename, memberNo) VALUES
+	         (freeboard_seq_${url}.NEXTVAL,#{groupNo}, #{subject}, #{content},#{saveFilename, jdbcType=VARCHAR}, 
 	           #{originalFilename, jdbcType=VARCHAR}, #{memberNo}
 	           
 	         )
@@ -28,8 +28,8 @@
 	<!-- 글개수 -->
 	<select id="dataCount" parameterType="map"
 	            resultType="Integer">
-	  SELECT NVL(COUNT(*), 0) FROM freeBoard_test b
-	        JOIN member_test m
+	  SELECT NVL(COUNT(*), 0) FROM freeBoard_${url} b
+	        JOIN member_${url} m
 	        ON b.memberNo=m.memberNo
 	     <where>
 	     	<if test="searchValue!=null and searchValue!='' ">
@@ -46,7 +46,7 @@
 			     SELECT boardNo, m.memberNo,name, subject
 			           ,TO_CHAR(b.created, 'YYYY-MM-DD') created
 					   ,hitCount, saveFilename,userId
-			        FROM freeBoard_test b JOIN member_test m ON b.memberNo=m.memberNo
+			        FROM freeBoard_${url} b JOIN member_${url} m ON b.memberNo=m.memberNo
                     <where>
                          <if test="searchValue != null and searchValue != ''">
 			                  <include refid="where-list"/>
@@ -61,10 +61,10 @@
 	
 	
 	<!-- 글보기 -->
-	<select id="readBoard" resultType="com.band.community.board.Board" parameterType="Integer">
+	<select id="readBoard" resultType="com.band.community.board.Board" parameterType="map">
 		SELECT boardNo, m.memberNo, subject, content, userId
 				   ,hitCount, b.created,  saveFilename, originalFilename
-		FROM freeBoard_test b JOIN member_test m ON b.memberNo=m.memberNo
+		FROM freeBoard_${url} b JOIN member_${url} m ON b.memberNo=m.memberNo
 		WHERE boardNo = #{boardNo}
 	</select>
 	
@@ -76,8 +76,8 @@
 				parameterType="map">
 		SELECT tb.* FROM (
 			SELECT boardNo, subject
-			      FROM freeboard_test b
-			      JOIN member_test m ON b.memberNo=m.memberNo
+			      FROM freeboard_${url} b
+			      JOIN member_${url} m ON b.memberNo=m.memberNo
                     <where>
                          <if test="searchValue != null and searchValue != '' ">
 			                  <include refid="where-list"/>
@@ -95,8 +95,8 @@
 				parameterType="map">
 		SELECT tb.* FROM (
 			SELECT boardNo, subject
-			       FROM freeboard_test b
-			       JOIN member_test m ON b.memberNo=m.memberNo
+			       FROM freeboard_${url} b
+			       JOIN member_${url} m ON b.memberNo=m.memberNo
                     <where>
                          <if test="searchValue != null and searchValue != '' ">
 			                  <include refid="where-list"/>
@@ -110,13 +110,13 @@
 	</select>
 	
 	  <!-- 삭제 -->
-      <delete id="deleteBoard" parameterType="Integer">
-           DELETE FROM freeBoard_test WHERE boardNo = #{boardNo}
+      <delete id="deleteBoard" parameterType="map">
+           DELETE FROM freeBoard_${url} WHERE boardNo = #{boardNo}
       </delete>
       
       <!-- 수정 -->
    <update id="updateBoard" parameterType="com.band.community.board.Board">
-   	UPDATE freeBoard_test SET subject=#{subject},content=#{content}
+   	UPDATE freeBoard_${url} SET subject=#{subject},content=#{content}
    							,saveFilename=#{saveFilename,jdbcType=VARCHAR}
    							,originalFilename=#{originalFilename,jdbcType=VARCHAR}
    							WHERE boardNo=#{boardNo}
@@ -124,27 +124,27 @@
    </update>
    
    	<!-- 조회수 증가 -->
-	<update id="updateHitCount" parameterType="Integer">
-		UPDATE freeBoard_test SET hitCount=hitCount+1 WHERE boardNo= #{boardNo}
+	<update id="updateHitCount" parameterType="map">
+		UPDATE freeBoard_${url} SET hitCount=hitCount+1 WHERE boardNo= #{boardNo}
 	</update>
 	
 	
 	<!-- 댓글 ................. -->
 	<insert id="insertReply" parameterType="com.band.community.board.Reply">
-	INSERT INTO boardReply_test(replyNum, boardNo, memberNo, content)
-	   VALUES (boardReply_test_seq.NEXTVAL, #{boardNo},#{memberNo},#{content})
+	INSERT INTO freeboardReply_${url}(replyNum, boardNo, memberNo, content)
+	   VALUES (boardReply_${url}_seq.NEXTVAL, #{boardNo},#{memberNo},#{content})
 	</insert>
 	
-		<delete id="deleteReply" parameterType="Integer">
-		DELETE FROM boardreply_test where replyNum=#{replyNum}
+		<delete id="deleteReply" parameterType="map">
+		DELETE FROM freeboardreply_${url} where replyNum=#{replyNum}
 	</delete>
 	
 	
 	
 		<select id="dataCountReply" resultType="Integer" 
-	           parameterType="Integer">
+	           parameterType="map">
 	   		SELECT NVL(COUNT(*), 0)
-	        FROM boardReply_test WHERE boardNo=#{boardNo}
+	        FROM freeboardReply_${url} WHERE boardNo=#{boardNo}
 	</select>
 	
 	
@@ -158,8 +158,8 @@
 		    SELECT ROWNUM rnum, tb.* FROM (
 		        SELECT replyNum, boardNo, r.memberNo, name ,userId
                       ,content, created
-			    FROM boardReply_test r 
-	            JOIN member_test m ON r.memberNo=m.memberNo
+			    FROM freeboardReply_${url} r 
+	            JOIN member_${url} m ON r.memberNo=m.memberNo
 	            WHERE r.boardNo=#{boardNo}
 	            ORDER BY replyNum DESC
 	<![CDATA[

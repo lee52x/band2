@@ -5,6 +5,18 @@ public class GuestReply {
 	private String userId, name, content, created;
 	private int answer;
 	private int answerCount;
+	private String groupUrl;
+	
+	
+	
+	
+	
+	public String getGroupUrl() {
+		return groupUrl;
+	}
+	public void setGroupUrl(String groupUrl) {
+		this.groupUrl = groupUrl;
+	}
 	public int getReplyNum() {
 		return replyNum;
 	}

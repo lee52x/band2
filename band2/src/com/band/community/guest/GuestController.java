@@ -103,6 +103,7 @@ public class GuestController {
 		} else {
 			dto.setName(info.getUserName());
 			dto.setMemberNo(info.getMemberNo());
+			dto.setUrl(url);
 					
 			int result=service.insertGuest(dto,pathname);
 			if(result==0)
@@ -130,8 +131,11 @@ public class GuestController {
 		
 		
 		//자료 삭제
+		Map<String, Object> map=new HashMap<>();
+		map.put("guestNo", guestNo);
+		map.put("url", url);
 		
-		int result=service.deleteGuest(guestNo, pathname, imageFilename);
+		int result=service.deleteGuest(map, pathname, imageFilename);
 		
 		String state="true";
 		if(result==0)
@@ -212,6 +216,7 @@ public class GuestController {
 			state="loginFail";
 		}else{
 			dto.setMemberNo(info.getMemberNo());
+			dto.setUrl(url);
 			
 			int result=service.insertGuestLike(dto);
 			if(result==0)
@@ -233,7 +238,12 @@ public class GuestController {
 			)throws Exception{
 		
 		int likeCount=0;
-		Map<String, Object> map=service.guestCountLike(guestNo);
+		Map<String, Object> map1=new HashMap<>();
+		map1.put("guestNo", guestNo);
+		map1.put("url", url);
+		Map<String, Object> map=service.guestCountLike(map1);
+		
+		
 		if(map!=null){
 			likeCount=((BigDecimal)map.get("LIKECOUNT")).intValue();
 		}
@@ -263,6 +273,8 @@ public class GuestController {
 				state="loginFail";
 			} else {
 				dto.setMemberNo(info.getMemberNo());
+				dto.setGroupUrl(url);
+				
 				int result=service.insertReply(dto);
 				if(result==0)
 					state="false";

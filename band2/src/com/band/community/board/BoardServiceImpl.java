@@ -60,12 +60,12 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public Board readBoard(int boardNo) {
+	public Board readBoard(Map<String, Object> map) {
 		Board dto=null;
 		
 		try{
 			// 게시물 가져오기
-			dto=dao.getReadData("board.readBoard", boardNo);
+			dto=dao.getReadData("board.readBoard", map);
 		} catch(Exception e) {
 			System.out.println(e.toString());
 		}
@@ -127,7 +127,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int deleteBoard(int boardNo, String saveFilename, String path) {
+	public int deleteBoard(Map<String, Object> map, String saveFilename, String path) {
 		int result=0;
 
 		try{
@@ -137,7 +137,7 @@ public class BoardServiceImpl implements BoardService{
 			  fileManager.doFileDelete(saveFilename, path);
 			}
 			
-			dao.deleteData("board.deleteBoard", boardNo);
+			dao.deleteData("board.deleteBoard", map);
 			result=1;
 		} catch(Exception e) {
 		}
@@ -146,12 +146,12 @@ public class BoardServiceImpl implements BoardService{
 	
 	
 	@Override
-	public int updateHitCount(int boardNo){
+	public int updateHitCount(Map<String, Object> map){
 		int result=0;
 		
 		try{
 			// 조회수 증가
-			result=dao.updateData("board.updateHitCount", boardNo);
+			result=dao.updateData("board.updateHitCount", map);
 		} catch(Exception e) {
 			System.out.println(e.toString());
 		}
@@ -188,10 +188,11 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int dataCountReply(int boardNo) {
+	public int dataCountReply(Map<String, Object> map) {
 		int result=0;
+		
 		try {
-			result=dao.getIntValue("board.dataCountReply", boardNo);
+			result=dao.getIntValue("board.dataCountReply", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -199,10 +200,10 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int deleteReply(int replyNum) {
+	public int deleteReply(Map<String, Object> map) {
 		int result=0;
 		try {
-			result=dao.deleteData("board.deleteReply", replyNum);
+			result=dao.deleteData("board.deleteReply", map);
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
