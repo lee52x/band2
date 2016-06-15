@@ -99,7 +99,7 @@ function list(transactionNo) {
                 <ul class="list-group">
               	  <c:forEach items="${accountList}" var="dto">
                     <li><a href="#" onclick="list('${dto.transactionNo}');" class="list-group-item">${dto.listName}
-                    	<c:if test="${sessionScope.member.grade==1}">
+                    	<c:if test="${sessionScope.main.grade==1||sessionScope.main.grade==2}">
                     	<span onclick="javascript:location.href='<%=cp%>/community/deleteList/${url}?listNum=${dto.listNum}';" class="deletebtn">삭제</span>
                     	</c:if>
                     	</a></li>
