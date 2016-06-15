@@ -66,6 +66,7 @@ public class MainController {
 	      if(dto==null || (! dto.getPwd().equals(userPwd))||(!dto.getUserId().equals(userId))) {
 				ModelAndView mav=new ModelAndView(".mainLogin");
 				mav.addObject("message", "아이디 또는 패스워드가 일치하지 않습니다.");
+				mav.addObject("pdto",pdto);
 				return mav;
 			}
 	      SessionInfo info=new SessionInfo();

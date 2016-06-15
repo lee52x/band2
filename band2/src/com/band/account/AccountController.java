@@ -35,8 +35,11 @@ public class AccountController {
 	public ModelAndView method(
 			@PathVariable String url,
 			@RequestParam(value="month", defaultValue="0") int m,
-			@RequestParam(value="year", defaultValue="0") int y
+			@RequestParam(value="year", defaultValue="0") int y,
+			HttpSession session
 			) {
+		
+		
 		
 		Calendar cal = Calendar.getInstance();
 		// 현재 날짜
