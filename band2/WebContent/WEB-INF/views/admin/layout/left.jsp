@@ -20,7 +20,7 @@
               </div>
               <div class="profile_info">
                 <span>어서오세요,</span>
-                <h2>이 현 규</h2>
+                <h2>${sessionScope.main.userName}님</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
