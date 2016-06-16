@@ -83,6 +83,8 @@
 </style>
 
 <script type="text/javascript">
+
+ 
   function check() {
         var f = document.moneyForm;
         f.action="<%=cp%>/account/main/${url}";
@@ -267,7 +269,7 @@
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> 지난 달 지출</span>
               <div class="count red">- <fmt:formatNumber value="${preMonthDto.withdrawal}" groupingUsed="true"/></div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Month</span>	
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Month</span>	
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-clock-o"></i> 이번 달 지출</span>
@@ -309,7 +311,7 @@
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> 지난 달 수입</span>
               <div class="count green">+ <fmt:formatNumber value="${preMonthDto.deposit}" groupingUsed="true"/></div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Month</span>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>4% </i> From last Month</span>
             </div>
           </div>
           <!-- /top tiles -->
@@ -469,17 +471,20 @@
 	aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top:100px;">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
+			<div class="modal-header" style="background-color: #334e7e;">
 				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+					<span aria-hidden="true" style="color: white;">×</span><span class="sr-only">Close</span>
 				</button>
 				<h4 class="modal-title" id="myModalLabel">
-					<i class="fa fa-share-alt"></i> 사용 내역 엑셀 업로드
+					<small style="font-weight: bold; color: #e1e2e3;">
+					<i class="fa fa-upload"></i> 사용 내역 엑셀 업로드</small>
 				</h4>
 			</div>
 			<div class="modal-body">
-				<h5><i class="fa fa-envelope"></i> 금융사, 국세청에서 제공하는 이용 내역 엑셀 파일로 업로드 하실 수 있습니다.</h5>
-				<p>※현재는 우리은행만 지원하고 있습니다.</p>
+				<h5>금융사, 국세청에서 제공하는 이용 내역 엑셀 파일로 업로드 하실 수 있습니다.</h5>
+				<small style="color: grey;">※현재는 우리은행만 지원하고 있습니다.</small><br>
+				<small style="color: grey;">※누리다 제공 폼에 입력하신 경우 '선택안함'으로 업로드 하시면 됩니다.</small>
+				<hr>
 
 				<form name="uploadForm" method="post" onsubmit="return check_upload();" enctype="multipart/form-data">
 					은행사 선택 <select name="bank" class="upload_select">
@@ -487,21 +492,17 @@
                             				<option value="woori">우리은행</option>
                             				<option value="sinhan" disabled="disabled">신한은행</option>
                             				<option value="kb" disabled="disabled">국민은행</option>
-                            				<option value="nh" disabled="disabled">농협은행</option></select>
-                    <br />
-                    <br />
-					<div class="input-group">
+                            				<option value="nh" disabled="disabled">농협은행</option></select> <br /> <br />
+				
+					<div class="input-group" style="display: flex; overflow: hidden;">
 						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 						<input type="file" name="upload" class="form-control input-sm">
+						<button type="submit" class="btn btn-default btn-sm" style="float:right;"> 확인 <span class="glyphicon glyphicon-ok"></span></button>
 					</div>
-					<button type="submit" class="btn btn-primary"> 확인 <span class="glyphicon glyphicon-ok"></span></button>
-					<br />
 				</form>
-				 <br />
-				
-
-					<input type="button" class="btn btn-primary" value="엑셀 폼 다운로드" onclick="javascript:location.href='<%=cp%>/account/download/${url}';">
-						 폼에 작성하시면 자유롭게 엑셀 업로드로 작성 내역을 불러올 수 있습니다.
+				 <hr>
+					<input type="button" class="btn btn-default btn-lg" value="엑셀 폼 다운로드" onclick="javascript:location.href='<%=cp%>/account/download/${url}';">
+						<small style="color: grey;"> 누리다 제공 폼에 작성하시면 자유롭게 엑셀 업로드로 작성 내역을 불러올 수 있습니다.</small>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

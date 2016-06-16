@@ -24,7 +24,7 @@
 				groupingUsed="true" />
 		</div>
 		<span class="count_bottom"><i class="green"><i
-				class="fa fa-sort-asc"></i>34% </i> From last Month</span>
+				class="fa fa-sort-asc"></i>3% </i> From last Month</span>
 	</div>
 	<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 		<span class="count_top"><i class="fa fa-clock-o"></i> 이번 달 지출</span>
@@ -80,7 +80,7 @@
 			<fmt:formatNumber value="${preMonthDto.deposit}" groupingUsed="true" />
 		</div>
 		<span class="count_bottom"><i class="green"><i
-				class="fa fa-sort-asc"></i>34% </i> From last Month</span>
+				class="fa fa-sort-asc"></i>4% </i> From last Month</span>
 	</div>
 </div>
 <!-- /잔액 -->

@@ -7,6 +7,11 @@
 %>
 <link href="<%=cp%>/res/css/admin/custom.css" rel="stylesheet">
 
+<style>
+.tabs-left>li>a {
+    background: rgba(105, 139, 199, 0.15);
+}
+</style>
 <script type="text/javascript">
 
 function deleteBoard(f){
@@ -97,11 +102,12 @@ function insertSubmit(){
 
 </script>
 
-
+<div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2">
 <div class="x_panel">
 	<div class="x_title">
-		<h2>
-			<i class="fa fa-bars"></i> 게시판 관리
+		<h2><i class="fa fa-bars"></i><small style="font-weight: bold;">
+			 게시판 관리
+			</small>
 		</h2>
 		<div class="clearfix"></div>
 	</div>
@@ -118,7 +124,7 @@ function insertSubmit(){
 					</li>
 				</c:forEach>
 					<li>
-					<a href="#tab_insert" data-toggle="tab">게시판 추가</a>
+					<a href="#tab_insert" data-toggle="tab" style="background-color: rgba(173, 179, 189, 0.15);">게시판 추가</a>
 					</li>
 
 			</ul>
@@ -132,18 +138,19 @@ function insertSubmit(){
 
 						<div class="x_content">
 							<br />
+							<br><br><br>
 							<form class="form-horizontal form-label-left" name="updateBoard${vo.boCateNum}" method="post">
 								<div class="form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12">
 										게시판 이름
 									</label>
-									<div class="col-md-9 col-sm-9 col-xs-12">
+									<div class="col-md-6 col-sm-9 col-xs-12">
 										<input type="text" class="form-control" name="boCateName"
 											value="${vo.boCateName}">
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-md-9 col-sm-9 col-xs-12">
+									<div class="col-md-6 col-sm-9 col-xs-12">
 										<input type="hidden" class="form-control" name="boCateNum"
 											value="${vo.boCateNum}">
 									</div>
@@ -153,7 +160,7 @@ function insertSubmit(){
 									<label class="control-label col-md-3 col-sm-3 col-xs-12">
 										게시판 유형
 									</label>
-									<div class="col-md-9 col-sm-9 col-xs-12">
+									<div class="col-md-6 col-sm-9 col-xs-12">
 										<select class="form-control" name="boCateType">
 											<option>사진</option>
 											<option>자유</option>
@@ -163,9 +170,10 @@ function insertSubmit(){
 								</div>
 								<div class="ln_solid"></div>
 								<div class="form-group">
-									<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-										<button type="button" class="btn btn-success" onclick="updateSubmit(form);">수정 완료</button>
-										<button type="button" class="btn btn-primary" onclick="deleteBoard(form);">게시판 삭제</button>
+									<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-4">
+									<br><br>
+										<button type="button" class="btn btn-success btn-sm" onclick="updateSubmit(form);">수정 완료</button>
+										<button type="button" class="btn btn-default btn-sm" onclick="deleteBoard(form);">게시판 삭제</button>
 									</div>
 								</div>
 							</form>
@@ -177,6 +185,7 @@ function insertSubmit(){
 
 						<div class="x_content">
 							<br/>
+							<br><br><br>
 							<form class="form-horizontal form-label-left" name="insertBoard"
 								onsubmit="return insertSubmit();" method="post">
 
@@ -184,7 +193,7 @@ function insertSubmit(){
 									<label class="control-label col-md-3 col-sm-3 col-xs-12">
 										게시판 이름
 									</label>
-									<div class="col-md-9 col-sm-9 col-xs-12">
+									<div class="col-md-6 col-sm-9 col-xs-12">
 										<input type="text" class="form-control" name="boCateName">
 									</div>
 								</div>
@@ -192,7 +201,7 @@ function insertSubmit(){
 									<label class="control-label col-md-3 col-sm-3 col-xs-12">
 										게시판 유형
 									</label>
-									<div class="col-md-9 col-sm-9 col-xs-12">
+									<div class="col-md-6 col-sm-9 col-xs-12">
 										<select class="form-control" name="boCateType">
 											<option>사진</option>
 											<option>자유</option>
@@ -202,9 +211,10 @@ function insertSubmit(){
 								</div>
 								<div class="ln_solid"></div>
 								<div class="form-group">
-									<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-										<button type="submit" class="btn btn-success">등록 완료</button>
-										<button type="reset" class="btn btn-primary">다시 작성</button>
+									<div class="col-md-6 col-sm-9 col-xs-12 col-md-offset-4">
+									<br><br>
+										<button type="submit" class="btn btn-success btn-sm">등록 완료</button>
+										<button type="reset" class="btn btn-default btn-sm">다시 작성</button>
 									</div>
 								</div>
 							</form>
@@ -217,4 +227,5 @@ function insertSubmit(){
 		<div class="clearfix"></div>
 
 	</div>
+</div>
 </div>

@@ -329,11 +329,12 @@ function deleteMember() {
 						tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog modal-lg">
 							<div class="modal-content">
-								<div class="modal-header">
+								<div class="modal-header" style="background-color: #334e7e;">
 									<button type="button" class="close" data-dismiss="modal">
-										<span aria-hidden="true">×</span>
+										<span aria-hidden="true" style="color: white;">×</span>
 									</button>
-									<h4 class="modal-title" id="myModalLabel">상세 회원 정보</h4>
+									<small id="myModalLabel" style="font-weight: bold; color: #e1e2e3;">
+									상세 회원 정보</small>
 								</div>
 								<div class="modal-body">
 									<form class="form-horizontal form-label-left input_mask">
@@ -420,7 +421,7 @@ function deleteMember() {
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default btn-sm" onclick="deleteMember()">삭제하기</button>
-									<button type="button" class="btn btn-default btn-sm" onclick="updateMember()">수정하기</button>
+									<button type="button" class="btn btn-success btn-sm" onclick="updateMember()">수정하기</button>
 								</div>
 							</div>
 						</div>

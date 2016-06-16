@@ -169,15 +169,20 @@ function sendMail(){
 	aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top:100px;">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
+			<div class="modal-header" style="background-color: #334e7e;">
 				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+					<span aria-hidden="true" style="color: white;">×</span><span class="sr-only">Close</span>
 				</button>
 				<h4 class="modal-title" id="myModalLabel">
-					<i class="fa fa-share-alt"></i> 미납자 메일 전송
+					<small style="font-weight: bold; color: #e1e2e3;">	
+					<i class="fa fa-envelope"></i> 미납자 메일 전송
+					</small>
 				</h4>
 			</div>
 			<div class="modal-body">
+			<small style="color: grey;">※미납 회원들에게 일괄적으로 회비 안내 메일을 보내드립니다.</small><br>
+			<small style="color: grey;">※메일이 정상적으로 전송되지 않을 경우 회원 메일 주소를 확인하세요.</small>
+			<hr>
 				<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -198,6 +203,7 @@ function sendMail(){
 				</c:forEach>
 			  </tbody>
 			</table>
+			<hr>
 			<button type="button" class="btn btn-default btn-sm" onclick="sendMail();"><i class="fa fa-envelope-o"></i> 보내기</button>
 			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">전송 취소</button>
 			</div>

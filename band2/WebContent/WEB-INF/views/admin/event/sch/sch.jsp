@@ -696,12 +696,12 @@ $(function(){
 
 </script>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
+<div class="col-md-12 col-sm-12 col-xs-12" style="min-height: 1500px;">
 <div class="bodyFrame">
   <div class="x_panel">
     <div class="x_title">
             <h2>
-               <i class="fa fa-calendar"></i> <small>캘린더 조회 및 등록</small>
+               <i class="fa fa-calendar"></i> <small style="font-weight: bold;">캘린더 조회 및 등록</small>
             </h2>
             <ul class="nav navbar-right panel_toolbox">
                <li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -726,10 +726,6 @@ $(function(){
 	                       href="javascript:classification('#5bc0de', 1);">Regular</a>
 	                 <a class="hbtn" style="background: #169F85;"
 	                       href="javascript:classification('#169F85', 2);">Special</a>
-	            <!--      <a class="hbtn" style="background: green;"
-	                       href="javascript:classification('green', 3);">회사일정</a>
-	                 <a class="hbtn" style="background: red;"
-	                       href="javascript:classification('red', 4);">부서일정</a> -->
 	             </div>      
 	        </div>
 	    </div>

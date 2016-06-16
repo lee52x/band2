@@ -38,7 +38,7 @@
                       <li><a href="<%=cp%>/account/fee/${url}">회비 관리</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> 그룹관리 <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-group"></i> 그룹관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<%=cp%>/member/member/${url}">회원 관리</a></li>
                       <li><a href="<%=cp%>/member/stats/${url}">그룹현황 조회</a></li>

@@ -516,7 +516,7 @@ $(function(){
                      <div class="x_panel">
                         <div class="x_title">
                            <h2>
-                              일정 리스트 <small> (그룹명) 전체 모임 리스트</small>
+                              <small style="font-weight: bold;">전체 일정 리스트</small>
                            </h2>
                            <ul class="nav navbar-right panel_toolbox">
                               <li><a class="collapse-link"><i
@@ -541,7 +541,7 @@ $(function(){
                               class="table table-striped table-bordered">
                               <thead>
                                  <tr>
-                                 	<th>선택</th>
+                                 	<th style="width:30px;">선택</th>
                                     <th>No.</th>
                                     <th>일정명</th>
                                     <th>날짜</th>
@@ -549,7 +549,7 @@ $(function(){
                                     <th>구분</th>
                                     <th>회비관리</th>
                                     <th>참석자 수</th>
-                                    <th>수정/삭제</th>
+                                    <th style="width:50px;">수정</th>
                                     
                                  </tr>
                               </thead>
@@ -563,13 +563,7 @@ $(function(){
                                     <%-- <td><a href="" data-toggle="modal" data-target="#eventModal" style="font-weight: bold;">${dto.eventName}</a></td> --%>
                                     <!-- eventNo, eventName, content, eventPlace, fromDate, toDate, fromTime, toTime, eventType, eventFee; -->
                                     <td>
-                                    <a href="javascript:eventModal(
-                                    		'${dto.eventNo}', '${dto.eventName}', '${dto.content}',
-                                    		'${dto.eventPlace}','${dto.fromDate}', '${dto.toDate}', 
-                                    		'${dto.fromTime}', '${dto.toTime}', '${dto.eventType}', 
-                                    		'${dto.eventFee}');"  data-toggle="modal" style="font-weight: bold; ">
-                                    	<span style="text-decoration: underline;">${dto.eventName}</span>
-                                    </a>
+                                    <span>${dto.eventName}</span>
                                     </td>
 												 
                                     
@@ -606,11 +600,6 @@ $(function(){
                                     	<c:choose>
 											<c:when test="${dto.eventComplete=='Y'}"><span style="color:#ec971f;"><b>This schedule has been completed.</b></span></c:when>
 											<c:otherwise>
-		                                    	<a href="javascript:eventModal(
-		                                    		'${dto.eventNo}', '${dto.eventName}', '${dto.content}',
-		                                    		'${dto.eventPlace}','${dto.fromDate}', '${dto.toDate}', 
-		                                    		'${dto.fromTime}', '${dto.toTime}', '${dto.eventType}', 
-		                                    		'${dto.eventFee}');" data-toggle="modal" class="btn btn-default btn-xs"><i class="fa fa-folder"></i> View </a>
 					                            <a href="javascript:eventModal(
 		                                    		'${dto.eventNo}', '${dto.eventName}', '${dto.content}',
 		                                    		'${dto.eventPlace}','${dto.fromDate}', '${dto.toDate}', 
@@ -625,8 +614,8 @@ $(function(){
                               </c:forEach>
                               </tbody>
                            </table>
-                           <button type="button" class="btn btn-danger btn-sm" onclick="deleteList();">Delete</button>
-                           <button type="button" class="btn btn-danger btn-sm" onclick="updateEventComplete();">Complete</button>
+                           <button type="button" class="btn btn-default btn-sm" onclick="deleteList();">Delete</button>
+                           <button type="button" class="btn btn-default btn-sm" onclick="updateEventComplete();">Complete</button>
                         </div>
                         </form>
                      </div>
@@ -639,9 +628,13 @@ $(function(){
 						<div class="modal-dialog modal-lg">
 							<div class="modal-content">
 
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-								<h4 class="modal-title" id="myModalLabel">상세 일정 정보</h4>
+							<div class="modal-header" style="background-color: #334e7e;">
+								<button type="button" class="close" data-dismiss="modal" style="font-weight: normal;">
+									<span aria-hidden="true" style="color: white;">×</span>
+								</button>
+							<h4 class="modal-title" id="myModalLabel">
+								<small id="myModalLabel" style="color: #e1e2e3;">상세 일정 정보</small>
+							</h4>
 							</div>
 							
 							<div class="modal-body">
@@ -741,8 +734,8 @@ $(function(){
 								</form>										                         
 							</div>
 							<div class="modal-footer">								
-								<button type="button" class="btn btn-danger" onclick="">삭제하기</button>
-								<button style="margin-bottom: 5px;" type="button" class="btn btn-primary" onclick="updateEvent()">수정하기</button>
+								<button type="button" class="btn btn-default btn-sm" onclick="">삭제하기</button>
+								<button type="button" class="btn btn-success btn-sm" onclick="updateEvent()">수정하기</button>
 							</div>
 						</div>
 					</div>
@@ -965,8 +958,8 @@ $(function(){
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <button type="reset" class="btn btn-primary">취소</button>
-                          <button type="button" class="btn btn-success" 
+                          <button type="reset" class="btn btn-default btn-sm">취소</button>
+                          <button type="button" class="btn btn-success btn-sm" 
                           	onclick="submitEvent();">등록</button>
                         </div>
                       </div>
