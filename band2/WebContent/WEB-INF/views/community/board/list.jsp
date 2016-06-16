@@ -34,21 +34,21 @@ function searchList(){
 
 						<div class="content table-responsive table-full-width">
 							<table class="table table-hover table-striped">
-								<thead>
-
-									<th style="width: calc(15%);">게시글번호</th>
-									<th style="width: calc(40%);">제목</th>
-									<th style="width: calc(15%);">작성자</th>
-									<th style="width: calc(20%);">작성일</th>
-									<th style="width: calc(10%);">조회수</th>
-
+								<thead style="text-align: center;">
+								<tr>
+									<th style="width:5%;">글번호</th>
+									<th style="width:40%;">제목</th>
+									<th style="width:5%;">작성자</th>
+									<th style="width:20%;">작성일</th>
+									<th style="width:10%;">조회수</th>
+								</tr>
 								</thead>
-								<tbody>
+								<tbody style="text-align: center;">
 									<c:forEach var="dto" items="${list}">
 										<tr>
 											<td>${dto.listNum}</td>
-											<td><a href="${urlArticle}&boardNo=${dto.boardNo}">${dto.subject}</a></td>
-											<td>${dto.userId}</td>
+											<td style="text-align: left;"><a href="${urlArticle}&boardNo=${dto.boardNo}">${dto.subject}</a></td>
+											<td>${dto.name}</td>
 											<td>${dto.created}</td>
 											<td align="center">${dto.hitCount}</td>
 
