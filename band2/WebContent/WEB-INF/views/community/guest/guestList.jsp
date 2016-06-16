@@ -150,113 +150,130 @@ function sendReplyAnswer(guestNo) {
 
 </script>
 <c:forEach var="dto" items="${list}">
-<div class="stream-list" >
-								
-									<div class="media stream">
-												<div class="stream-headline">
-												<h5 class="stream-author">
-											<p style="font-weight: bolder;">${dto.name }
-												<a onclick="deleteGuest('${dto.guestNo}','${dto.imageFilename}')" class="btn btn-small pull-right" style="color:red; border-color: red;"><span style="margin-left: 0px;" class="icon-trash shaded pull-right">&nbsp;Delete</span></a>
-											</p>
-												<small>${dto.created}</small>
-													
-												
-													
-													
-												</h5>
-												
-												
-													
-										
-												<div class="stream-text">
-												<br><br>
-													${dto.content}
-													 <br>
-													 <c:if test="${not empty dto.imageFilename}">
-													 	<div class="stream-attachment photo">
-													<div class="responsive-photo">
+	<div class="stream-list">
+
+		<div class="media stream">
+			<div class="stream-headline">
+				<h5 class="stream-author">
+					<p style="font-weight: bolder;">${dto.name }
+						<a onclick="deleteGuest('${dto.guestNo}','${dto.imageFilename}')"
+							class="btn btn-small pull-right"
+							style="color: red; border-color: red;"><span
+							style="margin-left: 0px;" class="icon-trash shaded pull-right">&nbsp;Delete</span></a>
+					</p>
+					<small>${dto.created}</small>
+
+
+
+
+				</h5>
+
+
+
+
+				<div class="stream-text">
+					<br> ${dto.content} <br>
+					
+					
+					
+					<c:if test="${not empty dto.imageFilename}">
+					<br><br>
+						<div class="stream-attachment photo">
+							<div class="responsive-photo">
+								<img src="<%=cp%>/res/img/community/image.png" style="width:24px; height: 24px; margin-bottom: 4px;"/ ><br>
+								<p style="margin-bottom: 0px;">
+									<img src="<%=cp%>/uploads/guest/${dto.imageFilename}">
+								</p>
+					</c:if>
+					
+					
+					
+				</div>
+			</div>
 			
-			<p> <img src="<%=cp%>/uploads/guest/${dto.imageFilename}">
-			</p>
-			</c:if>
-													</div>
-												</div>
-												<c:if test="${not empty dto.player}">
-                                              <div class="stream-attachment video">
-													<div class="responsive-video">
-														
-                                                        
-			<iframe width="640" height="360" src="http://www.youtube.com/embed/${dto.player}">
-</iframe>
-  
-			</c:if>
-                                                        
-													</div>
-												</div>
-												
-													<div class="stream-options" >
-													
-													
-												<a  href="javascript:sendLike('${dto.guestNo}','1')" class="btn btn-small" style="color:#1DC7EA; border-color: #1DC7EA;" >&nbsp<span class="icon-thumbs-up shaded"></span>Like<span id="likeCount${dto.guestNo}">${dto.likeCount}</span>
-													
-												</a>
-												<a href="javascript:sendReplyAnswerDlg('${dto.guestNo}');"  class="btn btn-small">
-													<i class="icon-reply shaded"></i>
-													Reply
-												</a>
-												<a href="" class="btn btn-small" style="margin-left: 0px;">
-													<i class="icon-retweet shaded"></i>
-													Repost
-												</a>
-											
-												  <button class="btn btn-small pull-right"  id="button1${dto.guestNo}" class="icon-retweet  pull-right"  onclick="viewReply(${dto.guestNo});">댓글보기</button>
-											
-												
-											</div>
-											<div id="listReplyAnswer${dto.guestNo}" style="padding-top: 5px;min-height: 50px;"></div>
-											<hr/>
+			
+			
+			
+			<c:if test="${not empty dto.player}">
+				<br><br>
+				<div class="stream-attachment video">
+					<div class="responsive-video">
 
-		 </c:forEach>
+						<img src="<%=cp%>/res/img/community/youtube.png" style="width:24px; height: 24px;"/ ><br>
+						<iframe width="640" height="360" style="border: none;"
+							src="http://www.youtube.com/embed/${dto.player}"> </iframe>
+			</c:if>
 
-	
-	
-	
-	<div id="modalReply" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<br><br>
+
+		</div>
+	</div>
+
+	<div class="stream-options">
+
+
+		<a href="javascript:sendLike('${dto.guestNo}','1')"
+			class="btn btn-small" style="color: #1DC7EA; border-color: #1DC7EA;"><span
+			class="icon-thumbs-up shaded"></span>&nbsp;Like&nbsp;<span
+			id="likeCount${dto.guestNo}">${dto.likeCount}</span> </a> <a
+			href="javascript:sendReplyAnswerDlg('${dto.guestNo}');"
+			class="btn btn-small"> <i class="icon-reply shaded"></i> Reply
+		</a> <a href="" class="btn btn-small" style="margin-left: 0px;"> <i
+			class="icon-retweet shaded"></i> Repost
+		</a>
+
+		<button class="btn btn-small pull-right" id="button1${dto.guestNo}"
+			class="icon-retweet  pull-right" onclick="viewReply(${dto.guestNo});">댓글보기</button>
+
+
+	</div>
+	<div id="listReplyAnswer${dto.guestNo}"
+		style="padding-top: 5px; min-height: 50px;"></div>
+	<hr style="border-top: 1px solid #BDBDBD"/>
+
+</c:forEach>
+
+
+
+
+<div id="modalReply" class="modal fade" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					댓글작성
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				댓글작성
 			</div>
 			<div class="modal-body">
-			    <form name="modalReplyForm" method="post">
-			         <div class="form-group">
-			            <label class="control-label" for="modalContent">작성자:${dto.name}</label><br>
-			            
-			            <div class="row-fluid">
-						<input type="text"  id="modalContent" name="content" placeholder="내용을 입력하세요" style="width: 510px"  >
-						<input type="hidden" id="modalGuestNo" name="guestNo">
-						<button class="btn btn-primary" type="button" onclick="modalSendReply();">등록</button>
+				<form name="modalReplyForm" method="post">
+					<div class="form-group">
+						<label class="control-label" for="modalContent">작성자:${dto.name}</label><br>
+
+						<div class="row-fluid">
+							<input type="text" id="modalContent" name="content"
+								placeholder="내용을 입력하세요" style="width: 510px"> <input
+								type="hidden" id="modalGuestNo" name="guestNo">
+							<button class="btn btn-primary" type="button"
+								onclick="modalSendReply();">등록</button>
 						</div>
-			        </div>
-			        
-			        <div class="form-group" align="right">
-			        	
-			           
-			            
-                    </div>
-                    
-	
-			    </form>
+					</div>
+
+					<div class="form-group" align="right"></div>
+
+
+				</form>
 			</div>
 		</div>
 	</div>
-	
+
 </div>
 
 
 
-	
-	
-	
-	
+
+
+
+

@@ -11,7 +11,7 @@
 								<div class="stream-respond" align="center" id="response">
 												<div class="media stream" align="left">
 													<a href="#" class="media-avatar small pull-left">
-														<img src="<%=cp%>/res/img/user.png">
+														<%-- <img src="<%=cp%>/res/img/user.png"> --%>
 													</a>
 													<div class="media-body">
 														<div class="stream-headline">

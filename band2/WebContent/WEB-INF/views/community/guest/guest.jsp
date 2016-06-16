@@ -211,33 +211,42 @@ function deleteGuest(guestNo,imageFilename){
 					<div class="content">
 
 						<div class="module">
-							<div class="module-head" style="background-color: #5d5d5d">
-								<h3 style="color:#fff;">News Feed</h3>
+							<div style="color:#5d5d5d; font-size: 28px; ">방명록</div>
+							<div class="module-head" style="vertical-align:middle; color:#FFFFFF; background-color: #63d8f1; line-height:40px; margin-bottom: 10px;">
+								<span style="padding-left: 10px;">간단하게 글을 남겨보세요.</span>
 							</div>
 							<div class="module-body">
 								<div class="stream-composer media">
-								  <div class="media-body" >
+								
+								
+								<!-- 원래 여기 아래 div 태그에 class="media-body"가 적용됐었음 -->
+								  <div  >
 									
 									<form name="guestForm" method="post" enctype="multipart/form-data">
 										<div class="row-fluid" >
 											<textarea class="span12" id="content" name="content" placeholder="무슨 생각을 하고 계신가요?" style="height: 70px;"></textarea>
 										</div>
 										<br>
-                     <p style="font-weight: bolder;">Youtube링크 <a href="javascript:howYoutube();"><i class="icon-question-sign shaded" style="color: blue"></i></a></p>
+                     <p style="color:#8c8c8c;"><img src="<%=cp%>/res/img/community/youtube.png" style="width:24px; height: 24px;"/ >&nbsp;Youtube 링크 <a href="javascript:howYoutube();"><i class="icon-question-sign shaded" style="color: 1DC7EA"></i></a></p>
                     
-                     <input style="margin-left:0px;"type="text" class="span12" id="player" name="player" placeholder="주소">
-                    <br><br>
+                     <input style="margin-left:0px; width:870px; height: 30px;" type="text" class="span12" id="player" name="player" placeholder="주소" >
+                    <br><br><br>
                     
-                  	<p style="font-weight: bolder;">사진등록</p>
+                  	<p style="color:#8c8c8c;"><img src="<%=cp%>/res/img/community/image.png" style="width:24px; height: 24px;"/ >&nbsp;Image 등록</p>
                     
                  
-                    <input type="file" name="upload">
+                    <input type="file" name="upload" class="btn-small">
                     <button class="btn btn-primary pull-right" type="button" onclick="sendGuest();">글올리기</button>
+                    
 										
 										</form>
+										
+										
+										
+										
 								  </div>
 								</div>
-
+<hr style="margin-top: 20px; border-top: 1px solid #BDBDBD;">
 								<div id="guestList"></div>
 								
 								            
