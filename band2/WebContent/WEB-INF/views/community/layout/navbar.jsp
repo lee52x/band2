@@ -18,13 +18,12 @@
             </div>
 
             <ul class="nav">
-            	<li>
+            	<li style="border-bottom: 1px;">
                     <a href="<%=cp %>/community/main/${url}">
-                        <p>커뮤니티 홈</p>
-                    </a>
+                        <p>커뮤니티 메인</p>
+                    </a> 
                 </li>
-            
-            
+
             	<c:forEach items="${navList}" var="nv">
             	<li>
             		<c:if test="${nv.boCateType=='자유'}">
@@ -48,6 +47,7 @@
             	</c:forEach>
                 
                 <li>
+                
                     <a href="<%=cp%>/community/chat/${url}">
                     	<p>채팅</p>
                     </a>

@@ -15,9 +15,6 @@
     
     <!-- Bootstrap core CSS     -->
     <link href="<%=cp%>/res/css/community/bootstrap.css" rel="stylesheet" />
-    <!-- Animation library for notifications-->
-     	<!-- ★Header의 notifications이라는 메뉴 안쓸거면 빼도 됨-->
-    <link href="<%=cp%>/res/css/community/animate.css" rel="stylesheet"/>
     <!--  Light Bootstrap Table core CSS    -->
     <link href="<%=cp%>/res/css/community/light-bootstrap-dashboard2.css" rel="stylesheet"/>
     <!--  CSS for Demo Purpose, don't include it in your project     -->
