@@ -2,7 +2,7 @@ package com.band.manager.update;
 
 public class Update {
 	
-	private String groupURL, name, area, verification, bankName;
+	private String groupURL, groupName, area, verification, bankName;
 	private String accountNumber, accountHolder, userId, foundationDay;
 	
 	public String getFoundationDay() {
@@ -17,11 +17,12 @@ public class Update {
 	public void setGroupURL(String groupURL) {
 		this.groupURL = groupURL;
 	}
-	public String getName() {
-		return name;
+	
+	public String getGroupName() {
+		return groupName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 	public String getArea() {
 		return area;

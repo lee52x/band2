@@ -12,7 +12,7 @@
 	</update>
 	
 	<select id="readInfo" parameterType="String" resultType="com.band.manager.update.Update">
-	SELECT groupURL, name, area, verification, bankName, accountNumber, accountHolder, userId, foundationDay
+	SELECT groupURL, groupName, area, bankName, accountNumber, accountHolder, userId, foundationDay
 	FROM community 
 	<!--c JOIN manager m ON c.userId=m.userId -->
 	WHERE groupURL=#{groupURL}

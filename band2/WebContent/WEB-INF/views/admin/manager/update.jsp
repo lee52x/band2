@@ -84,19 +84,13 @@ function submitUpdate() {
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">그룹 이름</label>
                         <div class="col-md-6 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" name="name" value="${dto.name}">
+                          <input type="text" class="form-control" name="groupName" value="${dto.groupName}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">주 활동 지역</label>
                         <div class="col-md-6 col-sm-9 col-xs-12">
                           <input type="text" class="form-control" name="area" value="${dto.area}">
-                        </div>
-                      </div>
-                      <div class="form-group">  
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">인증 코드</label>
-                        <div class="col-md-6 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" name="verification" value="${dto.verification}">
                         </div>
                       </div>
                        <div class="form-group">
