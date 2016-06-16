@@ -13,8 +13,7 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="<%=cp %>/community/main/${url}" class="simple-text">
-                
-                    그룹 이름
+                ${sessionScope.main.groupName}
                 </a>
             </div>
 
