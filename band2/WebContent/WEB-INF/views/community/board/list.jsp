@@ -30,10 +30,11 @@ function searchList(){
 						
 						<p class="category">그룹 회원들과 자유롭게 소통하세요!</p>
 						</div>
-						<p align="right">${dataCount}개(${page}/${total_page}페이지)</p>
+						
 
 
 						<div class="content table-responsive table-full-width" style="width:95%; padding-left:130px;">
+							<small style="color: grey;">${dataCount}개(${page}/${total_page}페이지)</small>
 							<table class="table table-hover table-striped">
 								<thead style="background-color: #fbdf80;">
 									<tr>
@@ -62,7 +63,8 @@ function searchList(){
 									</c:forEach>
 								</tbody>
 							</table>
-							<input type="button" value=" 글쓰기 " class="btn btn-default btn-sm"
+							<input type="button" value=" 글쓰기 " class="btn btn-default btn-sm" 
+							    style="background-color: #fbdf80; border:0; color:black; float:right;"
 								onclick="javascript:location.href='<%=cp%>/freeBoard/created/${boCateNum}/${url}';">
 
 							<table style="margin: 0px auto; border-spacing: 0px;">
@@ -77,13 +79,15 @@ function searchList(){
 								<tr height="35">
 									<td align="center" width="100%">
 										<form name="searchForm" action="" method="post">
-											<select name="searchKey" class="selectField">
+											<select name="searchKey" class="selectField" style="height: 26px;">
 												<option value="subject">제목</option>
 												<option value="name">작성자</option>
 												<option value="content">내용</option>
 												<option value="created">등록일</option>
-											</select> <input type="text" name="searchValue" class="boxTF">
-											<input type="button" value=" 검 색 " class="btn"
+											</select> 
+											<input type="text" name="searchValue" class="boxTF">&nbsp;
+											<input type="button" value=" 검 색 " class="btn btn-default btn-sm"
+											style="background-color: #fbdf80; border:0; color:black; float:right;"
 												onclick="searchList()">
 										</form>
 									</td>

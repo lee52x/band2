@@ -66,22 +66,28 @@
  }
 </script>
 
-<div class="bodyFrame2">
-    <div class="body-title">
-          <h3><span class="glyphicon glyphicon-book"></span> 게시판 </h3>
-    </div>
-    
-    <div class="alert alert-info">
-        <i class="glyphicon glyphicon-info-sign"></i> 회원과 자유로이 토론할 수 있는 공간입니다.
-    </div>
-    
-    <div>
+<!-- Start : Board List -->
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<br><br>
+						<div style="text-align: center;">
+						<h4 class="title" style="color: #5D5D5D; font-weight: bold;'">${boardName}</h4>
+						
+						<p class="category">그룹 회원들과 자유롭게 소통하세요!</p>
+						</div>
+						
+						<div class="content table-responsive table-full-width" style="width:95%; padding-left:130px;">
+							<div>
         <form name="boardForm" method="post" onsubmit="return submitContents(this);" enctype="multipart/form-data">
             <div class="bs-write">
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td class="td1">작성자명</td>
+                            <td class="td1" style="text-align: right;">작성자명</td>
                             <td class="td2 col-md-5 col-sm-5">
                                 <p class="form-control-static">${sessionScope.main.userId}</p>
                             </td>
@@ -91,15 +97,12 @@
                         </tr>
                         
                         <tr>
-                            <td class="td1">제목</td>
+                            <td class="td1" style="text-align: right;">제목</td>
                             <td colspan="3" class="td3">
                                 <input type="text" name="subject" class="form-control input-sm" value="${dto.subject}" required="required">
                             </td>
                         </tr>
                         
-                        <tr>
-                            <td class="td1" colspan="4" style="padding-bottom: 0px;">내용</td>
-                        </tr>
                         <tr>
                             <td colspan="4" class="td4">
                             	<textarea id="content" name="content" class="form-control" rows="15" style="max-width: 99%;">${dto.content}</textarea>
@@ -107,13 +110,13 @@
                         </tr>
                         
                         <tr>
-                            <td class="td1">첨부</td>
+                            <td class="td1" style="text-align: right;">첨부</td>
                             <td colspan="3" class="td3">
                                 <input type="file" name="upload" class="form-control input-sm">
                             </td>
                         </tr>
                         
-<c:if test="${mode=='update'}">
+						<c:if test="${mode=='update'}">
                         <tr>
                             <td class="td1">등록파일</td>
                             <td colspan="3" class="td3">
@@ -123,13 +126,16 @@
                                 </c:if>
                             </td>
                         </tr>
-</c:if>                        
+						</c:if>                        
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="4" style="text-align: center; padding-top: 15px;">
-                                  <button type="submit" class="btn btn-primary"> 확인 <span class="glyphicon glyphicon-ok"></span></button>
-                                  <button type="button" class="btn btn-danger" onclick="javascript:location.href='<%=cp%>/freeBoard/list/${boCateNum}/${url}';"> 취소 </button>
+                                  <button type="submit" class="btn btn-default btn-sm"
+                                  style="background-color: #fbdf80; border:0; color:black;"> 확인</button>
+                                  <button type="button" class="btn btn-default btn-sm"
+                                  style="background-color: #fbdf80; border:0; color:black;" 
+                                  onclick="javascript:location.href='<%=cp%>/freeBoard/list/${boCateNum}/${url}';"> 취소 </button>
                                   
                                   <c:if test="${mode=='update'}">
                                       <input type="hidden" name="boardNo" value="${dto.boardNo}">
@@ -144,7 +150,20 @@
             </div>
         </form>
     </div>
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
 </div>
+
+
 
 <script type="text/javascript">
 var oEditors = [];

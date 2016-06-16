@@ -47,18 +47,18 @@ public class MyUtil {
 		sb.append("<ul class='pagination pagination-sm'>");
 		// 처음페이지
 		if(current_page > 1) {
-			sb.append("<li><a href='"+list_url+"page=1' aria-label='First'><span aria-hidden='true' class='glyphicon glyphicon-step-backward'></span></a></li>");
+			sb.append("<li><a href='"+list_url+"page=1' aria-label='First'><span aria-hidden='true' class='fa fa-angle-left'></span></a></li>");
 		} else {
-			sb.append("<li class='disabled'><a href='#' aria-label='First'><span aria-hidden='true' class='glyphicon glyphicon-step-backward'></span></a></li>");
+			sb.append("<li class='disabled'><a href='#' aria-label='First'><span aria-hidden='true' class='fa fa-angle-left'></span></a></li>");
 		}
 		// 이전(10페이지 전)
 		n=current_page-numPerBlock;
-		if(total_page > numPerBlock && currentPageSetup > 0) {
-			sb.append("<li><a href='"+list_url+"page="+n+"' aria-label='Previous'><span aria-hidden='true' class='glyphicon glyphicon-triangle-left'></span></a></li>");
+/*		if(total_page > numPerBlock && currentPageSetup > 0) {
+			sb.append("<li><a href='"+list_url+"page="+n+"' aria-label='Previous'><span aria-hidden='true' class='fa fa-angle-double-left'></span></a></li>");
 		} else {
-			sb.append("<li class='disabled'><a href='#' aria-label='Previous'><span aria-hidden='true' class='glyphicon glyphicon-triangle-left'></span></a></li>");
+			sb.append("<li class='disabled'><a href='#' aria-label='Previous'><span aria-hidden='true' class='fa fa-angle-double-left'></span></a></li>");
 		}
-		
+		*/
 		// 바로가기
 		page=currentPageSetup+1;
 		while(page<=total_page && page <=(currentPageSetup+numPerBlock)) {
@@ -73,16 +73,16 @@ public class MyUtil {
 		// 다음(10페이지 후)
 		n=current_page+numPerBlock;
 		if(n>total_page) n=total_page;
-		if(total_page-currentPageSetup>numPerBlock) {
-			sb.append("<li><a href='"+list_url+"page="+n+"' aria-label='Next'><span aria-hidden='true' class='glyphicon glyphicon-triangle-right'></span></a></li>");
+/*		if(total_page-currentPageSetup>numPerBlock) {
+			sb.append("<li><a href='"+list_url+"page="+n+"' aria-label='Next'><span aria-hidden='true' class='fa fa-angle-right'></span></a></li>");
 		} else {
-			sb.append("<li class='disabled'><a href='#' aria-label='Next'><span aria-hidden='true' class='glyphicon glyphicon-triangle-right'></span></a></li>");
-		}
+			sb.append("<li class='disabled'><a href='#' aria-label='Next'><span aria-hidden='true' class='fa fa-angle-right'></span></a></li>");
+		}*/
 		// 마지막페이지
 		if(current_page<total_page) {
-			sb.append("<li><a href='"+list_url+"page="+total_page+"' aria-label='Last'><span aria-hidden='true' class='glyphicon glyphicon-step-forward'></span></a></li>");
+			sb.append("<li><a href='"+list_url+"page="+total_page+"' aria-label='Last'><span aria-hidden='true' class='fa fa-angle-right'></span></a></li>");
 		} else {
-			sb.append("<li class='disabled'><a href='#' aria-label='Last'><span aria-hidden='true' class='glyphicon glyphicon-step-forward'></span></a></li>");
+			sb.append("<li class='disabled'><a href='#' aria-label='Last'><span aria-hidden='true' class='fa fa-angle-right'></span></a></li>");
 		}
 		
 		sb.append("</ul>");

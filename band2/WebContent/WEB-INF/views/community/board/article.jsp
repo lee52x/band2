@@ -170,103 +170,134 @@ function deleteReply(replyNum,page){
 		},"json");
 	}
 }
-
-
-
 </script>
 
-<div class="bodyFrame2">
-    <div class="body-title">
-          <h3><span class="glyphicon glyphicon-book"></span> 게시판 </h3>
-    </div>
-    
-    <div class="alert alert-info">
-        <i class="glyphicon glyphicon-info-sign"></i> 회원과 자유로이 토론할 수 있는 공간입니다.
-    </div>
-    
-    <div class="table-responsive" style="clear: both;">
-        <div class="bbs-article">
-            <table class="table">
-                 <thead>
-                     <tr>
-                         <th colspan="2" style="text-align: center;">
-                                ${dto.subject}
-                         </th>
-                     </tr>
-                <thead>
-                 <tbody>
-                     <tr>
-                         <td style="text-align: left;">
-                             이름 : ${sessionScope.main.userId}
-                         </td>
-                         <td style="text-align: right;">
-                          ${dto.created}<i></i>조회 ${dto.hitCount}
-                         </td>
-                     </tr>
-                     <tr>
-                         <td colspan="2" style="height: 230px;">
-                              ${dto.content}
-                         </td>
-                     </tr>
-                     <tr>
-                         <td colspan="2">
-                              <span style="display: inline-block; min-width: 45px;">첨부</span> :
-                              <c:if test="${not empty dto.saveFilename}">
-                                  <a href="<%=cp%>/freeBoard/download/${boCateNum}/${url}?boardNo=${dto.boardNo}"><span class="glyphicon glyphicon-download-alt"></span> ${dto.originalFilename}</a>
-                              </c:if>
-                         </td>
-                     </tr>
-                     <tr>
-                         <td colspan="2">
-                              <span style="display: inline-block; min-width: 45px;">이전글</span> :
-                              <c:if test="${not empty preReadDto }">
-                                  <a href="<%=cp%>/freeBoard/article/${boCateNum}/${url}?${params}&boardNo=${preReadDto.boardNo}">${preReadDto.subject}</a>
-                              </c:if>					
-                         </td>
-                     </tr>
-                     <tr>
-                         <td colspan="2" style="border-bottom: #d5d5d5 solid 1px;">
-                              <span style="display: inline-block; min-width: 45px;">다음글</span> :
-                              <c:if test="${not empty nextReadDto }">
-                                  <a href="<%=cp%>/freeBoard/article/${boCateNum}/${url}?${params}&boardNo=${nextReadDto.boardNo}">${nextReadDto.subject}</a>
-                              </c:if>
-                         </td>
-                     </tr>                                          
-                </tbody>
-                <tfoot>
-                	<tr>
-                		<td>
-<c:if test="${sessionScope.main.userId==dto.userId}">
-                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="updateBoard();">수정</button>
-</c:if>
-<c:if test="${sessionScope.main.userId==dto.userId || sessionScope.main.userId=='admin'}">	                		    
-                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="deleteBoard();">삭제</button>
-</c:if>                		    
-                		</td>
-                		<td align="right">
-                		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/freeBoard/list/${boCateNum}/${url}?${params}';"> 목록으로 </button>
-                		</td>
-                	</tr>
-                </tfoot>
-            </table>
-       </div>
-       
-       <div class="bbs-reply">
-           <div class="bbs-reply-write">
-               <div style="clear: both;">
-           	       <div style="float: left;"><span style="font-weight: bold;">댓글쓰기</span><span> - 타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가 주세요.</span></div>
-           	       <div style="float: right; text-align: right;"></div>
-               </div>
-               <div style="clear: both; padding-top: 10px;">
-                   <textarea id="content" class="form-control" rows="3"></textarea>
-               </div>
-               <div style="text-align: right; padding-top: 10px;">
-                   <button type="button" class="btn btn-primary btn-sm" onclick="sendReply();"> 댓글등록 <span class="glyphicon glyphicon-ok"></span></button>
-               </div>           
-           </div>
-       
-           <div id="listReply"></div>
-       </div>
-   </div>
 
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<br>
+						<br>
+						<div style="text-align: center;">
+							<h4 class="title" style="color: #5D5D5D; font-weight: bold;'">${boardName}</h4>
+
+							<p class="category">그룹 회원들과 자유롭게 소통하세요!</p>
+						</div>
+
+						<div class="content table-responsive table-full-width"
+							style="width: 95%; padding-left: 130px;">
+							<div class="table-responsive" style="clear: both;">
+								<div class="bbs-article">
+									<table class="table">
+										<thead>
+											<tr>
+												<th colspan="2" style="text-align: center; background-color:#fbdf80; color:black;">
+													${dto.subject}</th>
+											</tr>
+										<thead>
+										<tbody>
+											<tr>
+												<td style="text-align: left;">이름 :
+													${sessionScope.main.userId}</td>
+												<td style="text-align: right;">${dto.created}<i></i>조회
+													${dto.hitCount}
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" style="height: 230px;">${dto.content}</td>
+											</tr>
+											<tr>
+												<td colspan="2"><span
+													style="display: inline-block; min-width: 45px;">첨부</span> :
+													<c:if test="${not empty dto.saveFilename}">
+														<a
+															href="<%=cp%>/freeBoard/download/${boCateNum}/${url}?boardNo=${dto.boardNo}"><span
+															class="glyphicon glyphicon-download-alt"></span>
+															${dto.originalFilename}</a>
+													</c:if></td>
+											</tr>
+											<tr>
+												<td colspan="2"><span
+													style="display: inline-block; min-width: 45px;">이전글</span>
+													: <c:if test="${not empty preReadDto }">
+														<a
+															href="<%=cp%>/freeBoard/article/${boCateNum}/${url}?${params}&boardNo=${preReadDto.boardNo}"
+															style="color:#334e7e;">${preReadDto.subject}</a>
+												</c:if></td>
+												
+											</tr>
+											<tr>
+												<td colspan="2" style="border-bottom: #d5d5d5 solid 1px;">
+													<span style="display: inline-block; min-width: 45px;">다음글</span>
+													: <c:if test="${not empty nextReadDto }">
+														<a
+															href="<%=cp%>/freeBoard/article/${boCateNum}/${url}?${params}&boardNo=${nextReadDto.boardNo}"
+															style="color:#334e7e;">${nextReadDto.subject}</a>
+													</c:if>
+												</td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr>
+												<td><c:if
+														test="${sessionScope.main.userId==dto.userId}">
+														<button type="button" class="btn btn-default btn-sm"
+														style="background-color: #fbdf80; border:0; color:black;"
+															onclick="updateBoard();">수정</button>
+													</c:if> <c:if
+														test="${sessionScope.main.userId==dto.userId || sessionScope.main.userId=='admin'}">
+														<button type="button" class="btn btn-default btn-sm"
+														style="background-color: #fbdf80; border:0; color:black;"
+															onclick="deleteBoard();">삭제</button>
+													</c:if></td>
+												<td align="right">
+													<button type="button" class="btn btn-default btn-sm"
+													style="background-color: #fbdf80; border:0; color:black; float:right;"
+														onclick="javascript:location.href='<%=cp%>/freeBoard/list/${boCateNum}/${url}?${params}';">
+														목록으로</button>
+												</td>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+
+								<div class="bbs-reply">
+									<div class="bbs-reply-write" style="border: #ffffff solid 1px;">
+										<div style="clear: both;">
+											<div style="float: left;">
+												<span style="font-weight: bold;">댓글쓰기</span><span> -
+													타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가 주세요.</span>
+											</div>
+											<div style="float: right; text-align: right;"></div>
+										</div>
+										<div style="clear: both; padding-top: 10px;">
+											<textarea id="content" class="form-control" rows="3"></textarea>
+										</div>
+										<div style="text-align: right; padding-top: 10px;">
+											<button type="button" class="btn btn-default btn-sm"
+													style="background-color: #fbdf80; border:0; color:black; float:right;"
+												onclick="sendReply();">
+												댓글등록
+											</button>
+										</div>
+									</div>
+<br><br><br>
+									<div id="listReply"></div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
 </div>
+
