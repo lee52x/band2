@@ -5,12 +5,24 @@ import org.springframework.web.multipart.MultipartFile;
 public class Picture {
 	
 	private int manageNo, image;
-	private String saveFilename, groupURL;
+	private String saveFilename, groupURL, groupName, introduce;
 	private MultipartFile upload1;
 	private MultipartFile upload2;
 	private MultipartFile upload3;
 	
 	
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+	public String getIntroduce() {
+		return introduce;
+	}
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
 	public MultipartFile getUpload1() {
 		return upload1;
 	}

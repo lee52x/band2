@@ -36,9 +36,9 @@
 </select>
 
 <select id="readMainPicture" parameterType="String" resultType="com.band.manager.picture.Picture">
-	SELECT manageNo, saveFilename, image, groupURL
-	FROM management
-	WHERE groupURL=#{groupURL} and image=1
+	SELECT manageNo, saveFilename, image, man.groupURL, groupName, introduce
+	FROM management man JOIN community com ON man.groupURL=com.groupURL
+	WHERE man.groupURL='test' and image=1
 </select>
 
 

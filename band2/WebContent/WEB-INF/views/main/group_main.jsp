@@ -220,8 +220,8 @@ function checkMember() {
 					<div class="caption">
 						<div class="row">
 							<div class="col-sm-5 col-sm-offset-3 form-box">
-            					<h1 class="animated fadeInLeftBig">쌍용대학교 <span>개발동아리</span></h1>
-            					<p class="animated fadeInRightBig">그룹 소개 그룹 소개 그룹 소개</p>
+            					<h1 class="animated fadeInLeftBig"><span>${pdto.groupName}</span></h1>
+            					<p class="animated fadeInRightBig">${pdto.introduce}</p>
          					 </div>
 							<div class="col-sm-5 col-sm-offset-3 form-box">
 								<div class="form-top">

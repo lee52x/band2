@@ -8,5 +8,9 @@
 		SELECT memberNo, mem.userId, pwd, email, birth, mem.name, tel, gender, grade, mem.groupURL, groupName
 		FROM member_${url} mem JOIN community com ON mem.groupURL=com.groupURL 
 		WHERE mem.userId=#{userId}
+	</select>
+	
+	<select id="readGroup" parameterType="String" resultType="com.band.group.Group">
+		SELECT groupName, introduce FROM community WHERE groupURL=#{url}
 	</select>	
 </mapper>

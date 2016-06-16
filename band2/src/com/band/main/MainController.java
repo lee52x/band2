@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.band.community.CommunityService;
+import com.band.group.Group;
 import com.band.manager.picture.Picture;
 
 @Controller("main.mainController")
@@ -32,7 +33,8 @@ public class MainController {
 	   @RequestMapping(value="/group/{url}",method=RequestMethod.GET)
 	   public ModelAndView loginForm(
 	         @PathVariable String url,
-	         Picture pdto
+	         Picture pdto,
+	         Group dto
 	         )throws Exception{
 		   
 		   //대표사진 가져오기
@@ -41,6 +43,7 @@ public class MainController {
 	      ModelAndView mav=new ModelAndView(".mainLogin");
 	         mav.addObject("url", url);
 	         mav.addObject("pdto",pdto);
+	         mav.addObject("dto", dto);
 	      return mav;
 	   }
 	   
