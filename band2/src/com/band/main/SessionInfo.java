@@ -3,9 +3,16 @@ package com.band.main;
 public class SessionInfo {
 	
 	private String userId;
-	private String userName, groupName;
+	private String userName, groupName, introduce;
 	private int memberNo, grade;
 	
+	
+	public String getIntroduce() {
+		return introduce;
+	}
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
 	public String getGroupName() {
 		return groupName;
 	}

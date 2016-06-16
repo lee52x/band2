@@ -1,10 +1,16 @@
 package com.band.main;
 
 public class Main {
-	private String userId, pwd, name, birth, email, tel, groupURL, groupName;
+	private String userId, pwd, name, birth, email, tel, groupURL, groupName, introduce;
 	private int memberNo, gender, grade;
 	
 	
+	public String getIntroduce() {
+		return introduce;
+	}
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
 	public String getGroupName() {
 		return groupName;
 	}

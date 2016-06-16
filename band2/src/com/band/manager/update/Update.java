@@ -2,9 +2,16 @@ package com.band.manager.update;
 
 public class Update {
 	
-	private String groupURL, groupName, area, verification, bankName;
+	private String groupURL, groupName, area, verification, bankName, introduce;
 	private String accountNumber, accountHolder, userId, foundationDay;
 	
+	
+	public String getIntroduce() {
+		return introduce;
+	}
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
 	public String getFoundationDay() {
 		return foundationDay;
 	}

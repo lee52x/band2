@@ -5,12 +5,8 @@
 <mapper namespace="main">	
 	<!-- 로그인  시 회원정보 가져오기 -->
 	<select id="readMember" parameterType="map" resultType="com.band.main.Main">
-		SELECT memberNo, mem.userId, pwd, email, birth, mem.name, tel, gender, grade, mem.groupURL, groupName
+		SELECT memberNo, mem.userId, pwd, email, birth, mem.name, tel, gender, grade, mem.groupURL, groupName, introduce
 		FROM member_${url} mem JOIN community com ON mem.groupURL=com.groupURL 
 		WHERE mem.userId=#{userId}
 	</select>
-	
-	<select id="readGroup" parameterType="String" resultType="com.band.group.Group">
-		SELECT groupName, introduce FROM community WHERE groupURL=#{url}
-	</select>	
 </mapper>

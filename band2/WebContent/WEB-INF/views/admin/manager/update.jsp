@@ -93,6 +93,12 @@ function submitUpdate() {
                           <input type="text" class="form-control" name="area" value="${dto.area}">
                         </div>
                       </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">그룹 소개</label>
+                        <div class="col-md-6 col-sm-9 col-xs-12">
+                          <textarea class="form-control" name="introduce">${dto.introduce}</textarea>
+                        </div>
+                      </div>
                        <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">거래 은행</label>
                         <div class="col-md-6 col-sm-9 col-xs-12">
