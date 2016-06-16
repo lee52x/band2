@@ -71,6 +71,21 @@ function isValidDateFormat(data){
 	return isValidDate(year, month, day);		
 }
 
+function isValidPhoneNumber(data){
+	var regexp=/(\.)|(\-)|(\/)/g;
+	data=data.replace(regexp, "");
+	
+	if(data.length!=11)
+		return false;
+
+	var format = /[0][0-9]{2}[0-9]{4}[0-9]{4}/;
+	if(! format.test(data))
+		return false;
+	
+	return true;
+
+}
+
 // 날짜가 정확한지 검사(문자)
 function isValidDate(y, m, d){
 	var year, month, day;

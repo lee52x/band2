@@ -153,10 +153,7 @@ function sendReplyAnswer(guestNo) {
 <div class="stream-list" >
 								
 									<div class="media stream">
-										<a href="#" class="media-avatar medium pull-left">
-											<img src="<%=cp%>/res/img/user.png">
-										</a>
-											<div class="stream-headline">
+												<div class="stream-headline">
 												<h5 class="stream-author">
 											<p style="font-weight: bolder;">${dto.name }
 												<a onclick="deleteGuest('${dto.guestNo}','${dto.imageFilename}')"><span style="color: red" class="icon-trash shaded pull-right">Delete</span></a>

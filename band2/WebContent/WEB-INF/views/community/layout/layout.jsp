@@ -68,7 +68,7 @@
 
 
     <!--   Core JS Files   -->
-	<script src="<%=cp%>/res/js/community/bootstrap.min.js" type="text/javascript"></script>
+	<script src="<%=cp%>/res/js/community/bootstrap.min.js"></script>
 	
 	<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<!-- 사이드 메뉴바에 사진 배경 보이게 하는 역할...?! -->
