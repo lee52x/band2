@@ -1,10 +1,16 @@
 package com.band.main;
 
 public class Main {
-	private String userId, pwd, name, birth, email, tel, groupURL;
+	private String userId, pwd, name, birth, email, tel, groupURL, groupName;
 	private int memberNo, gender, grade;
 	
 	
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
 	public String getBirth() {
 		return birth;
 	}

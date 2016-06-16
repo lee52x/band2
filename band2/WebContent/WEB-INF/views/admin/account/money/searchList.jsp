@@ -101,7 +101,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <small>상세 조회 내역</small>
+                    <small style="font-weight: bold;">상세 조회 내역</small>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -165,12 +165,13 @@
                             <td class=" ">${dto.deposit}</td>
                             <td class=" ">
                             <c:if test="${not empty dto.accountName}">
+                            <a style="cursor:pointer;" onclick="cateList('${dto.accountName}');">
+                            	<c:if test="${dto.accountName=='미분류'}">
+                            		<i class="yellow"><i class="fa fa-exclamation-triangle"></i></i>
+                            	</c:if>
                             ${dto.accountName}
+                            </a>
                             </c:if>
-                            <c:if test="${empty dto.accountName}">
-                            <i class="yellow"><i class="fa fa-exclamation-triangle"></i></i> 미분류
-                            </c:if>
-                            
                             </td>
                             <td class=" ">
                             <a href="#">

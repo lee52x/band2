@@ -76,7 +76,7 @@ function question(){
                         
                         <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: blue">
-                                 ${sessionScope.main.userId}님
+                                 ${sessionScope.main.userName}님
                                     <b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">

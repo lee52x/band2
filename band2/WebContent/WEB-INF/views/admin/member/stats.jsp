@@ -63,7 +63,7 @@
 	<div class="col-md-12">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>회원 현황</h2>
+				<h2><small style="font-weight: bold;">회원 현황</small></h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -94,7 +94,7 @@
 				<div class="col-md-3 col-sm-3 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>남성/여성 비율</h2>
+							<h2><small style="font-weight: bold;">남성/여성 비율</small></h2>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -108,7 +108,7 @@
 				<div class="col-md-3 col-sm-3 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>커뮤니티 가입 비율</h2>
+							<h2><small style="font-weight: bold;">커뮤니티 가입 비율</small></h2>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -123,7 +123,7 @@
 					<div class="x_panel">
 						<div>
 							<div class="x_title">
-								<h2>최근 가입한 회원</h2>
+								<h2><small style="font-weight: bold;">최근 가입한 회원</small></h2>
 								<div class="clearfix"></div>
 							</div>
 							<ul class="list-unstyled top_profiles scroll-view">
@@ -150,7 +150,7 @@
 					<div class="x_panel">
 						<div>
 							<div class="x_title">
-								<h2>이번 달에 생일인 회원</h2>
+								<h2><small style="font-weight: bold;">이번 달 생일 회원</small></h2>
 								<div class="clearfix"></div>
 							</div>
 							<ul class="list-unstyled top_profiles scroll-view">
@@ -183,7 +183,7 @@
 		<div class="x_panel">
 			<div class="panel panel-body">
 				<div class="x_title">
-					<h4>출석률 현황</h4>
+					<h4><small style="font-weight: bold;">출석률 현황</small></h4>
 				</div>
                          
 				<div class="row">
@@ -481,7 +481,7 @@
 
         echartBar.setOption({
           title: {
-            text: '년도별 회원수 현황',
+            text: '작년 대비 회원수 현황',
             subtext: '작년 ~ 올해'
           },
           tooltip: {

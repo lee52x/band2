@@ -14,20 +14,13 @@
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
-
+              
               <ul class="nav navbar-nav navbar-right">
               
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="<%=cp%>/res/img/img.jpg" alt="">이 현 규
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                </li>
-
                 <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">10</span>
+                
+                  <a href="<%=cp%>/group/${url}" class="dropdown-toggle info-number">
+                    ${sessionScope.main.userName}님&nbsp;&nbsp;<i class="fa fa-power-off"></i> LOGOUT
                   </a>
                 </li>
 

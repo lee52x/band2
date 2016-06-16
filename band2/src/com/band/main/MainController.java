@@ -74,6 +74,7 @@ public class MainController {
 	      info.setMemberNo(dto.getMemberNo());
 	      info.setUserName(dto.getName());
 	      info.setGrade(dto.getGrade());
+	      info.setGroupName(dto.getGroupName());
 	      
 	      
 	      session.setAttribute("main", info);

@@ -319,7 +319,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Table design <small>Custom design</small></h2>
+                    <h2><small style="font-weight: bold;">입출금 내역</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -340,7 +340,7 @@
 
                   <div class="x_content">
 					
-                    <h1 style="text-align:center; padding-right:170px;​">
+                    <h1 style="text-align:center; font-weight:bold; padding-right:170px;​">
                     <button type="button" class="btn btn-default btn-sm" style="float:left;" data-toggle="modal" data-target="#myModal">사용 내역 엑셀 업로드</button>
                     	<c:if test="${mvo!=1}">
                     	<a href="javascript:location.href='<%=cp%>/account/main/${url}?year=${year}&month=${month-1}';"><i class="glyphicon glyphicon-chevron-left"></i></a>

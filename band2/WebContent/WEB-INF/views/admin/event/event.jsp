@@ -647,32 +647,7 @@ $(function(){
 							<div class="modal-body">
 								<form class="form-horizontal form-label-left input_mask">																	                          
                           
-                          <div class="x_content">                            
-                            <div class="flex">
-                              <ul class="list-inline count2">
-                                <li>
-                                  <h1 id="modalName" style="color: #0066ff;"></h1>                                  
-                                </li>
-                              	<li>
-                              		<h3 id="modalEventNo"></h3>
-                              		<span>일정번호</span>
-                              	</li>
-                                <li>
-                                  	<h3 id="modalUserId"></h3>                                  	                                  	                                                              
-                                  <span>아이디</span>
-                                </li>                                
-                                <li>                                	
-                                </li>
-                                <li>
-                                  	<h5 id="modalGender"></h5>                                  	                                  	                                                              
-                                  <span>성별</span>
-                                </li>
-                                <li>
-                                  	<h5 id="modalGrade"></h5>                                  	                                  	                                                              
-                                  <span>회원등급</span>
-                                </li>
-                              </ul>
-                            </div>                         
+                          <div class="x_content">                                                    
                           </div>    
                       <div class="form-group">
 	                    <label class="control-label col-md-3 col-sm-3 col-xs-12">일정명</label>

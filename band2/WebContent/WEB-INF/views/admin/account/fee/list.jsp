@@ -14,7 +14,7 @@
 	margin-left:15%;
 	}
 	.tabs-left>li>a {
-    background: rgba(70, 165, 146, 0.16);
+    background: rgba(105, 139, 199, 0.15);
     }
 </style>
 

@@ -127,7 +127,7 @@ function deleteMember() {
 		<!-- 회원관리 패널 제목 시작 -->
 		<div class="x_title">
 			<h2>
-				<i class="fa fa-bars"></i> 회원관리
+				<i class="fa fa-bars"></i> <small style="font-weight: bold;">회원관리</small>
 			</h2>
 			<ul class="nav navbar-right panel_toolbox">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -164,7 +164,7 @@ function deleteMember() {
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>회원 리스트 <small>우리 모임 전체 회원</small></h2>
+									<h2><small style="font-weight: bold;">회원 리스트</small></h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 										<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -184,7 +184,7 @@ function deleteMember() {
 										class="table table-striped table-bordered">
 										<thead>
 											<tr>
-												<th>회원번호</th>
+												<th style="width:30px;">번호</th>
 												<th>이름</th>
 												<th>아이디</th>
 												<th>성별</th>
@@ -215,11 +215,11 @@ function deleteMember() {
 													<td>${dto.tel}</td>
 													<td>${dto.joinDate}</td>
 													<td><c:choose>
-															<c:when test="${dto.grade == 1}">그룹장</c:when>
-															<c:when test="${dto.grade == 2}">운영진</c:when>
-															<c:when test="${dto.grade == 3}">일반회원</c:when>
-															<c:when test="${dto.grade == 4}">OB회원</c:when>
-															<c:when test="${dto.grade == 5}">비활동회원</c:when>
+															<c:when test="${dto.grade == 1}"><div class="btn btn-danger btn-xs">그룹장</div></c:when>
+															<c:when test="${dto.grade == 2}"><div class="btn btn-warning btn-xs">운영진</div></c:when>
+															<c:when test="${dto.grade == 3}"><div class="btn btn-info btn-xs">일　반</div></c:when>
+															<c:when test="${dto.grade == 4}"><div class="btn btn-success btn-xs">O　&nbsp;&nbsp;B</div></c:when>
+															<c:when test="${dto.grade == 5}"><div class="btn btn-default btn-xs">미가입</div></c:when>
 														</c:choose>
 													</td>
 												</tr>
@@ -237,7 +237,7 @@ function deleteMember() {
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>회원 등록 <small>회원정보 입력</small></h2>
+									<h2><small style="font-weight: bold;">회원 등록</small></h2>
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -311,9 +311,10 @@ function deleteMember() {
 										<div class="ln_solid"></div>
 										<div class="form-group">
 											<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-												<button type="reset" class="btn btn-primary">다시작성</button>
-												<button type="submit" class="btn btn-success"
+												
+												<button type="submit" class="btn btn-success btn-sm"
 													onclick="javascript:location.href='<%=cp%>/admin/member/member/{url}';">작성완료</button>
+												<button type="reset" class="btn btn-default btn-sm">다시작성</button>
 											</div>
 										</div>
 									</form>
@@ -339,54 +340,53 @@ function deleteMember() {
 										<div class="x_content">
 											<div class="flex">
 												<ul class="list-inline count2">
-													<li><h1 id="modalName" style="color: #0066ff;"></h1></li>
-													<li><h3 id="modalMemberNo"></h3> <span>회원번호</span></li>
-													<li><h3 id="modalUserId"></h3> <span>아이디</span></li>
-													<li></li>
-													<li><h3 id="modalHeaderGender"></h3> <span>성별</span></li>
-													<li><h3 id="modalHeaderGrade"></h3> <span>회원등급</span></li>
+													<li><h1 id="modalMemberNo"></h1> <span>회원번호</span></li>
+													<li><h1 id="modalName" style="color:#334e7e ;"></h1><span>이름</span></li>
+													<li><h1 id="modalUserId"></h1> <span>아이디</span></li>
+													<li><h1 id="modalHeaderGender"></h1> <span>성별</span></li>
+													<li><h1 id="modalHeaderGrade"></h1> <span>회원등급</span></li>
 												</ul>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">이름:</label>
-											<div class="col-md-9 col-sm-9 col-xs-12">
+											<div class="col-md-6 col-sm-9 col-xs-12">
 												<input id="modalRename" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">생년월일:</label>
-											<div class="col-md-9 col-sm-9 col-xs-12">
+											<div class="col-md-6 col-sm-9 col-xs-12">
 												<input id="modalBirth" type="date" class="form-control">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">주소:</label>
-											<div class="col-md-9 col-sm-9 col-xs-12">
+											<div class="col-md-6 col-sm-9 col-xs-12">
 												<input id="modalAddress" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">이메일:</label>
-											<div class="col-md-9 col-sm-9 col-xs-12">
+											<div class="col-md-6 col-sm-9 col-xs-12">
 												<input id="modalEmail" type="email" class="form-control">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">전화번호:</label>
-											<div class="col-md-9 col-sm-9 col-xs-12">
+											<div class="col-md-6 col-sm-9 col-xs-12">
 												<input id="modalTel" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">가입일:</label>
-											<div class="col-md-9 col-sm-9 col-xs-12">
+											<div class="col-md-6 col-sm-9 col-xs-12">
 												<input id="modalJoinDate" type="date" class="form-control">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-md-3 col-sm-3 col-xs-12">성별</label>
-											<div class="col-md-9 col-sm-9 col-xs-12">
+											<div class="col-md-6 col-sm-9 col-xs-12">
 												<div id="modalGender" class="btn-group"	data-toggle="buttons">
 													<label class="btn btn-default" data-toggle-class="btn-primary"
 														data-toggle-passive-class="btn-default">
@@ -419,8 +419,8 @@ function deleteMember() {
 									</form>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-danger" onclick="deleteMember()">삭제하기</button>
-									<button type="button" class="btn btn-primary" onclick="updateMember()">수정하기</button>
+									<button type="button" class="btn btn-default btn-sm" onclick="deleteMember()">삭제하기</button>
+									<button type="button" class="btn btn-default btn-sm" onclick="updateMember()">수정하기</button>
 								</div>
 							</div>
 						</div>

@@ -91,7 +91,7 @@
 	<div class="x_panel">
 		<div class="x_title">
 			<h2>
-				<small>최근 내역 현황</small>
+				<small style="font-weight: bold;">최근 내역 현황</small>
 			</h2>
 			<ul class="nav navbar-right panel_toolbox">
 				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -134,7 +134,7 @@
 <div class="col-md-6 col-sm-8 col-xs-12">
 	<div class="x_panel">
 		<div class="x_title">
-			<h2><small>카테고리별 지출 현황</small></h2>
+			<h2><small style="font-weight: bold;">카테고리별 지출 현황</small></h2>
 			<ul class="nav navbar-right panel_toolbox">
 				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 				</li>
@@ -162,7 +162,7 @@
 <div class="col-md-6 col-sm-4 col-xs-12">
 	<div class="x_panel">
 		<div class="x_title">
-			<h2><small>카테고리 별 수입 현황</small></h2>
+			<h2><small style="font-weight: bold;">카테고리 별 수입 현황</small></h2>
 			<ul class="nav navbar-right panel_toolbox">
 				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 				</li>
@@ -189,7 +189,7 @@
 <div class="col-md-8 col-sm-8 col-xs-12" style="min-height:600px;">
 	<div class="x_panel">
 		<div class="x_title">
-			<h2><small>월별 차트</small></h2>
+			<h2><small style="font-weight: bold;">월별 차트</small></h2>
 			<ul class="nav navbar-right panel_toolbox">
 				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 				</li>
@@ -216,7 +216,7 @@
 <div class="col-md-4 col-sm-4 col-xs-12">
 	<div class="x_panel">
 		<div class="x_title">
-			<h2><small>일정별 현황</small></h2>
+			<h2><small style="font-weight: bold;">일정별 현황</small></h2>
 			<ul class="nav navbar-right panel_toolbox">
 				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 				</li>

@@ -3,10 +3,15 @@ package com.band.main;
 public class SessionInfo {
 	
 	private String userId;
-	private String userName;
+	private String userName, groupName;
 	private int memberNo, grade;
-
 	
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
 	public String getUserId() {
 		return userId;
 	}
