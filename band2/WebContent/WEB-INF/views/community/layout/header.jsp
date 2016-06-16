@@ -8,7 +8,7 @@
 
 
 <!-- Start : header Bar -->
-    <nav class="navbar navbar-default navbar-fixed">
+    <nav class="navbar navbar-default navbar-fixed" style="background-color: #fbdf80 ">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
