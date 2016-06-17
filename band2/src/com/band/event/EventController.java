@@ -70,7 +70,7 @@ public class EventController {
 		map.put("list", Arrays.asList(table_records));
 		
 		service.deleteEvent(map);	
-		ModelAndView mav = new ModelAndView("redirect:/event/"+url);
+		ModelAndView mav = new ModelAndView("redirect:/event/list/"+url);
 		return mav;
 	}
 	
@@ -85,7 +85,7 @@ public class EventController {
 		map.put("list", Arrays.asList(table_records));
 		
 		service.updateEvent(map);
-		ModelAndView mav = new ModelAndView("redirect:/event/"+url);
+		ModelAndView mav = new ModelAndView("redirect:/event/list/"+url);
 		return mav;
 	}
 	
