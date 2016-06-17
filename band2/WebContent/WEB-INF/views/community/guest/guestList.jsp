@@ -153,9 +153,10 @@ function sendReplyAnswer(guestNo) {
 	<div class="stream-list">
 
 		<div class="media stream">
+		
 			<div class="stream-headline">
 				<h5 class="stream-author">
-					<p style="font-weight: bolder;">${dto.name }
+					<p style="font-weight: bold; color:#5d5d5d;">${dto.name }
 						<a onclick="deleteGuest('${dto.guestNo}','${dto.imageFilename}')"
 							class="btn btn-small pull-right"
 							style="border-radius:0px; background-color:#bdbdbd; color:#FFF; padding: 5px 6px;"><span
@@ -229,7 +230,7 @@ function sendReplyAnswer(guestNo) {
 	</div>
 	<div id="listReplyAnswer${dto.guestNo}"
 		style="padding-top: 5px; min-height: 50px;"></div>
-	<hr style="border-top: 1px solid #BDBDBD"/>
+	 <hr style="border-top: 1px solid #e0e0e0"/>
 
 </c:forEach>
 

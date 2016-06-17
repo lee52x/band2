@@ -32,6 +32,16 @@
 	background-color: #fbdf80;"
 }
  
+ 
+ 
+#content:hover{
+	background-color: #fbdf80;
+}
+
+#player:hover{
+	background-color: #fbdf80;
+}
+ 
 </style>
 
 <script type="text/javascript">
@@ -234,7 +244,7 @@ function deleteGuest(guestNo,imageFilename){
                      <!-- <div class="module-body"> -->
                         <div class="stream-composer media">
                         
-                        
+                        <BR>
                         <!-- 원래 여기 아래 div 태그에 class="media-body"가 적용됐었음 -->
                           <div  >
                            
@@ -243,10 +253,10 @@ function deleteGuest(guestNo,imageFilename){
                                  <textarea class="span12" id="content" name="content" placeholder="무슨 생각을 하고 계신가요?" style="height: 70px;"></textarea>
                               </div>
                               <br>
-                     <p style="color:#8c8c8c;"><img src="<%=cp%>/res/img/community/youtube.png" style="width:24px; height: 24px;"/ >&nbsp;Youtube 링크 <a href="javascript:howYoutube();"><i class="icon-question-sign shaded" style="color: 1DC7EA"></i></a></p>
+                     <p style="color:#8c8c8c;"><img src="<%=cp%>/res/img/community/youtube.png" style="width:24px; height: 24px;"/ >&nbsp;Youtube 링크 <a href="javascript:howYoutube();"><i class="icon-question-sign shaded" style="color: #334e7e"></i></a></p>
                     
-                     <input style="margin-left:0px; width:870px; height: 30px;" type="text" class="span12" id="player" name="player" placeholder="주소" >
-                    <br><br><br>
+                     <input style="margin-left:0px; width:870px; height: 30px; margin-bottom: 23px;" type="text" class="span12" id="player" name="player" placeholder="주소" >
+                    <br><br>
                     
                      <p style="color:#8c8c8c;"><img src="<%=cp%>/res/img/community/image.png" style="width:24px; height: 24px;"/ >&nbsp;Image 등록</p>
                     
@@ -284,14 +294,14 @@ function deleteGuest(guestNo,imageFilename){
         <!-- 닫기(x) 버튼 -->
         <button type="button" class="close" data-dismiss="modal" ><span aria-hidden="true">×</span></button>
         <!-- header title -->
-        <h4 class="modal-title" id="myModalLabel" style="color:#FFF;font-size: 20px; font-weight: bold;word-spacing: 100;" >유튜브 공유 방법</h4>
+        <h4 class="modal-title" id="myModalLabel" style="color:#FFF;font-size: 20px; font-weight: bold;word-spacing: 100;" >Youtube 공유 방법</h4>
       </div>
       
       <!-- body -->
       
       <div class="modal-body" style="background-color: #FFFFFF">
-      1.Youtube에 원하는 동영상 클릭<br><br>
-      2.주소창의 뒤의  고유코드 붙여넣기<br>
+      1. Youtube에 원하는 동영상 클릭<br><br>
+      2. 주소창의 뒤의  고유코드 붙여넣기<br>
 
       </div>
 </div>
