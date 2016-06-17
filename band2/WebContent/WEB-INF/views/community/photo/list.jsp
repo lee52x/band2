@@ -71,14 +71,14 @@ function article(photoNo) {
 		    </p>
 		
 		    <div style="max-width:900px; margin: 0px auto;">
-		<c:if test="${dataCount!=0 }">    
-		        <div style="clear: both; height: 30px; line-height: 30px;">
-		        <p align="right">
+		<c:if test="${dataCount!=0 }"> 
+		<br>   
+		        <div style=" color:grey; clear: both; height: 30px; line-height: 30px;">
+		        <p align="right" style="font-size:12px">
 		            ${dataCount}개(${page}/${total_page} 페이지)
 		        </p>
 		        </div>
-		        
-		        <br><br>
+
 		        <div style="clear: both;">
 		    <c:forEach var="dto" items="${list}" varStatus="status">
 		                 <c:if test="${status.index==0}">

@@ -158,8 +158,8 @@ function sendReplyAnswer(guestNo) {
 					<p style="font-weight: bolder;">${dto.name }
 						<a onclick="deleteGuest('${dto.guestNo}','${dto.imageFilename}')"
 							class="btn btn-small pull-right"
-							style="color: red; border-color: red;"><span
-							style="margin-left: 0px;" class="icon-trash shaded pull-right">&nbsp;Delete</span></a>
+							style="border-radius:0px; background-color:#bdbdbd; color:#FFF; padding: 5px 6px;"><span
+							style="margin-left: 0px;" class="icon-remove shaded pull-right"></span></a>
 					</p>
 					<small>${dto.created}</small>
 
@@ -180,7 +180,7 @@ function sendReplyAnswer(guestNo) {
 					<br><br>
 						<div class="stream-attachment photo">
 							<div class="responsive-photo">
-								<img src="<%=cp%>/res/img/community/image.png" style="width:24px; height: 24px; margin-bottom: 4px;"/ ><br>
+								
 								<p style="margin-bottom: 0px;">
 									<img src="<%=cp%>/uploads/guest/${dto.imageFilename}">
 								</p>
@@ -199,7 +199,7 @@ function sendReplyAnswer(guestNo) {
 				<div class="stream-attachment video">
 					<div class="responsive-video">
 
-						<img src="<%=cp%>/res/img/community/youtube.png" style="width:24px; height: 24px;"/ ><br>
+						
 						<iframe width="640" height="360" style="border: none;"
 							src="http://www.youtube.com/embed/${dto.player}"> </iframe>
 			</c:if>
@@ -213,7 +213,7 @@ function sendReplyAnswer(guestNo) {
 
 
 		<a href="javascript:sendLike('${dto.guestNo}','1')"
-			class="btn btn-small" style="color: #1DC7EA; border-color: #1DC7EA;"><span
+			class="btn btn-small" style="color: #fff; background-color:#334e7e ;border-color: #1DC7EA;"><span
 			class="icon-thumbs-up shaded"></span>&nbsp;Like&nbsp;<span
 			id="likeCount${dto.guestNo}">${dto.likeCount}</span> </a> <a
 			href="javascript:sendReplyAnswerDlg('${dto.guestNo}');"
@@ -240,23 +240,23 @@ function sendReplyAnswer(guestNo) {
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
+			<div class="modal-header"  style="background-color:#334e7e; color:#FFF; font-size: 20px; font-weight: bold;">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				댓글작성
+				댓글 쓰기
 			</div>
 			<div class="modal-body">
 				<form name="modalReplyForm" method="post">
 					<div class="form-group">
-						<label class="control-label" for="modalContent">작성자:${dto.name}</label><br>
+						<label class="control-label" for="modalContent">작성자: ${sessionScope.main.userName} </label><br>
 
 						<div class="row-fluid">
 							<input type="text" id="modalContent" name="content"
-								placeholder="내용을 입력하세요" style="width: 510px"> <input
+								placeholder="내용을 입력하세요" style="width: 470px"> <input
 								type="hidden" id="modalGuestNo" name="guestNo">
-							<button class="btn btn-primary" type="button"
+							&nbsp;<button class="btn btn-primary" type="button"
 								onclick="modalSendReply();">등록</button>
 						</div>
 					</div>
