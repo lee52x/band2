@@ -42,73 +42,97 @@
 
 <script>
 function list(transactionNo) {
-    var v=$("#accountList").is(":visible");
-    var h=$("#accountList").text();
-    if(!v && h=="") {
 	 	var url="<%=cp%>/community/accountList/${url}";
   	    $.post(url, {transactionNo:transactionNo}, function(data){
   		 $("#accountList").html(data);
   		 $("#accountList").show();
-	    });
-    } else if(!v && h!=""){
-    	$("#accountList").show();
-    } else {
-    	$("#accountList").hide();
-    }
-  	
+  	    });
 }
 </script>
 
-		<!-- Start : Board List -->
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="card">
-				<div class="header">
-					<h4 class="title">공 지 사 항</h4>
-					<p class="category">공지사항 임시 테이블</p>
-				</div>
-				<div class="content table-responsive table-full-width">
-					<table class="table table-hover table-striped">
-						<thead>
-							<th style="width: calc(10%);">공지 번호</th>
-							<th style="width: calc(60%);">공지 내용</th>
-							<th style="width: calc(15%);">공지 날짜</th>
-						</thead>
-						<tbody>
-							<c:forEach items="${nlist}" var="vo">
-								<tr>
-									<td>${vo.listNum}</td>
-									<td>${vo.content}</td>
-									<td>${vo.created}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+<div style="min-height: 300px;">
+<!-- Start : Board List -->
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<br><br>
+						<div style="text-align: center;">
+						<h4 class="title" style="color: #5D5D5D; font-weight: bold;'">공지사항</h4>
+						
+						<p class="category">그룹 관련 공지사항을 확인하세요!</p>
+						</div>
+						
+						<div class="content table-responsive table-full-width" style="width:95%; padding-left:130px;">
+							<table class="table table-hover table-striped">
+								<thead style="background-color: #fbdf80;">
+									<tr>
+										<th style="width: 15%; text-align: center; color:black;">번호</th>
+										<th style="width: 50%; text-align: center; color:black;">내용</th>
+										<th style="width: 25%; text-align: center; color:black;">날짜</th>
+									</tr>
+								</thead>
+								<tbody style="text-align: center;">
+									<c:forEach items="${nlist}" var="vo">
+										<tr>
+											<td>${vo.listNum}</td>
+											<td>${vo.content}</td>
+											<td>${vo.created}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
-
-
-			<div class="card">
-				<div class="header">
-					<h4 class="title">회 계 내 역</h4>
-					<p class="category">Here is a subtitle for this table</p>
-				</div>
-				<br>
-                <ul class="list-group">
-              	  <c:forEach items="${accountList}" var="dto">
-                    <li><a href="#" onclick="list('${dto.transactionNo}');" class="list-group-item">${dto.listName}
-                    	<c:if test="${sessionScope.main.grade==1||sessionScope.main.grade==2}">
-                    	<span onclick="javascript:location.href='<%=cp%>/community/deleteList/${url}?listNum=${dto.listNum}';" class="deletebtn">삭제</span>
-                    	</c:if>
-                    	</a></li>
-                  </c:forEach>
-                </ul>
-                <div id="accountList" style="display:none;"></div>
-			</div>
-
 		</div>
 	</div>
 </div>
-<!-- End : Board List -->
+
+<!-- Start : Board List -->
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header">
+						<br>
+						<br>
+						<div style="text-align: center;">
+							<h4 class="title" style="color: #5D5D5D; font-weight: bold;'">회계내역</h4>
+
+							<p class="category">그룹 회계 관련 결산 내역을 확인하세요!</p>
+						</div>
+
+						<div class="content table-responsive table-full-width"
+							style="width: 95%; padding-left: 130px;">
+							<ul class="list-group" style="list-style-type: none;">
+								<c:forEach items="${accountList}" var="dto">
+									<li><a href="#" onclick="list('${dto.transactionNo}');"
+										class="list-group-item">
+										<i class="fa fa-database"></i>
+										[ <span style="color:#334e7e;">${dto.listName}</span> ] 결산 내역<c:if
+												test="${sessionScope.main.grade==1||sessionScope.main.grade==2}">
+												<span
+													onclick="javascript:location.href='<%=cp%>/community/deleteList/${url}?listNum=${dto.listNum}';"
+													class="deletebtn">삭제&nbsp;</span>
+											</c:if>
+											<i class="fa fa-chevron-down" style="float:right;"></i>
+									</a></li>
+								</c:forEach>
+							</ul>
+							<br><br>
+							<div id="accountList" style="display: none;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>
