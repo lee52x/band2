@@ -91,7 +91,7 @@ function updateMember() {
 		+ "&gender=" + gender
 		+ "&memberNo=" + memberNo; 
 	
-	var url = "<%=cp%>/admin/member/update/${url}";
+	var url = "<%=cp%>/member/update/${url}";
 	
 	if(confirm("해당 자료를 수정하시겠습니까?")) {
 		$.ajax({
@@ -100,7 +100,7 @@ function updateMember() {
 			,data:params
 			,dataType:"json"
 			,success:function(data) {
-				location.href="<%=cp%>/admin/member/member/${url}";
+				location.href="<%=cp%>/member/update/${url}";
 			}
 			,error:function(e) {
 				
@@ -113,8 +113,8 @@ function updateMember() {
 function deleteMember() {
     var n = $("#hiddenMemberNo").val();
     if(confirm("해당 자료를 삭제하시겠습니까 ? ")) {
-  	    $.post("<%=cp%>/admin/member/delete/${url}", {memberNo:n}, function(data) {
-  	    	location.href="<%=cp%>/admin/member/member/${url}";
+  	    $.post("<%=cp%>/member/delete/${url}", {memberNo:n}, function(data) {
+  	    	location.href="<%=cp%>/member/delete/${url}";
   	    }, "json");    
     }
     $("#memberModal").modal("hide");
