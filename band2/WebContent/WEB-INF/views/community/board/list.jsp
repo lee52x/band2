@@ -39,8 +39,8 @@ function searchList(){
 								<thead style="background-color: #fbdf80;">
 									<tr>
 										<th style="width: 10%; text-align: center; color:black;">글번호</th>
-										<th style="width: 50%; text-align: center; color:black;">제목</th>
-										<th style="width: 10%; text-align: center; color:black;">작성자</th>
+										<th style="width: 45%; text-align: center; color:black;">제목</th>
+										<th style="width: 15%; text-align: center; color:black;">작성자</th>
 										<th style="width: 10%; text-align: center; color:black;">작성일</th>
 										<th style="width: 5%; text-align: center; color:black;">Hit</th>
 									</tr>
@@ -57,8 +57,13 @@ function searchList(){
 											   </c:if></a></td>
 											  
 											<td>
-											
-											${dto.name}</td>
+											<c:choose>
+								 				<c:when test="${dto.grade == 1}"><div class="btn btn-danger btn-xs" style="margin:0;padding:0 2px;font-size:11px;">그룹장</div></c:when>
+								 				<c:when test="${dto.grade == 2}"><div class="btn btn-warning btn-xs" style="margin:0;padding:0 2px;font-size:11px;">운영진</div></c:when>
+								 				<c:when test="${dto.grade == 3}"><div class="btn btn-info btn-xs" style="margin:0;padding:0 2px;font-size:11px;">일　반</div></c:when>
+								 				<c:when test="${dto.grade == 4}"><div class="btn btn-success btn-xs" style="margin:0;padding:0 2px;font-size:11px;">O　&nbsp;&nbsp;B</div></c:when>
+							    			</c:choose>
+											&nbsp;${dto.name}</td>
 											<td>${dto.created}</td>
 											<td align="center">${dto.hitCount}</td>
 

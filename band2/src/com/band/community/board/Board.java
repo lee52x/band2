@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class Board {
     private int boardNo, listNum,groupNo;
     private int memberNo;
-    private String name, userId, subject, content, created;
+    private String name, userId, subject, content, created, grade;
     private int hitCount, replyCount;
 	private MultipartFile upload;  // <input type='file' name='upload' ..
 	private String saveFilename;
@@ -18,6 +18,12 @@ public class Board {
 	
 	
 	
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
 	public int getReplyCount() {
 		return replyCount;
 	}
