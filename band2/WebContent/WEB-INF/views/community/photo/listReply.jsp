@@ -127,7 +127,7 @@ function deleteReplyAnswer(commentNo, answer) {
 </c:if>
 
 <div style="clear: both; padding-top: 20px;">
-    <div style="float: left;"><span style="color: #3EA9CD; font-weight: bold;">댓글 ${replyCount}개</span> <span>[댓글 목록, ${pageNo}/${total_page} 페이지]</span></div>
+    <div style="float: left;"><span style="color: #334e7e; font-weight: bold;">댓글 ${replyCount}개</span> <span>[댓글 목록, ${pageNo}/${total_page} 페이지]</span></div>
     <div style="float: right; text-align: right;"></div>
 </div>
               
@@ -140,7 +140,7 @@ function deleteReplyAnswer(commentNo, answer) {
             <div style="float: left;">${vo.name} | ${vo.created}</div>
             <div style="float: right;  text-align: rigth;">
 <c:if test="${sessionScope.main.userId==vo.userId || sessionScope.main.userId=='admin'}">		   
-                <a onclick='deleteReply("${vo.commentNo}", "${pageNo}");'>삭제</a>
+                <a style="color:red;" onclick='deleteReply("${vo.commentNo}", "${pageNo}");'>삭제</a>
 </c:if>		   
 <c:if test="${sessionScope.main.userId!=vo.userId && sessionScope.main.userId!='admin'}">		   
                 <a href='#'>신고</a>
@@ -152,11 +152,11 @@ function deleteReplyAnswer(commentNo, answer) {
         </div>
         <div style="clear: both; min-height: 30px;">
             <div style="float: left;">
-                <button type="button" class="btn btn-primary btn-sm" onclick="replyAnswerLayout('${vo.commentNo}');">답글<span id="answerCount${vo.commentNo}">(${vo.answerCount})</span> <span id="answerGlyphicon${vo.commentNo}" class="glyphicon glyphicon-triangle-bottom"></span></button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="replyAnswerLayout('${vo.commentNo}');">답글&nbsp;<span id="answerCount${vo.commentNo}">(${vo.answerCount})</span> </button>
             </div>
             <div style="float: right; text-align: rigth;">
-                <button type="button" class="btn btn-info btn-sm" onclick="sendLike('${vo.commentNo}', '1')"><span class="glyphicon glyphicon-hand-up"></span> 좋아요 <span id="likeCount${vo.commentNo}">${vo.likeCount}</span></button>
-                <button type="button" class="btn btn-warning btn-sm" onclick="sendLike('${vo.commentNo}', '0')"><span class="glyphicon glyphicon-hand-down"></span> 싫어요 <span id="disLikeCount${vo.commentNo}">${vo.disLikeCount}</span></button>
+                <button type="button" class="btn btn-warning btn-sm" onclick="sendLike('${vo.commentNo}', '0')" style="color:#FFF;background-color: #FF4848"> 싫어요 <span id="disLikeCount${vo.commentNo}">${vo.disLikeCount}</span></button>
+                <button type="button" class="btn btn-info btn-sm" onclick="sendLike('${vo.commentNo}', '1')" style="color:#FFF;background-color: #2478FF""> 좋아요 <span id="likeCount${vo.commentNo}">${vo.likeCount}</span></button>
             </div>                        
         </div>
 
@@ -165,8 +165,8 @@ function deleteReplyAnswer(commentNo, answer) {
             <div style="clear: both; margin-top:10px; padding: 5px; border-top: #d5d5d5 solid 1px;">
                 <textarea id="replyContent${vo.commentNo}" class="form-control" rows="3" required="required"></textarea>
             </div>
-            <div style="text-align: right; padding-top: 7px;">
-                <button type="button" class="btn btn-primary btn-sm" onclick="sendReplyAnswer('${vo.photoNo}', '${vo.commentNo}')"> 답글등록 </button>
+            <div style="text-align: right;">
+                <button style="color:#FFF;background-color: #334e7e; margin-bottom: 20px;" type="button" class="btn btn-primary btn-sm" onclick="sendReplyAnswer('${vo.photoNo}', '${vo.commentNo}')"> 답글등록 </button>
             </div>
 
             <!-- 답글 리스트 -->       

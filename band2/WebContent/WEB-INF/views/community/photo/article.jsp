@@ -44,6 +44,22 @@
     padding: 10px;
     min-height: 50px;
 }
+
+.btn{
+	background-color: #fbdf80;
+    border: 0;
+    color: black;
+    float: right;
+    margin:4px 2px;
+}
+.btn:hover{
+	background-color: #FFE400;
+    border: 0;
+    color: black;
+    float: right;
+    margin:4px 2px;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -246,7 +262,8 @@ function deletePhoto() {
 
   if(confirm("위 자료를 삭제 하시 겠습니까 ? "))
   	location.href=url;
-</c:if>    
+</c:if>  
+
 <c:if test="${sessionScope.main.userId!='admin' && sessionScope.main.userId!=dto.userId}">
   alert("게시물을 삭제할 수  없습니다.");
 </c:if>
@@ -268,22 +285,23 @@ function updatePhoto() {
 }
 
 </script>
-
+<div class="card" style="padding : 0px 100px;">
 <div class="bodyFrame2">
-    <div class="body-title">
-          <h3><span class="glyphicon glyphicon-picture"></span> 포토갤러리 </h3>
+<br><br><br>
+    <div class="title" >
+          <h3 align="center" style="color: #5D5D5D; font-weight: bold; font-size: 22px; margin: 0px 0px;"> 포토갤러리 </h3>
     </div>
     
-    <div class="alert alert-info">
-        <i class="glyphicon glyphicon-info-sign"></i> 추억의 포토 갤러리를 회원과 공유할 수 있는 공간입니다.
-    </div>
+    
+        <p class="category" align="center"> 추억의 포토 갤러리를 회원과 공유할 수 있는 공간입니다.</p>
+    
     
     <div class="table-responsive" style="clear: both;">
         <div class="bbs-article">
             <table class="table">
                  <thead>
                      <tr>
-                         <th colspan="2" style="text-align: center;">
+                         <th colspan="2" style="text-align: center; background-color:#fbdf80;  ">
                                 ${dto.subject}
                          </th>
                      </tr>
@@ -299,13 +317,13 @@ function updatePhoto() {
                      </tr>
                      
                      <tr style="border-bottom:none;">
-                         <td colspan="2">
+                         <td  align="center" colspan="2" style="padding:30px ">
                              <img src="<%=cp%>/uploads/photo/${dto.imageFilename}" style="max-width:100%; height:auto; resize:both;">
                          </td>
                      </tr>
                      
                      <tr>
-                         <td colspan="2" style="min-height: 30px;">
+                         <td align="center" colspan="2" style="min-height: 30px; padding-bottom:30px ">
                               ${dto.content}
                          </td>
                      </tr>
@@ -313,7 +331,7 @@ function updatePhoto() {
                          <td colspan="2">
                               <span style="display: inline-block; min-width: 45px;">이전글</span> :
                               <c:if test="${not empty preReadDto }">
-                                  <a href="<%=cp%>/photoBoard/photoArticle/${boCateNum}/${url}?${params}&photoNo=${preReadDto.photoNo}">${preReadDto.subject}</a>
+                                  <a style="color: #334e7e" href="<%=cp%>/photoBoard/photoArticle/${boCateNum}/${url}?${params}&photoNo=${preReadDto.photoNo}">${preReadDto.subject}</a>
                               </c:if>					
                          </td>
                      </tr>
@@ -321,7 +339,7 @@ function updatePhoto() {
                          <td colspan="2" style="border-bottom: #d5d5d5 solid 1px;">
                               <span style="display: inline-block; min-width: 45px;">다음글</span> :
                               <c:if test="${not empty nextReadDto }">
-                                  <a href="<%=cp%>/photoBoard/photoArticle/${boCateNum}/${url}?${params}&photoNo=${nextReadDto.photoNo}">${nextReadDto.subject}</a>
+                                  <a  style="color: #334e7e" href="<%=cp%>/photoBoard/photoArticle/${boCateNum}/${url}?${params}&photoNo=${nextReadDto.photoNo}">${nextReadDto.subject}</a>
                               </c:if>
                          </td>
                      </tr>                                          
@@ -337,8 +355,8 @@ function updatePhoto() {
 </c:if>                		    
                 		</td>
                 		<td align="right">
-                		<button type="button" class="btn btn-info btn-sm" onclick="sendLike1('${dto.photoNo}', '1')"><span class="glyphicon glyphicon-hand-up"></span> 좋아요 <span id="likeCount1${dto.photoNo}">${dto.likeCount}</span></button>
-                        <button type="button" class="btn btn-warning btn-sm" onclick="sendLike1('${dto.photoNo}', '0')"><span class="glyphicon glyphicon-hand-down"></span> 싫어요 <span id="disLikeCount1${dto.photoNo}">${dto.disLikeCount}</span></button>
+                        <button type="button" class="btn btn-warning btn-sm" onclick="sendLike1('${dto.photoNo}', '0')" style="color:#FFF;background-color: #FF4848"> 싫어요 <span id="disLikeCount1${dto.photoNo}">${dto.disLikeCount}</span></button>
+                		<button type="button" class="btn btn-info btn-sm" onclick="sendLike1('${dto.photoNo}', '1')" style="color:#FFF;background-color: #2478FF"> 좋아요 <span id="likeCount1${dto.photoNo}">${dto.likeCount}</span></button>
                 		    <button type="button" class="btn btn-default btn-sm wbtn" onclick="javascript:location.href='<%=cp%>/photoBoard/list/${boCateNum}/${url}?${params}';"> 목록으로 </button>
                 		</td>
                 	</tr>
@@ -355,13 +373,13 @@ function updatePhoto() {
                <div style="clear: both; padding-top: 10px;">
                    <textarea id="content" class="form-control" rows="3"></textarea>
                </div>
-               <div style="text-align: right; padding-top: 10px;">
-                   <button type="button" class="btn btn-primary btn-sm" onclick="sendReply();"> 댓글등록 <span class="glyphicon glyphicon-ok"></span></button>
-               </div>           
+                    
            </div>
+                   <button type="button" class="btn btn-default btn-sm" onclick="sendReply();" style="color:#FFF; background-color: #334e7e"> 댓글등록 </button>
        
            <div id="listReply"></div>
        </div>
    </div>
 
+</div>
 </div>

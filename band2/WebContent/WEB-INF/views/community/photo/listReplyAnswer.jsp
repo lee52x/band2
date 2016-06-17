@@ -12,7 +12,7 @@
             <div style="float: left;">${vo.name} | ${vo.created }</div>
             <div style="float: right; text-align: rigth;">
 <c:if test="${sessionScope.main.userId==vo.userId || sessionScope.main.userId=='admin'}">   
-		     <a onclick='deleteReplyAnswer("${vo.commentNo}", "${vo.answer}");'>삭제</a>
+		     <a style="color:red;" onclick='deleteReplyAnswer("${vo.commentNo}", "${vo.answer}");'>삭제</a>
 </c:if>
 <c:if test="${sessionScope.main.userId!=vo.userId && sessionScope.main.userId!='admin'}">   
 		   | <a href='#'>신고</a>
