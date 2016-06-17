@@ -80,6 +80,7 @@ function article(photoNo) {
 		        </div>
 
 		        <div style="clear: both;">
+
 		    <c:forEach var="dto" items="${list}" varStatus="status">
 		                 <c:if test="${status.index==0}">
 		                       <c:out value="<div style='clear: both; max-width:810px; margin: 0px auto;'>" escapeXml="false"/>
@@ -87,7 +88,7 @@ function article(photoNo) {
 		                 <c:if test="${status.index!=0 && status.index%3==0}">
 		                        <c:out value="</div><div style='clear: both; max-width:810px; margin: 0px auto;'>" escapeXml="false"/>
 		                 </c:if>
-					      <div class="imgLayout">
+					      <div class="imgLayout"  style="cursor:pointer;">
 			                     <img  onclick="javascript:article('${dto.photoNo}');" src="<%=cp%>/uploads/photo/${dto.imageFilename}" style="width: 220px; height: 220px; border: 1px solid #bdbdbd;" >
 					             <span class="subject" onclick="javascript:article('${dto.photoNo}');" >
 					                   ${dto.subject}

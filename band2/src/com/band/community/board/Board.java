@@ -6,7 +6,7 @@ public class Board {
     private int boardNo, listNum,groupNo;
     private int memberNo;
     private String name, userId, subject, content, created;
-    private int hitCount;
+    private int hitCount, replyCount;
 	private MultipartFile upload;  // <input type='file' name='upload' ..
 	private String saveFilename;
 	private String originalFilename;
@@ -18,6 +18,12 @@ public class Board {
 	
 	
 	
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
 	public String getUrl() {
 		return url;
 	}

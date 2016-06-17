@@ -51,7 +51,10 @@ function searchList(){
 											<td>${dto.listNum}</td>
 											<td style="text-align: left;">
 											<a href="${urlArticle}&boardNo=${dto.boardNo}"
-											   style="color:#334e7e;">${dto.subject}</a></td>
+											   style="color:#334e7e;">${dto.subject}&nbsp;
+											   <c:if test="${dto.replyCount>0}">
+											   <span style="color:black;">[${dto.replyCount}]</span>
+											   </c:if></a></td>
 											  
 											<td>
 											

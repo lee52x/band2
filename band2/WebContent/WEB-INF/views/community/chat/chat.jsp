@@ -12,7 +12,7 @@
 #chatMsgContainer{
    clear:both;
    border: 1px solid #ccc;
-   height: 277px;
+   height: 400px;
    overflow-y: scroll;
    padding: 3px;
    width: 100%;
@@ -24,12 +24,13 @@
 #chatConnectList{
 	clear:both;
 	width: 100%;
-	height: 315px;
+	height: 440px;
 	text-align:left;
 	padding:5px 5px 5px 5px;
 	overflow-y:scroll;
     border: 1px solid #ccc;
 }
+
 </style>
 
 <script type="text/javascript">
@@ -162,39 +163,52 @@ Console.log = (function(message) {
 Chat.initialize();
 </script>
 
-<div class="bodyFrame2">
-    <div class="body-title">
-          <h3><span class="glyphicon glyphicon-send"></span> 채팅 <small>Chatting</small></h3>
-    </div>
-    
-    <div class="alert alert-info">
-        <i class="glyphicon glyphicon-info-sign"></i> 회원과 실시간으로 대화를 나룰수 있는 공간 입니다.
-    </div>
-    
-    <div style="clear: both;">
-        <div style="float: left; width: 350px;">
-             <div style="clear: both; padding-bottom: 5px;">
-                 <span class="glyphicon glyphicon-menu-right"></span>
-                 <span style="font-weight:bold; font-family: 나눔고딕, 맑은 고딕, 돋움; color: #424951;">채팅 메시지</span>
-             </div>
-             <div id="chatMsgContainer"></div>
-             <div style="clear: both; padding-top: 5px;">
-                 <input type="text" id="chatMsg" class="form-control" 
-                            placeholder="채팅 메시지를 입력 하세요...">
-             </div>
-        </div>
-        
-        <div style="float: left; width: 20px;">&nbsp;</div>
-        
-        <div style="float: left; width: 170px;">
-             <div style="clear: both; padding-bottom: 5px;">
-                 <span class="glyphicon glyphicon-menu-right"></span>
-                 <span style="font-weight:bold; font-family: 나눔고딕, 맑은 고딕, 돋움; color: #424951;">접속자 리스트</span>
-             </div>
-             <div id="chatConnectList"></div>
-        </div>
-        
-    </div>
-    
+<!-- Start : Board List -->
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="header" style="min-height: 700px;">
+						<br>
+						<br>
+						<div style="text-align: center;">
+							<h4 class="title" style="color: #5D5D5D; font-weight: bold;'">채팅</h4>
 
+							<p class="category">그룹 회원과 실시간으로 대화를 나룰수 있는 공간 입니다.</p>
+						</div>
+
+						<div class="content table-responsive table-full-width"
+							style="width: 95%; padding-left: 130px;">
+							<div style="clear: both;">
+								<div style="float: left; width: 650px;">
+									<div style="clear: both; padding-bottom: 5px;">
+										<span class="fa fa-comment"></span> <span
+											style="font-weight: bold; font-family: 나눔고딕, 맑은 고딕, 돋움; color: #424951;">채팅
+											메시지</span>
+									</div>
+									<div id="chatMsgContainer"></div>
+									<div style="clear: both; padding-top: 5px;">
+										<input type="text" id="chatMsg" class="form-control" style=" background-color: #fbdf80;">
+									</div>
+								</div>
+
+								<div style="float: right; width: 170px;">
+									<div style="clear: both; padding-bottom: 5px;">
+										<span class="fa fa-eye"></span> <span
+											style="font-weight: bold; font-family: 나눔고딕, 맑은 고딕, 돋움; color: #424951;">접속자
+											리스트</span>
+									</div>
+									<div id="chatConnectList"></div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
 </div>

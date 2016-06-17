@@ -43,10 +43,11 @@
 	            resultType="com.band.community.board.Board">
 		SELECT * FROM (
 		    SELECT ROWNUM rnum, tb.* FROM (
-			     SELECT boardNo, m.memberNo,name, subject
+			     SELECT b.boardNo, m.memberNo,name, subject
 			           ,TO_CHAR(b.created, 'YYYY-MM-DD') created
-					   ,hitCount, saveFilename,userId
+					   ,hitCount, saveFilename,userId,NVL(replyCount,0) replyCount
 			        FROM freeBoard_${url} b JOIN member_${url} m ON b.memberNo=m.memberNo
+			        FULL OUTER JOIN (SELECT boardNo, COUNT(*) replyCount FROM freeBoardReply_${url} GROUP BY boardNo) fr ON b.boardNo=fr.boardNo
                     <where>
                          <if test="searchValue != null and searchValue != ''">
 			                  <include refid="where-list"/>
