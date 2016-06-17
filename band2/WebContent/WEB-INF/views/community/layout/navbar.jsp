@@ -13,7 +13,7 @@
     	<div class="sidebar-wrapper" style="background-color: #334e7e;">
             <div class="logo" style="background-color: #fbdf80;">
                 <a href="<%=cp %>/community/main/${url}" class="simple-text" style="color:black; font-weight: bold;">
-                ${sessionScope.main.groupName}
+                     ${sessionScope.main.groupName}
                 </a>
             </div>
 
