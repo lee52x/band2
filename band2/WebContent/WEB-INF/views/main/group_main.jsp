@@ -210,7 +210,6 @@ function checkMember() {
 
 </script>
 <body>
-
 	<header id="home">
 		<div id="home-slider" class="carousel slide carousel-fade"
 			data-ride="carousel">
@@ -219,6 +218,7 @@ function checkMember() {
 					style="background-image: url(<%=cp%>/uploads/management/${pdto.saveFilename})">
 					<div class="caption">
 						<div class="row">
+						  
 							<div class="col-sm-5 col-sm-offset-3 form-box">
             					<h1 class="animated fadeInLeftBig"><span>${pdto.groupName}</span></h1>
             					<p class="animated fadeInRightBig">${pdto.introduce}</p>

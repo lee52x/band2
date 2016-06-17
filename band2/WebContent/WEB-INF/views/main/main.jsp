@@ -324,8 +324,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.jsp">
-            <h1><img class="img-responsive" src="<%=cp%>/res/img/logo.png" alt="logo"></h1>
+          <a class="navbar-brand" href="<%=cp%>/">
+            <img class="img-responsive" src="<%=cp%>/res/img/logo/nuridalogo.png" alt="logo" width="35%" height="35%" style="padding-top:10px;">
           </a>                    
         </div>
         <div class="collapse navbar-collapse">
@@ -344,8 +344,10 @@
       <div class="heading wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
         <div class="row">
           <div class="text-center col-sm-8 col-sm-offset-2">
-            <h2>Our Services</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam</p>
+            <h2 style="font-weight: bold;">
+            <span style="color:#028fcc;">누</span>구나 <span style="color:#028fcc;">리</span>더가 
+            	될 수 있<span style="color:#028fcc;">다</span></h2>
+            <p>'누리다'는 동호회, 동아리와 같은 모임을 효과적이고 체계적으로 운영할 수 있도록 조직 관리 기능을 추가한 소셜 네트워크 서비스입니다. </p>
           </div>
         </div> 
       </div>
@@ -353,56 +355,56 @@
         <div class="row">
           <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="service-icon">
-              <i class="fa fa-flask"></i>
+              <i class="fa fa-cogs"></i>
             </div>
             <div class="service-info">
-              <h3>Brand Identity</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <h3>그룹 서비스</h3>
+              <p>우리 그룹만의 Private한 사이트를 개설해 <br> 드립니다. 그룹만의 공간에서 효율적인  <br>모임 운영을 시작해보세요!</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="450ms">
             <div class="service-icon">
-              <i class="fa fa-umbrella"></i>
+              <i class="fa fa-credit-card"></i>
             </div>
             <div class="service-info">
-              <h3>Creative Idea</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <h3>회계 관리 서비스</h3>
+              <p>그룹 계좌의 입/출금 내역 및 회비를 관리하고 <br>내역을 분석한 결과를 통해 Smart한 회계 관리를 <br>도와드립니다.</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="550ms">
             <div class="service-icon">
-              <i class="fa fa-cloud"></i>
-            </div>
+              <i class="fa fa-user"></i>
+            </div> 
             <div class="service-info">
-              <h3>Awesome Support</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <h3>회원 관리 서비스</h3>
+              <p>회원들의 연락망을 한 눈에!<br>효과적인 회원 관리를 통해 우리 그룹을 활성화 <br>시켜보세요.</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="650ms">
             <div class="service-icon">
-              <i class="fa fa-coffee"></i>
+              <i class="fa fa-calendar"></i>
             </div>
             <div class="service-info">
-              <h3>Professional Design</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <h3>일정 관리 서비스</h3>
+              <p>우리 그룹의 일정을 Online에서 관리하세요. <br>체계적인 모임 운영을 도와드립니다.</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="750ms">
             <div class="service-icon">
-              <i class="fa fa-bitbucket"></i>
+              <i class="fa fa-eye"></i>
             </div>
             <div class="service-info">
-              <h3>App Development</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <h3>커뮤니티 서비스</h3>
+              <p>회원들의 최근 관심사는? <br>커뮤니티를 분석하여 우리 그룹 회원들의 <br>관심사를 알려드립니다.</p>
             </div>
           </div>
           <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="850ms">
             <div class="service-icon">
-              <i class="fa fa-gift"></i>
+              <i class="fa fa-comments-o"></i>
             </div>
             <div class="service-info">
-              <h3>Clean Code</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+              <h3>소셜 네트워크</h3>
+              <p>우리 그룹만의 커뮤니티 공간에서 <br>Social 서비스를 제공합니다.</p>
             </div>
           </div>
         </div>
@@ -415,10 +417,10 @@
       <div class="container">
         <div class="row">
           <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-            <h2>Contact NURIDA</h2>
+            <h1>Contact <span>NURIDA</span></h1>
             <p>누리다에 문의사항이 있으신가요? 누리다 개발진에게 문의사항을 남겨주세요!</p>
+            </div>
           </div>
-        </div>
         <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
           <div class="row">
             <div class="col-sm-6">
@@ -450,8 +452,6 @@
               <div class="contact-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
                 <p>사이트를 이용하시는데 불만사항이나 건의사항이 있으시면 아래의 연락처로 문의주세요.</p>
                 <ul class="address">
-                  <li><i class="fa fa-map-marker"></i> <span> Address:</span> 2400 South Avenue A </li>
-                  <li><i class="fa fa-phone"></i> <span> Phone:</span> +928 336 2000  </li>
                   <li><i class="fa fa-envelope"></i> <span> Email:</span><a href="#"> nuridaservice@gmail.com</a></li>
                   <li><i class="fa fa-globe"></i> <span> Website:</span> <a href="#"> www.nurida.com</a></li>
                 </ul>
@@ -465,18 +465,11 @@
   <footer id="footer">
     <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
       <div class="container text-center">
-        <div class="footer-logo">
-          <a href="index.html"><img class="img-responsive" src="<%=cp%>/res/img/logo.png" alt=""></a>
+        <div class="footer-logo" style="margin-left: 210px;">
+          <a href="<%=cp%>/"><img class="img-responsive" src="<%=cp%>/res/img/logo/nuridalogo.png" width="60%" height="60%" alt=""></a>
         </div>
         <div class="social-icons">
-          <ul>
-            <li><a class="envelope" href="#"><i class="fa fa-envelope"></i></a></li>
-            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li> 
-            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-            <li><a class="tumblr" href="#"><i class="fa fa-tumblr-square"></i></a></li>
-          </ul>
+          	<p style="font-size:14px;">만든 사람들 : 김도형 김우현 백은제 이성욱 이성표 이현규</p>
         </div>
       </div>
     </div>

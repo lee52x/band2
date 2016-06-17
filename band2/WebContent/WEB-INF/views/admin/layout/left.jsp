@@ -16,7 +16,10 @@
             </div>
 
             <div class="clearfix"></div>
-            
+            <a class="navbar-brand" href="<%=cp%>/" style="padding-left: 60px;"> 
+			<img class="img-responsive" src="<%=cp%>/res/img/logo/nuridalogo_y.png"
+				 alt="logo" width="60%" height="60%">
+			</a>
 
             <br />
 

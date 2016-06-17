@@ -9,7 +9,7 @@
 	<!-- Start : nav Bar -->
 	<div class="sidebar"  data-image="<%=cp %>/res/img/community/sidebar-5.jpg">
   	  <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
-    
+
     	<div class="sidebar-wrapper" style="background-color: #334e7e;">
             <div class="logo" style="background-color: #fbdf80;">
                 <a href="<%=cp %>/community/main/${url}" class="simple-text" style="color:black; font-weight: bold;">
