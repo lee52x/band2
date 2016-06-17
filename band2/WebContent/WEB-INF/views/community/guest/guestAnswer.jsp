@@ -6,20 +6,19 @@
 	String cp=request.getContextPath();
 %>
 
+<br>
 <c:if test="${not empty listReplyAnswer}">
     <c:forEach var="dto" items="${listReplyAnswer}">
 								<div class="stream-respond" align="center" id="response">
 												<div class="media stream" align="left">
-													<a href="#" class="media-avatar small pull-left">
-														<%-- <img src="<%=cp%>/res/img/user.png"> --%>
-													</a>
+													
 													<div class="media-body">
 														<div class="stream-headline">
-															<h5 class="stream-author">
-																${dto.name}
+															<h5 class="stream-author" style="margin-bottom: 2px; color:#334e7e">
+																${dto.name}&nbsp;
 																<small>${dto.created}</small>
 															</h5>
-															<div class="stream-text">
+															<div class="stream-text" style="margin-bottom: 4px;">
 																${dto.content}
 															</div>
 														</div><!--/.stream-headline-->
