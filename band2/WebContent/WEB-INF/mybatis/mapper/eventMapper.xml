@@ -2,11 +2,14 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="event">
+
+	<!-- 일정 등록시 참석자 명단 추가하는 매퍼 -->
 	<select id="listFriend" parameterType="map" resultType="com.band.event.Member">
            SELECT memberNo, userId, name, grade FROM member_${url} ORDER BY grade ASC
     </select>
 
 
+	<!-- 달력 형태로 출력해주는 매퍼 -->
 	<select id="listMonthEvent" resultType="com.band.event.Event" parameterType="map">
 	SELECT eventNo, eventName, content, eventPlace, TO_CHAR(fromDate,'MM/DD/YYYY') fromDate, 
 		TO_CHAR(toDate,'MM/DD/YYYY') toDate, fromTime, toTime, eventType, eventFee, eventComplete
@@ -26,7 +29,7 @@
 	
 
 	
-	
+	<!-- 정보 불러오는 매퍼 -->
 	<select id="readSchedule" resultType="com.band.event.Event" parameterType="Integer">
 		SELECT eventNo, eventName, content, eventPlace, TO_CHAR(fromDate,'MM/DD/YYYY') fromDate, 
 			TO_CHAR(toDate,'MM/DD/YYYY') toDate, fromTime, toTime, eventType, eventFee, eventComplete
@@ -38,11 +41,20 @@
 
 	<!-- 이벤트 목록 보기 (조회) -->
 	<select id="listEvent" parameterType="map" resultType="com.band.event.Event">
-	SELECT eventNo, eventName, content, eventPlace, TO_CHAR(fromDate,'MM/DD/YYYY') fromDate, 
-		TO_CHAR(toDate,'MM/DD/YYYY') toDate, fromTime, toTime, eventType, eventFee, eventComplete
-	FROM event_${url}
+	SELECT e.eventNo, eventName, content, eventPlace, TO_CHAR(fromDate,'MM/DD/YYYY') fromDate, 
+		TO_CHAR(toDate,'MM/DD/YYYY') toDate, fromTime, toTime, eventType, eventFee, eventComplete, attend
+	FROM event_${url} e FULL OUTER JOIN (SELECT eventNo ,COUNT(*) attend FROM eventAttend_${url} GROUP BY eventNo) a ON e.eventNo=a.eventNo
 	ORDER BY eventNo DESC
 	</select>
+	
+	
+	
+	<select id="memberCount" parameterType="map" resultType="Integer">
+		 SELECT COUNT(*) FROM  member_${url}
+	</select>
+	
+	
+	
 	
 	
 	
@@ -106,4 +118,10 @@
 				#{eventNo}
 			</foreach>
 	</update>
+	
+	
+	
+
+	
+	
 </mapper>

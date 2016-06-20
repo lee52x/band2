@@ -22,4 +22,6 @@ public interface EventService {
 	public List<Event> listMonthSchedule(Map<String, Object> map);
 	public Event readSchedule(int eventNo);
 	public int deleteSchedule(Map<String, Object> map);
+	
+	public int MemberCount(Map<String, Object> map);
 }

@@ -323,7 +323,7 @@ $(function(){
     				,data:params
     				,dataType:"json"
     				,success:function(data) {
-    					location.href="<%=cp%>/event/${url}";
+    					location.href="<%=cp%>/event/list/${url}";
     				}
     				,error:function(e) {
     					
@@ -594,7 +594,7 @@ $(function(){
                                     	</c:choose>
                                     </td>
                                     
-                                    <td><span>(테스트중)</span></td>
+                                    <td><span>${dto.attend} / ${memberCount}명</span></td>
                                     
                                     <td>
                                     	<c:choose>

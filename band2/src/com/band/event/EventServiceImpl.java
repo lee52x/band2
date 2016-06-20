@@ -207,6 +207,19 @@ public class EventServiceImpl implements EventService{
 	}
 
 
+
+	@Override
+	public int MemberCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.getIntValue("event.memberCount", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}
+
+
 	
 
 }

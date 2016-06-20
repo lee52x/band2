@@ -11,9 +11,26 @@ public class Event {
 	private List<Integer> memberNos;
 	private int memberNo;
 	private String latitude, longitude;
+	private int member, attend;
+	
+	
+	
+	
 
 
 
+	public int getMember() {
+		return member;
+	}
+	public void setMember(int member) {
+		this.member = member;
+	}
+	public int getAttend() {
+		return attend;
+	}
+	public void setAttend(int attend) {
+		this.attend = attend;
+	}
 	public String getLatitude() {
 		return latitude;
 	}

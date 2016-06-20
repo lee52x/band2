@@ -25,14 +25,16 @@ public class EventController {
 	@Autowired
 	private EventService service;
 	
-	@RequestMapping(value="/event/list/{url}")
+	@RequestMapping(value="/event/list/{url}",method=RequestMethod.GET)
 	public ModelAndView list(
-			@PathVariable String url) throws Exception{
+			@PathVariable String url
+			) throws Exception{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("url", url);
-		List<Event> list = service.listEvent(map);
 		
+		List<Event> list = service.listEvent(map);
+		int memberCount = service.MemberCount(map);
 		// 오늘 날짜 정보를 넘겨주어, 달력관련해서 오늘이 표시 되도록!
 		Calendar cal = Calendar.getInstance();
 		String today=String.format("%02d", cal.get(Calendar.MONTH)+1)+"/"+String.format("%02d", cal.get(Calendar.DATE))+"/"+cal.get(Calendar.YEAR);
@@ -42,6 +44,7 @@ public class EventController {
 		ModelAndView mav = new ModelAndView(".admin.event.event");
 		mav.addObject("list", list);
 		mav.addObject("today", today);
+		mav.addObject("memberCount", memberCount);
 		return mav;
 	}
 	
