@@ -202,7 +202,7 @@ function deleteReply(replyNum,page){
 										<tbody>
 											<tr>
 												<td style="text-align: left;">이름 :
-													${sessionScope.main.userId}</td>
+													${dto.userId}</td>
 												<td style="text-align: right;">${dto.created}<i></i>조회
 													${dto.hitCount}
 												</td>

@@ -13,6 +13,7 @@ public class Event {
 	private String latitude, longitude;
 
 
+
 	public String getLatitude() {
 		return latitude;
 	}
