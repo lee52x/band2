@@ -17,7 +17,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#" style="margin-top:10px;">
+                    <a class="navbar-brand" href="<%=cp%>/" style="margin-top:10px;">
                     <img class="img-responsive" src="<%=cp%>/res/img/logo/nuridalogo_p.png"
 				 alt="logo" width="20%" height="20%"></a>
                 </div>

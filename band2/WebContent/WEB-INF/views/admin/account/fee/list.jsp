@@ -42,7 +42,7 @@ function check() {
 }
 
 </script>
-<div class="col-md-12 col-sm-12 col-xs-12">
+<div class="col-md-12 col-sm-12 col-xs-12" style="min-height: 1000px;">
 	<div class="x_panel">
 		<div class="x_title">
 			<h2>

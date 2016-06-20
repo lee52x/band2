@@ -12,7 +12,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title" style="text-align: center;padding-left: 0px;"><span style="font-weight: bold;">${sessionScope.main.groupName}</span></a>
+              <a href="<%=cp%>/group/${url}" class="site_title" style="text-align: center;padding-left: 0px;"><span style="font-weight: bold;">${sessionScope.main.groupName}</span></a>
             </div>
 
             <div class="clearfix"></div>

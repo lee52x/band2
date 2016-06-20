@@ -91,7 +91,7 @@ function sendMail(){
 	
 	params+="&todate=${detailDto.todate}&eventFee=${detailDto.eventFee}&eventName=${detailDto.eventName}";
   	
-    alert(params);
+   
   	var url="<%=cp%>/account/mail/${url}";
 	
   	$.ajax({
