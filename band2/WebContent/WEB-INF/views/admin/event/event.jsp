@@ -46,7 +46,8 @@
 		      #map {
 		        height: 100%;
 		      }
-		.controls {
+/* 		.controls {
+		
 		  margin-top: 10px;
 		  border: 1px solid transparent;
 		  border-radius: 2px 0 0 2px;
@@ -55,7 +56,7 @@
 		  height: 32px;
 		  outline: none;
 		  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-		}
+		} */
 		
 		#pac-input {
 		  background-color: #fff;
