@@ -237,7 +237,7 @@ function deleteGuest(guestNo,imageFilename){
                <div class="content">
 <br><br>
                   <div class="module">
-                     <div class="title" style="color:#5d5d5d; font-weight: bold; font-size: 22px; text-align: center">방명록</div>
+                     <div class="title" style="color:#5d5d5d; font-weight: bold; font-size: 22px; text-align: center">너의 개그를 뽐내줘</div>
                      <div class="module-head" style="text-align:center; vertical-align:middle; color:#5d5d5d;">
                         <span style="padding-left: 10px;">간단하게 글을 남겨보세요.</span>
                      </div>

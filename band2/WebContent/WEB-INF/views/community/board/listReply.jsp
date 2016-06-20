@@ -11,7 +11,7 @@
 <c:forEach var="dto" items="${list}">
 <tr height='50' style='border: 1px solid #DBDBDB; background-color: rgba(251, 223, 128, 0.28);'>
     <td width='50%' style='padding-left: 5px;'>
-        ${sessionScope.main.userId}
+        ${dto.name}
     </td>
     <td width='50%' align='right' style='padding-right: 5px;'>
         ${dto.created}
