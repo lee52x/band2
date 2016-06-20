@@ -25,9 +25,10 @@
     
     <style type="text/css">
     	/* 참석자 리스트 테이블 출력을 위한 css */
+    	
 		.note-send-listFriend{
 			clear:both;
-			width:218px;
+			width:250px;
 			height:260px;
 			text-align: left;
 			padding: 5px 5px 5px 5px;
@@ -245,7 +246,11 @@ $(function(){
     	$("#hiddenEventNo").val(eventNo);	
     	
     	$("#modalEventName").val(eventName);
-		$("#modalContent").val(content);
+    	
+    	
+    	var regex = /<br\s*[\/]?>/gi;
+    	content=content.replace(regex, "\n");
+    	$("#modalContent").val(content);
 		$("#modalEventPlace").val(eventPlace);
 		$("#modalFromTime").val(fromTime);
 		$("#modalToTime").val(toTime);
@@ -861,7 +866,7 @@ $(function(){
                         <div class="col-md-9 col-sm-9 col-xs-12" >
                         
 						    <div style="clear: both;">
-						         <div style="float: left; width: 220px;">
+						         <div style="float: left; width: 250px;">
 						             <div style="clear: both; padding-bottom: 5px;">
 						                 <span>회원 목록</span>
 						             </div>

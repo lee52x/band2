@@ -53,6 +53,8 @@ public class EventController {
 	@ResponseBody
 	public Map<String, Object> eventUpdate(
 			Event dto) throws Exception{
+		
+		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 		service.updateEvent(dto);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -97,7 +99,8 @@ public class EventController {
 	public ModelAndView eventInsert(
 			@PathVariable String url, 
 			Event dto){
-
+		
+		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 		service.insertEvent(dto);
 		
 		ModelAndView mav = new ModelAndView("redirect:/event/list/"+url);

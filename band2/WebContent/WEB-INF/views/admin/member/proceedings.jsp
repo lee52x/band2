@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+	<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -94,7 +94,7 @@
 						<div class="col-md-55">
 							<div class="thumbnail">
 								<div class="image view view-first">
-									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/4.jpg"
+									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/8.jpg"
 										alt="image" />
 									<div class="mask">
 										<p>Your Text</p>
@@ -106,14 +106,14 @@
 									</div>
 								</div>
 								<div class="caption">
-									<p>Snow and Ice Incoming for the South</p>
+									<p>독서토론회 1월 모임</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-55">
 							<div class="thumbnail">
 								<div class="image view view-first">
-									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/4.jpg"
+									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/1.jpg"
 										alt="image" />
 									<div class="mask">
 										<p>Your Text</p>
@@ -125,14 +125,14 @@
 									</div>
 								</div>
 								<div class="caption">
-									<p>Snow and Ice Incoming for the South</p>
+									<p>Web 세미나</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-55">
 							<div class="thumbnail">
 								<div class="image view view-first">
-									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/4.jpg"
+									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/3.jpg"
 										alt="image" />
 									<div class="mask">
 										<p>Your Text</p>
@@ -144,14 +144,14 @@
 									</div>
 								</div>
 								<div class="caption">
-									<p>Snow and Ice Incoming for the South</p>
+									<p>정기회의(6월4주)</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-55">
 							<div class="thumbnail">
 								<div class="image view view-first">
-									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/4.jpg"
+									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/9.jpg"
 										alt="image" />
 									<div class="mask">
 										<p>Your Text</p>
@@ -163,7 +163,7 @@
 									</div>
 								</div>
 								<div class="caption">
-									<p>Snow and Ice Incoming for the South</p>
+									<p>정기회의(6월2주)</p>
 								</div>
 							</div>
 						</div>
@@ -172,7 +172,7 @@
 						<div class="col-md-55">
 							<div class="thumbnail">
 								<div class="image view view-first">
-									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/4.jpg"
+									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/5.jpg"
 										alt="image" />
 									<div class="mask no-caption">
 										<div class="tools tools-bottom">
@@ -182,18 +182,15 @@
 										</div>
 									</div>
 								</div>
-								<div class="caption">
-									<p>
-										<strong>Image Name</strong>
-									</p>
-									<p>Snow and Ice Incoming</p>
+								<div class="caption">									
+									<p>잔디밭 저녁 나들이</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-55">
 							<div class="thumbnail">
 								<div class="image view view-first">
-									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/4.jpg"
+									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/6.jpg"
 										alt="image" />
 									<div class="mask no-caption">
 										<div class="tools tools-bottom">
@@ -203,18 +200,15 @@
 										</div>
 									</div>
 								</div>
-								<div class="caption">
-									<p>
-										<strong>Image Name</strong>
-									</p>
-									<p>Snow and Ice Incoming</p>
+								<div class="caption">								
+									<p>	여름MT</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-55">
 							<div class="thumbnail">
 								<div class="image view view-first">
-									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/4.jpg"
+									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/7.jpg"
 										alt="image" />
 									<div class="mask no-caption">
 										<div class="tools tools-bottom">
@@ -225,55 +219,11 @@
 									</div>
 								</div>
 								<div class="caption">
-									<p>
-										<strong>Image Name</strong>
-									</p>
-									<p>Snow and Ice Incoming</p>
+									<p>	첫번째 특별 모임</p>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-55">
-							<div class="thumbnail">
-								<div class="image view view-first">
-									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/4.jpg"
-										alt="image" />
-									<div class="mask no-caption">
-										<div class="tools tools-bottom">
-											<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-												class="fa fa-pencil"></i></a> <a href="#"><i
-												class="fa fa-times"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="caption">
-									<p>
-										<strong>Image Name</strong>
-									</p>
-									<p>Snow and Ice Incoming</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-55">
-							<div class="thumbnail">
-								<div class="image view view-first">
-									<img style="width: 100%; display: block;" src="<%=cp%>/res/img/4.jpg"
-										alt="image" />
-									<div class="mask no-caption">
-										<div class="tools tools-bottom">
-											<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-												class="fa fa-pencil"></i></a> <a href="#"><i
-												class="fa fa-times"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="caption">
-									<p>
-										<strong>Image Name</strong>
-									</p>
-									<p>Snow and Ice Incoming</p>
-								</div>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>
