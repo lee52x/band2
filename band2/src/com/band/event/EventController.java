@@ -282,15 +282,32 @@ public class EventController {
 		return model;
 	}
 	
-	
-	
-	
-	
-	
-	
+
 	// place.jsp를 출력해주는 기능
 		@RequestMapping(value="/event/place/{url}")
 		public String place(@PathVariable String url) throws Exception{
 			return(".admin.event.place.place");
 		}
+		
+		
+		
+		
+		/*@RequestMapping(value="/event/attendList/{url}" , method=RequestMethod.POST)
+		public ModelAndView eventAttendMember(
+				@PathVariable String url,
+				@RequestParam(value="eventNo") String eventNo){
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("url", url);
+			map.put("eventNo", eventNo);
+			List <Event> attendMemberList=service.AttendList(map);
+			
+			
+			ModelAndView mav = new ModelAndView("admin.event.event");
+			mav.addObject("url", url);
+			mav.addObject("attendMemberList", attendMemberList);
+
+			return mav;
+		}*/
+		
 }

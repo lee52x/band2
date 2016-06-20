@@ -52,7 +52,7 @@
                     <ul class="nav child_menu">
                       <li><a href="<%=cp%>/event/list/${url}">리스트 조회 및 등록</a></li>
                       <li><a href="<%=cp%>/event/sch/${url}">캘린더 조회 및 등록</a></li>
-                      <li><a href="<%=cp%>/event/place/${url}">추천 모임 장소</a></li>
+                      <li><a href="<%=cp%>/event/place/${url}">지도 조회</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> 커뮤니티 관리 <span class="fa fa-chevron-down"></span></a>

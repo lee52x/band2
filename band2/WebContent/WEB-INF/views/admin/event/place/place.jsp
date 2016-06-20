@@ -145,7 +145,7 @@
 	  <div class="x_panel">
 	    <div class="x_title">
 	            <h2>
-	               <i class="fa fa-map-marker"></i> <small>추천 모임 장소</small>
+	               <i class="fa fa-map-marker"></i> <small>지도 조회</small>
 	            </h2>
 	            <ul class="nav navbar-right panel_toolbox">
 	               <li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -165,6 +165,20 @@
 	    <div class="x_content">
 	     	<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 	    	<div id="map" style="height: 480px; width:640px;"></div>
+	    	
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
+	    	<br>
 	    	<script>
 			// This example adds a search box to a map, using the Google Place Autocomplete
 			// feature. People can enter geographical searches. The search box will return a

@@ -220,6 +220,20 @@ public class EventServiceImpl implements EventService{
 	}
 
 
+
+	@Override
+	public List<Event> AttendList(Map<String, Object> map) {
+		List<Event> list=null;
+		try {
+			list=dao.getListData("event.eventAttendMember", map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return list;
+	}
+	
+
+
 	
 
 }

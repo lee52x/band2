@@ -108,6 +108,8 @@ $(function(){
             $('#noteListFriend').html(s);
       });
     });
+ 
+
     
  // 선택 항목 오른쪽으로 보내기 ------------
     $(function(){
@@ -241,7 +243,9 @@ $(function(){
         	}
         });
     }
-    
+
+ 	
+ 	
     function eventModal(eventNo, eventName, content, eventPlace, fromDate, toDate, fromTime, toTime, eventType, eventFee) {	
     	$("#modalEventNo").text(eventNo);
     	$("#hiddenEventNo").val(eventNo);	
@@ -595,9 +599,8 @@ $(function(){
 									</td>
                                     
                                     <td>
-                                    	<c:choose>
-												<c:when test="${dto.eventFee!=null}"><div class="btn btn-warning btn-xs">납부자 명단</div></c:when>
-                                    	</c:choose>
+                                    	<a href="javascript:eventAttendModal('${dto.eventNo}', '${dto.eventName}');" 
+                                    	data-toggle="modal" class="btn btn-warning btn-xs">참석자 명단</a>
                                     </td>
                                     
                                     <td><span>${dto.attend} / ${memberCount}명</span></td>
@@ -750,7 +753,74 @@ $(function(){
                
                
                
+           <%--     
                
+<!-- 탭1 부속 이벤트 상세정보 모달 시작 -->					
+					<div class="modal fade bs-example-modal-lg" id="eventAttendModal" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+
+							<div class="modal-header" style="background-color: #334e7e;">
+								<button type="button" class="close" data-dismiss="modal" style="font-weight: normal;">
+									<span aria-hidden="true" style="color: white;">×</span>
+								</button>
+							<h4 class="modal-title" id="myModalLabel">
+								<small id="myModalLabel" style="color: #e1e2e3;">참석자 리스트</small>
+							</h4>
+							</div>
+							
+							<div class="modal-body">
+
+		                      <div class="form-group">
+			                    <label class="control-label col-md-3 col-sm-3 col-xs-12">일정명</label>
+			                    <div class="col-md-9 col-sm-9 col-xs-12" style="width:40%;">
+			                      <p id="modalEventAttendName"></p>
+			                    </div>
+			                  </div>
+			                  
+			                  <div id="attendMemberList">
+			                  		<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>이름</th>
+												<th>회원등급</th>
+												<th>전화번호</th>
+												<th>메일주소</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="dto" items="${attendMemberList}">
+												<tr>
+													<td>${dto.name}</td>
+													<td>				
+													<c:choose>
+														<c:when test="${dto.grade == 1}"><div class="btn btn-danger btn-xs">그룹장</div></c:when>
+														<c:when test="${dto.grade == 2}"><div class="btn btn-warning btn-xs">운영진</div></c:when>
+														<c:when test="${dto.grade == 3}"><div class="btn btn-info btn-xs">일　반</div></c:when>
+														<c:when test="${dto.grade == 4}"><div class="btn btn-success btn-xs">O　&nbsp;&nbsp;B</div></c:when>
+														<c:when test="${dto.grade == 5}"><div class="btn btn-default btn-xs">미가입</div></c:when>
+													</c:choose></td>
+													<td>${dto.tel}</td>
+													<td>${dto.email}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+			                  </div>
+
+							<input type="hidden" name="eventNo" id="hiddenEventAttendNo">     										
+										                         
+							</div>
+							<div class="modal-footer">								
+								<button type="button" class="btn btn-default btn-sm" onclick="">삭제하기</button>
+								<button type="button" class="btn btn-success btn-sm" onclick="updateEvent()">수정하기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+<!--탭1 부속 이벤트 상세정보 모달 끝 -->				               
+               
+                --%>
                
 <!-- 탭2 시작 -->
                   <div role="tabpanel" class="tab-pane fade" id="tab_content2"
